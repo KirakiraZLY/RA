@@ -39,3 +39,28 @@ ${dir_LDAK} --linear ${dir_RA}/megaprs/white_test --bfile ${dir_data}/geno --phe
 cd ${dir_RA}/scripts/megaprs/
 sbatch white_train_test
 ``` 
+
+Summary statistics will store in white_train.summaries
+
+### Identify high LD region
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --cut-genes ${dir_RA}/megaprs/highld_white --bfile ${dir_data}/geno --genefile ${dir_RA}/data/highld.txt
+
+" > ${dir_RA}/scripts/megaprs/highld_white
+
+# I am doing blabla
+cd ${dir_RA}/scripts/megaprs/
+sbatch highld_white
+``` 
