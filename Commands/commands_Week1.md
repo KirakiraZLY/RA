@@ -98,8 +98,9 @@ done
 
 ```python
 rm list.txt; for j in {1..22}; do echo "cors_white_$j" >> list.txt; done
+```
 
-
+```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
@@ -111,7 +112,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --join-cors cors_white --corslist list.txt
+${dir_LDAK} --join-cors cors_white_total --corslist list.txt
 
 " > ${dir_RA}/scripts/megaprs/pred_cor/cors_white_total
 
