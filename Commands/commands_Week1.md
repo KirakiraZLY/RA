@@ -92,8 +92,28 @@ cd ${dir_RA}/scripts/megaprs/pred_cor/
 sbatch cors_white_$j
 done
 ``` 
+放到pred_cor中
+路径更改到pred_cor
+
 
 ```python
-rm list.txt; for j in {1..22}; do echo "cors$j" >> list.txt; done
-./ldak.out --join-cors cors --corslist list.txt
+rm list.txt; for j in {1..22}; do echo "cors_white_$j" >> list.txt; done
+
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --join-cors cors_white --corslist list.txt
+cd ${dir_RA}/scripts/megaprs/pred_cor/
+sbatch cors_white
 ``` 
+
+Reference Panel is from Pre-computed Taggings https://dougspeed.com/pre-computed-tagging-files/   
