@@ -112,8 +112,11 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 ${dir_LDAK} --join-cors cors_white --corslist list.txt
+
+" > ${dir_RA}/scripts/megaprs/pred_cor/cors_white_total
+
 cd ${dir_RA}/scripts/megaprs/pred_cor/
-sbatch cors_white
+sbatch cors_white_total
 ``` 
 
 Reference Panel is from Pre-computed Taggings https://dougspeed.com/pre-computed-tagging-files/   
