@@ -82,7 +82,7 @@ for j in {1..22}; do
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-cors ${dir_RA}/megaprs/cors_white_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j
+${dir_LDAK} --calc-cors ${dir_RA}/megaprs/pred_cor/cors_white_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j
 
 " > ${dir_RA}/scripts/megaprs/pred_cor/cors_white_$j
 
