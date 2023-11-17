@@ -84,10 +84,10 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 ${dir_LDAK} --calc-cors ${dir_RA}/megaprs/cors_white_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j
 
-" > ${dir_RA}/scripts/megaprs/pre_cor/cors_white_$j
+" > ${dir_RA}/scripts/megaprs/pred_cor/cors_white_$j
 
 # I am doing blabla
-cd ${dir_RA}/scripts/megaprs/pre_cor/
+cd ${dir_RA}/scripts/megaprs/pred_cor/
 sbatch cors_white_$j
 done
 ``` 
