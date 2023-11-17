@@ -69,12 +69,13 @@ Usually, the lists of SNPs in high-LD regions would be saved in the file highld/
 
 ### Calculate predictor-predictor correlations.
 ```python
+for j in {1..22}; do
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 echo "#"'!'"/bin/bash
-for j in {1..22}; do
+
 #SBATCH --mem 8G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
