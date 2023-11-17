@@ -76,7 +76,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 echo "#"'!'"/bin/bash
 
-#SBATCH --mem 8G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -106,7 +106,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
