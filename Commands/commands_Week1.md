@@ -239,7 +239,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --mega-prs ${dir_RA}/megaprs/prediction/megabayesr --model bayesr --ind-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.ind.hers --summary ${dir_RA}/megaprs/white_train.summaries --cors cors --cv-proportion .1 --high-LD ${dir_RA}/megaprs/highld_white/genes.predictors.used --window-cm 1 --allow-ambiguous YES
+${dir_LDAK} --mega-prs ${dir_RA}/megaprs/prediction/megabayesr --model bayesr --ind-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.ind.hers --summary ${dir_RA}/megaprs/white_train.summaries --cors ${dir_RA}/megaprs/pred_cor/cors_white_total --cv-proportion .1 --high-LD ${dir_RA}/megaprs/highld_white/genes.predictors.used --window-cm 1 --allow-ambiguous YES
 
 " > ${dir_RA}/scripts/megaprs/prediction/white_megaprs_pred
 
