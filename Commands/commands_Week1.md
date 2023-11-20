@@ -246,3 +246,28 @@ ${dir_LDAK} --mega-prs ${dir_RA}/megaprs/prediction/megabayesr --model bayesr --
 cd ${dir_RA}/scripts/megaprs/prediction/
 sbatch white_megaprs_pred
 ``` 
+
+
+2
+Predict Phenotype
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --calc-scores ${dir_RA}/megaprs/prediction/white_scores_megaprs --scorefile ${dir_RA}/megaprs/prediction/megabayesr.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_data}/height.test
+
+" > ${dir_RA}/scripts/megaprs/prediction/white_scores_megaprs
+
+cd ${dir_RA}/scripts/megaprs/prediction
+sbatch white_scores_megaprs
+
+
+```
