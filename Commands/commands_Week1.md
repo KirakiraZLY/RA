@@ -168,7 +168,7 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 ${dir_LDAK} --calc-tagging ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --bfile ${dir_data}/geno --weights ${dir_RA}/megaprs/her_ldak_thin/white_weights.thin --power -.25 --window-cm 1 --save-matrix YES
-${dir_LDAK} --sum-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --tagfile ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.tagging --summary ${dir_RA}/megaprs/white_train.summaries --matrix ${dir_RA}/megaprs/her_ldak_thin/white_thin.matrix
+
 
 " > ${dir_RA}/scripts/megaprs/her_ldak_thin/white_thin_calc
 
@@ -176,7 +176,7 @@ cd ${dir_RA}/scripts/megaprs/her_ldak_thin/
 sbatch white_thin_calc
 ``` 
 
-
+${dir_LDAK} --sum-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --tagfile ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.tagging --summary ${dir_RA}/megaprs/white_train.summaries --matrix ${dir_RA}/megaprs/her_ldak_thin/white_thin.matrix
 
 ### Construct the prediction model.
 
