@@ -128,7 +128,7 @@ Reference Panel is from Pre-computed Taggings https://dougspeed.com/pre-computed
 https://dougspeed.com/per-predictor-heritabilities/
 
 To assume the LDAK-Thin Model, we must first create a weightsfile that gives weighting 1 to the predictors that remain after thinning for duplicates, and weighting 0 to those removed. This can be achieved using the commands
-
+1
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -148,11 +148,12 @@ ${dir_LDAK} --thin ${dir_RA}/megaprs/her_ldak_thin/white_thin --bfile ${dir_data
 cd ${dir_RA}/scripts/megaprs/her_ldak_thin/
 sbatch white_thin
 ``` 
-
+2
 ```python
 awk < ${dir_RA}/megaprs/her_ldak_thin/white_thin.in '{print $1, 1}' > ${dir_RA}/megaprs/her_ldak_thin/white_weights.thin
 ``` 
 
+3
 Now when calculating the tagging file, we use the options --weights <weightsfile> and --power -.25
 
 ```python
@@ -175,7 +176,7 @@ ${dir_LDAK} --calc-tagging ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --bfi
 cd ${dir_RA}/scripts/megaprs/her_ldak_thin/
 sbatch white_thin_calc_matrix
 ``` 
-
+4
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -188,7 +189,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --sum-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --tagfile ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.tagging --summary ${dir_RA}/megaprs/white_train.summaries --matrix ${dir_RA}/megaprs/her_ldak_thin/white_thin.matrix
+${dir_LDAK} --sum-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --tagfile ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.tagging --summary ${dir_RA}/megaprs/white_train.summaries --matrix ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.matrix
 
 " > ${dir_RA}/scripts/megaprs/her_ldak_thin/white_thin_calc
 
