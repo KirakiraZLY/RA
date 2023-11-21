@@ -1,0 +1,21 @@
+---
+title: "SNP extract"
+output: html_document
+date: "2023-11-21"
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(tidyr)
+```
+
+## Chr 1 - 12 extract
+```{r}
+snps <- read_table2("data_Black.bim", col_names = FALSE)
+snps_1to12 <- subset(snps, snps$X1 < 13)
+snps_1to12 <- snps_1to12$X2
+write.table(snps_1to12,"snps_1_to_12_geno.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+

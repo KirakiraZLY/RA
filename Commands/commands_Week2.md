@@ -79,3 +79,103 @@ sbatch white_scores
 
 
 ```
+
+
+
+
+
+## LDAK Weighting on each dataset 
+1
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --bfile ${dir_data}/geno  --max-threads 4  --cut-weights ${dir_RA}/data/geno_weighting 
+
+${dir_LDAK} --bfile ${dir_data}/geno  --max-threads 4  --calc-weights-all ${dir_RA}/data/geno_weighting 
+
+
+" > ${dir_RA}/scripts/data/LDAK_Weighting_Step1and2
+
+# I am doing blabla
+cd ${dir_RA}/scripts/data/
+sbatch LDAK_Weighting_Step1and2
+
+```
+
+# LDAK-thin
+## LDAK-thin on each dataset 
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --bfile ${dir_data}/geno  --max-threads 4  --thin ${dir_RA}/data/geno_weighting_thin  --window-prune 0.98 --window-kb 100
+
+
+" > ${dir_RA}/scripts/data/LDAK_Weighting_thin_Step1and2
+
+# I am doing blabla
+cd ${dir_RA}/scripts/data/
+sbatch LDAK_Weighting_thin_Step1and2
+```
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+awk < ${dir_RA}/data/geno_weighting_thin.in '{print $1, 1}' > ${dir_RA}/data/geno_weighting_thin.thin
+```
+
+
+
+
+## Make Pheno, Simulation
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 4G
+#SBATCH -t 2:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} \
+  --make-phenos ${dir_RA}/makepheno/Trait_1 \
+  --bfile ${dir_data}/geno \
+  --ignore-weights YES \
+  --power -1 \
+  --her 0.1 \
+  --num-phenos 5 \
+  --num-causals 1000 \
+  --extract ${dir_RA}/data/snps_1_to_12_geno.txt
+
+  
+  " > ${dir}/scripts/type_1_error_new/Multi_Traits/META_ANALYSIS/T$i/Trait$i
+
+	# I am doing blabla
+	cd ${dir}/scripts/type_1_error_new/Multi_Traits/META_ANALYSIS/T$i
+	sbatch Trait$i
+
+```
+
