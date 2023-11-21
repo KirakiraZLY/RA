@@ -1,0 +1,27 @@
+---
+title: "Type_1_error"
+author: "zly"
+date: "2023-02-28"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(tidyr)
+library(fpp2)
+library(caret)
+```
+
+```{r}
+assoc_data <- read_table2(file = "UKBB.fam", col_names = FALSE)
+
+trainIndex <- createDataPartition(assoc_data$y, p = 0.7, list = FALSE, times = 1)
+train <- assoc_data[trainIndex, ]
+test <- assoc_data[-trainIndex, ] 
+
+write.table(ad,"UKBB_5Wan.fam",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
