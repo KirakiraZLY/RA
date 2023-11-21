@@ -219,9 +219,77 @@ ${dir_LDAK} \
 
 
 ## Summary Statistics
-### Bolt height
+Trait 1 to 4
+Trait 1 (Just replace to Trait j)
+### Bolt T1
 ```python
 dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 32:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir_data}/geno --phenoFile=${dir_RA}/data/makepheno/Trait_1_label.pheno  --phenoCol=Phenotype  --covarFile=${dir_RA}/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=${dir_RA}/gwas/Trait_1/geno_Bolt_Trait_1
+
+" > ${dir_RA}/scripts/gwas/geno_Bolt_Trait_1
+
+
+# I am doing blabla
+cd ${dir_RA}/scripts/gwas/
+
+sbatch geno_Bolt_Trait_1
+```
+
+
+## Bolt-lmm-inf T1
+```python
+##############################
+Bolt-inf
+##############################
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 32:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+
+${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir_data}/geno --phenoFile=${dir_RA}/data/makepheno/Trait_1_label.pheno  --phenoCol=Phenotype  --covarFile=${dir_RA}/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=PC{1:10}  --lmmInfOnly --LDscoresUseChip --numThreads 4  --statsFile=${dir_RA}/gwas/Trait_1/geno_Bolt_inf_Trait_1
+
+
+
+" > ${dir_RA}/scripts/gwas/geno_Bolt_inf_Trait_1
+
+
+# I am doing blabla
+cd ${dir_RA}/scripts/gwas/
+
+sbatch geno_Bolt_inf_Trait_1
+```
+
+### LDAK run T1
+
+```python
+for j in {1..5}; do 
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 echo "#"'!'"/bin/bash
 #SBATCH --mem 8G
 #SBATCH -t 8:0:0
@@ -229,47 +297,14 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 
-
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir_data}/geno --phenoFile=${dir}/Phenotype_UKBB/height_label.pheno  --phenoCol=Phenotype  --covarFile=${dir}/covar_Black_PC_10.covars --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=${dir}/Real_Traits/height/data_Black_Bolt_height
+${dir_LDAK} --pheno ${dir_RA}/data/makepheno/Trait_1.pheno  --covar ${dir_RA}/data/geno.sex.townsend.age.pcs_label.covars --max-threads 4  --bfile ${dir_data}/geno --mpheno $j  --linear ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j
 
-" > ${dir}/scripts/Real_Traits/height/data_Black_Bolt_height
-
-
-# I am doing blabla
-cd ${dir}/scripts/Real_Traits/height/
-
-sbatch data_Black_Bolt_height
-```
-
-
-## Bolt-lmm-inf height
-```python
-##############################
-Bolt-inf
-##############################
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 10:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir}/data_Black --phenoFile=${dir}/Phenotype_UKBB/height_label.pheno  --phenoCol=Phenotype  --covarFile=${dir}/covar_Black_PC_10.covars --qCovarCol=PC{1:10}  --lmmInfOnly --LDscoresUseChip --numThreads 4  --statsFile=${dir}/Real_Traits/height/data_Black_Bolt_inf_height
-
-
-
-" > ${dir}/scripts/Real_Traits/height/data_Black_Bolt_inf_height
-
+" > ${dir_RA}/scripts/gwas/geno_LDAK_Trait_1_P$j
 
 # I am doing blabla
-cd ${dir}/scripts/Real_Traits/height/
-
-sbatch data_Black_Bolt_inf_height
+cd ${dir_RA}/scripts/gwas/
+sbatch geno_LDAK_Trait_1_P$j
+done
 ```
