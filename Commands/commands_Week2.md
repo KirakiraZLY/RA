@@ -160,7 +160,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_train.fam --recode --make-bed --out ${dir_RA}/data/geno_train
+${dir}/software/plink --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_train.fam --recode --make-bed --out ${dir_RA}/data/geno_train
 
 " > ${dir_RA}/scripts/data/geno_train
 
@@ -182,7 +182,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_test.fam --recode --make-bed --out ${dir_RA}/data/geno_test
+${dir}/software/plink --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_test.fam --recode --make-bed --out ${dir_RA}/data/geno_test
 
 " > ${dir_RA}/scripts/data/geno_test
 
