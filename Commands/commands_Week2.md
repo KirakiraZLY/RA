@@ -449,7 +449,7 @@ done
 
 ``` 
 
-The estimated per-predictor heritabilities are saved in white_train.bld.ldak.ind.hers   
+The estimated per-predictor heritabilities are saved in trait_1.bld.ldak.ind.hers   
 
 2   
 We then construct a BayesR prediction model by running   
@@ -466,18 +466,19 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --mega-prs ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --ind-hers ${dir_RA}/quickprs/white_train.bld.ldak.ind.hers --cors ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap --high-LD ${dir_RA}/quickprs/precomputed/gbr.hapmap/highld.snps --model bayesr --cv-proportion .1 --window-cm 1 --extract ${dir_RA}/megaprs/white_train.summaries.quickprs
+${dir_LDAK} --mega-prs ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --ind-hers ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.ind.hers --cors ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap --high-LD ${dir_RA}/quickprs/precomputed/gbr.hapmap/highld.snps --model bayesr --cv-proportion .1 --window-cm 1 --extract ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries
 
-" > ${dir_RA}/scripts/quickprs/per_pred_her/white_train_bayesr
+" > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_bayesr_P$j
 
-cd ${dir_RA}/scripts/quickprs/per_pred_her/
-sbatch white_train_bayesr
+cd ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/
+sbatch trait_1_bayesr_P$j
 done
 ``` 
 
 3
 Predict Phenotype
 ```python
+for j in {1..5}; do 
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
@@ -489,13 +490,13 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/quickprs/white_scores --scorefile ${dir_RA}/quickprs/white_train.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${dir_data}/height.test
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_data}/geno_test --power 0 --pheno ${dir_data}/height.test
 
-" > ${dir_RA}/scripts/quickprs/white_scores
+" > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_score_P$j
 
-cd ${dir_RA}/scripts/quickprs/
-sbatch white_scores
-
+cd ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/
+sbatch trait_1_score_P$j
+done
 
 ```
 
@@ -508,6 +509,9 @@ sbatch white_scores
 2. Clumping + Threshold
    ```python
    dir="/home/lezh/dsmwpred/zly"
+  dir_RA="/home/lezh/dsmwpred/zly/RA"
+  dir_data="/home/lezh/dsmwpred/data/ukbb"
+  dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
    echo "#"'!'"/bin/bash
     #SBATCH --mem 32G
