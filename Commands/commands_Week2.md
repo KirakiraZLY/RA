@@ -146,7 +146,50 @@ awk < ${dir_RA}/data/geno_weighting_thin.in '{print $1, 1}' > ${dir_RA}/data/gen
 ```
 
 
+## Simulation, fam -> bed
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
 
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_train.fam --recode --make-bed --out ${dir_RA}/data/geno_train
+
+" > ${dir_RA}/scripts/data/geno_train
+
+# I am doing blabla
+cd ${dir_RA}/scripts/data/
+sbatch geno_train
+```
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 4:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_test.fam --recode --make-bed --out ${dir_RA}/data/geno_test
+
+" > ${dir_RA}/scripts/data/geno_test
+
+# I am doing blabla
+cd ${dir_RA}/scripts/data/
+sbatch geno_test
+```
 
 ## Make Pheno, Simulation
 
