@@ -342,7 +342,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.train  --covar ${dir_RA}/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile ${dir_data}/geno --mpheno $j  --linear ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j
+${dir_LDAK} --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.train  --covar ${dir_RA}/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile ${dir_RA}/data/geno_train --mpheno $j  --linear ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j
 
 " > ${dir_RA}/scripts/gwas/geno_LDAK_Trait_1_P$j
 
@@ -373,13 +373,13 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --mega-prs ${dir_RA}/simulateddata_prs/trait_2/megaprs/trait_2_megabayesr_P$j --model bayesr --ind-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.ind.hers --summary ${dir_RA}/gwas/Trait_2/geno_LDAK_Trait_2_P$j.summaries --cors ${dir_RA}/megaprs/pred_cor/cors_white_total --cv-proportion .1 --high-LD ${dir_RA}/megaprs/highld_white/genes.predictors.used --window-cm 1 --allow-ambiguous YES
+${dir_LDAK} --mega-prs ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j --model bayesr --ind-hers ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin.ind.hers --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --cors ${dir_RA}/megaprs/pred_cor/cors_white_total --cv-proportion .1 --high-LD ${dir_RA}/megaprs/highld_white/genes.predictors.used --window-cm 1 --allow-ambiguous YES
 
-" > ${dir_RA}/scripts/simulateddata_prs/trait_2/megaprs/trait_2_megabayesr_pred_P$j
+" > ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_pred_P$j
 
 
-cd ${dir_RA}/scripts/simulateddata_prs/trait_2/megaprs/
-sbatch trait_2_megabayesr_pred_P$j
+cd ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/
+sbatch trait_1_megabayesr_pred_P$j
 done
 ``` 
 
@@ -399,7 +399,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test --mpheno $j
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_data}/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test --mpheno $j
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j
 
