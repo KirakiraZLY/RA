@@ -175,8 +175,8 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 4:0:0
+#SBATCH --mem 128G
+#SBATCH -t 10:0:0
 #SBATCH -c 8
 #SBATCH -A dsmwpred
 
@@ -261,7 +261,7 @@ ${dir_LDAK} \
 
 
 
-## Summary Statistics
+## Summary Statistics gwas
 Trait 1 to 4
 Trait 1 (Just replace to Trait j)
 ### Bolt T1
@@ -280,7 +280,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir_data}/geno --phenoFile=${dir_RA}/data/makepheno/Trait_1_label.pheno  --phenoCol=Phenotype  --covarFile=${dir_RA}/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=${dir_RA}/gwas/Trait_1/geno_Bolt_Trait_1
+${dir}/software/BOLT-LMM_v2.4/bolt --bfile=${dir_data}/geno_train --phenoFile=${dir_RA}/data/makepheno/Trait_1_label.pheno.train  --phenoCol=Phenotype  --covarFile=${dir_RA}/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=${dir_RA}/gwas/Trait_1/geno_Bolt_Trait_1
 
 " > ${dir_RA}/scripts/gwas/geno_Bolt_Trait_1
 
