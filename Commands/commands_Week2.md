@@ -356,12 +356,102 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.train --mpheno $j
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test --mpheno $j
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j
 
 cd ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/
 sbatch trait_1_scores_megaprs_P$j
 done
+
+```
+
+
+
+
+
+
+
+
+## QuickPRS on simulated_traits 1-4
+
+### Quick PRS
+Quick PRS is an approximate version of MegaPRS.   
+MegaPRS requires the user to compute a tagging file, heritability matrix and predictor-predictor correlations;   
+Quick PRS uses versions of these files pre-computed using data from the UK Biobank
+
+1   
+We first estimate per-predictor heritabilities by running
+
+```python
+for j in {1..5}; do 
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --sum-hers ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --tagfile ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.tagging --matrix ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.matrix --check-sums NO
+
+" > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_sumher_P$j
+
+cd ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/
+sbatch trait_1_sumher_P$j
+done
+
+``` 
+
+The estimated per-predictor heritabilities are saved in white_train.bld.ldak.ind.hers   
+
+2   
+We then construct a BayesR prediction model by running   
+```python
+for j in {1..5}; do 
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --mega-prs ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --ind-hers ${dir_RA}/quickprs/white_train.bld.ldak.ind.hers --cors ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap --high-LD ${dir_RA}/quickprs/precomputed/gbr.hapmap/highld.snps --model bayesr --cv-proportion .1 --window-cm 1 --extract ${dir_RA}/megaprs/white_train.summaries.quickprs
+
+" > ${dir_RA}/scripts/quickprs/per_pred_her/white_train_bayesr
+
+cd ${dir_RA}/scripts/quickprs/per_pred_her/
+sbatch white_train_bayesr
+done
+``` 
+
+3
+Predict Phenotype
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --calc-scores ${dir_RA}/quickprs/white_scores --scorefile ${dir_RA}/quickprs/white_train.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${dir_data}/height.test
+
+" > ${dir_RA}/scripts/quickprs/white_scores
+
+cd ${dir_RA}/scripts/quickprs/
+sbatch white_scores
+
 
 ```
