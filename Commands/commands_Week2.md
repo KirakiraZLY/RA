@@ -160,7 +160,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/plink --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_train.fam --recode --make-bed --out ${dir_RA}/data/geno_train
+${dir}/software/plink --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/data/geno_train.fam --make-bed --out ${dir_RA}/data/geno_train
 
 " > ${dir_RA}/scripts/data/geno_train
 
@@ -399,7 +399,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_data}/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test --mpheno $j
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/megaprs/trait_1_megabayesr_P$j.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test --mpheno $j
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/megaprs/trait_1_scores_megaprs_P$j
 
@@ -439,7 +439,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --sum-hers ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --tagfile ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.tagging --matrix ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.matrix --check-sums NO
+${dir_LDAK} --sum-hers ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries.quickprs --tagfile ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.tagging --matrix ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap.bld.ldak.quickprs.matrix --check-sums NO
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_sumher_P$j
 
@@ -466,13 +466,15 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --mega-prs ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries --ind-hers ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.ind.hers --cors ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap --high-LD ${dir_RA}/quickprs/precomputed/gbr.hapmap/highld.snps --model bayesr --cv-proportion .1 --window-cm 1 --extract ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries
+${dir_LDAK} --mega-prs ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr --summary ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries.quickprs --ind-hers ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.ind.hers --cors ${dir_RA}/quickprs/precomputed/gbr.hapmap/gbr.hapmap --high-LD ${dir_RA}/quickprs/precomputed/gbr.hapmap/highld.snps --model bayesr --cv-proportion .1 --window-cm 1 --extract ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries.quickprs
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_bayesr_P$j
 
 cd ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/
 sbatch trait_1_bayesr_P$j
 done
+
+
 ``` 
 
 3
@@ -490,7 +492,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddate_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_data}/geno_test --power 0 --pheno ${dir_data}/height.test
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_score_P$j
 
@@ -505,7 +507,7 @@ done
 ### Classical PRS by Plink 
 
 1. Basic data: ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries  
-   Target data: ${dir_data}/height.test   
+  Target data: ${dir_RA}/data/geno_test  
 2. Clumping + Threshold
    ```python
    dir="/home/lezh/dsmwpred/zly"
@@ -520,17 +522,17 @@ done
     #SBATCH -A dsmwpred
 
    ${dir}/software/plink \
-    --bfile ${dir}/newdata/new_data_qc \
+    --bfile ${dir_RA}/data/geno_test \
     --clump-p1 1 \
     --clump-r2 0.1 \
     --clump-kb 250 \
-    --clump ${dir}/Real_Traits/bmi/data_qc_Bolt_bmi \
+    --clump ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc \
     --clump-snp-field SNP \
     --clump-field P_BOLT_LMM \
-    --out ${dir}/Real_Traits/PRS/bmi/data_qc_bmi
+    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
 
-   awk 'NR!=1{print $3}' ${dir}/Real_Traits/PRS/bmi/data_qc_bmi.clumped  >  ${dir}/Real_Traits/PRS/bmi/data_qc_bmi.valid.snp
-   awk '{print $1,$12}' ${dir}/Real_Traits/bmi/data_qc_Bolt_bmi > ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_SNP.pvalue
+   awk 'NR!=1{print $3}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp
+   awk '{print $1,$12}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc > ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_SNP.pvalue
 
     echo "0.001 0 0.001" > ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list 
     echo "0.05 0 0.05" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
@@ -574,5 +576,112 @@ done
     cd ${dir}/scripts/Real_Traits/PRS/bmi/
     sbatch data_qc_bmi_2
     ```
-3. Finding the "best-fit" PRS
+1. Finding the "best-fit" PRS
         **In Rmd** 
+
+
+
+
+
+### Classical PRS
+1.
+```python
+  for j in {1..5}; do 
+   dir="/home/lezh/dsmwpred/zly"
+  dir_RA="/home/lezh/dsmwpred/zly/RA"
+  dir_data="/home/lezh/dsmwpred/data/ukbb"
+  dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+  echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+   ${dir}/software/plink \
+    --bfile ${dir_RA}/data/geno2_test \
+    --clump-p1 1 \
+    --clump-r2 0.1 \
+    --clump-kb 250 \
+    --clump ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical \
+    --clump-snp-field Predictor \
+    --clump-field Wald_P \
+    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
+
+   awk 'NR!=1{print $2}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp
+   awk '{print $2,$7}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j.SNP.pvalue
+
+  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs_step1
+
+    # I am doing blabla
+    cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
+    sbatch geno_LDAK_Trait_1_P$j_classicalprs_step1
+
+   done
+```
+2.
+```python
+
+    echo "0.001 0 0.001" > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.05 0 0.05" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.1 0 0.1" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.2 0 0.2" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.3 0 0.3" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.4 0 0.4" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+    echo "0.5 0 0.5" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
+```
+
+```python
+
+  for j in {1..5}; do 
+   dir="/home/lezh/dsmwpred/zly"
+  dir_RA="/home/lezh/dsmwpred/zly/RA"
+  dir_data="/home/lezh/dsmwpred/data/ukbb"
+  dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+  echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+
+    ${dir}/software/plink \
+    --bfile ${dir_RA}/data/geno2_test \
+    --score ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical 2 4 8 header \
+    --q-score-range ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j.SNP.pvalue \
+    --extract ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp \
+    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
+
+  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs_step2
+
+    # I am doing blabla
+    cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
+    sbatch geno_LDAK_Trait_1_P$j_classicalprs_step2
+
+   done
+
+```
+
+```python
+    dir="/home/lezh/dsmwpred/zly"
+  dir_RA="/home/lezh/dsmwpred/zly/RA"
+  dir_data="/home/lezh/dsmwpred/data/ukbb"
+  dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+   echo "#"'!'"/bin/bash
+    #SBATCH --mem 32G
+    #SBATCH -t 10:0:0
+    #SBATCH -c 8
+    #SBATCH -A dsmwpred
+   ${dir}/software/plink \
+    --bfile ${dir_RA}/data/geno2_test \
+    --indep-pairwise 200 50 0.25 \
+    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno2_test
+
+    " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_classicalprs_step3
+
+    # I am doing blabla
+    cd " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
+    sbatch geno_LDAK_Trait_1_classicalprs_step3
+
+```
