@@ -529,12 +529,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
     --clump-field Wald_P \
     --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
 
-    
-
-   awk 'NR!=1{print $2}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp
-   awk '{print $2,$7}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j.SNP.pvalue
-
-  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_step1_Trait_1_P$j
+      " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_step1_Trait_1_P$j
 
     # I am doing blabla
     cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
@@ -542,6 +537,14 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
    done
 ```
+
+```python
+
+   awk 'NR!=1{print $2}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P1_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P1_classicalprs.valid.snp
+   awk '{print $2,$7}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P1.assoc.classical > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P1.SNP.pvalue
+
+```
+
 
 ```python
 
@@ -575,7 +578,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
     --score ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical 2 4 8 header \
     --q-score-range ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j.SNP.pvalue \
     --extract ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp \
-    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
+    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_Trait_1_P$j
 
   " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_step2_Trait_1_P$j
 
