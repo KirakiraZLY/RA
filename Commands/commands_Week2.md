@@ -492,7 +492,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test  --mpheno $j
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_score_P$j
 
@@ -501,86 +501,6 @@ sbatch trait_1_score_P$j
 done
 
 ```
-
-
-
-### Classical PRS by Plink 
-
-1. Basic data: ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.summaries  
-  Target data: ${dir_RA}/data/geno_test  
-2. Clumping + Threshold
-   ```python
-   dir="/home/lezh/dsmwpred/zly"
-  dir_RA="/home/lezh/dsmwpred/zly/RA"
-  dir_data="/home/lezh/dsmwpred/data/ukbb"
-  dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-
-   echo "#"'!'"/bin/bash
-    #SBATCH --mem 32G
-    #SBATCH -t 10:0:0
-    #SBATCH -c 8
-    #SBATCH -A dsmwpred
-
-   ${dir}/software/plink \
-    --bfile ${dir_RA}/data/geno_test \
-    --clump-p1 1 \
-    --clump-r2 0.1 \
-    --clump-kb 250 \
-    --clump ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc \
-    --clump-snp-field SNP \
-    --clump-field P_BOLT_LMM \
-    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
-
-   awk 'NR!=1{print $3}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp
-   awk '{print $1,$12}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc > ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_SNP.pvalue
-
-    echo "0.001 0 0.001" > ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list 
-    echo "0.05 0 0.05" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-    echo "0.1 0 0.1" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-    echo "0.2 0 0.2" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-    echo "0.3 0 0.3" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-    echo "0.4 0 0.4" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-    echo "0.5 0 0.5" >> ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list
-
-    ${dir}/software/plink \
-    --bfile ${dir}/newdata/new_data_qc \
-    --score ${dir}/Real_Traits/bmi/data_qc_Bolt_bmi 1 5 9 header \
-    --q-score-range ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_range_list ${dir}/Real_Traits/PRS/bmi/data_qc_bmi_SNP.pvalue \
-    --extract ${dir}/Real_Traits/PRS/bmi/data_qc_bmi.valid.snp \
-    --out ${dir}/Real_Traits/PRS/bmi/data_qc_bmi
-    ```
-
-    ```python
-    dir="/home/lezh/dsmwpred/zly"
-
-   echo "#"'!'"/bin/bash
-    #SBATCH --mem 32G
-    #SBATCH -t 10:0:0
-    #SBATCH -c 8
-    #SBATCH -A dsmwpred
-   ${dir}/software/plink \
-    --bfile ${dir}/newdata/new_data_qc \
-    --indep-pairwise 200 50 0.25 \
-    --out ${dir}/Real_Traits/PRS/bmi/data_qc_bmi
-    # Then we calculate the first 10 PCs
-    ${dir}/software/plink \
-        --bfile ${dir}/newdata/new_data_qc \
-        --extract ${dir}/Real_Traits/PRS/bmi/data_qc_bmi.prune.in \
-        --pca 10 \
-        --out ${dir}/Real_Traits/PRS/bmi/data_qc_bmi
-
-
-    " > ${dir}/scripts/Real_Traits/PRS/bmi/data_qc_bmi_2
-
-    # I am doing blabla
-    cd ${dir}/scripts/Real_Traits/PRS/bmi/
-    sbatch data_qc_bmi_2
-    ```
-1. Finding the "best-fit" PRS
-        **In Rmd** 
-
-
-
 
 
 ### Classical PRS
@@ -609,18 +529,20 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
     --clump-field Wald_P \
     --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
 
+    
+
    awk 'NR!=1{print $2}' ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.clumped  >  ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp
    awk '{print $2,$7}' ${dir_RA}/gwas/Trait_1/geno_LDAK_Trait_1_P$j.assoc.classical > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j.SNP.pvalue
 
-  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs_step1
+  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_step1_Trait_1_P$j
 
     # I am doing blabla
     cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
-    sbatch geno_LDAK_Trait_1_P$j_classicalprs_step1
+    sbatch geno_LDAK_classicalprs_step1_Trait_1_P$j
 
    done
 ```
-2.
+
 ```python
 
     echo "0.001 0 0.001" > ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
@@ -632,6 +554,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
     echo "0.5 0 0.5" >> ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_range_list 
 ```
 
+
+2
 ```python
 
   for j in {1..5}; do 
@@ -653,16 +577,16 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
     --extract ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs.valid.snp \
     --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs
 
-  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_P$j_classicalprs_step2
+  " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_step2_Trait_1_P$j
 
     # I am doing blabla
     cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
-    sbatch geno_LDAK_Trait_1_P$j_classicalprs_step2
+    sbatch geno_LDAK_classicalprs_step2_Trait_1_P$j
 
    done
 
 ```
-
+3
 ```python
     dir="/home/lezh/dsmwpred/zly"
   dir_RA="/home/lezh/dsmwpred/zly/RA"
