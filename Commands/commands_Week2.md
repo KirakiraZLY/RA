@@ -492,7 +492,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test  --mpheno $j
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/quickprs/trait_1_P$j.bld.ldak.bayesr.effects --bfile ${dir_RA}/data/geno2_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test  --mpheno $j
 
 " > ${dir_RA}/scripts/simulateddata_prs/trait_1/quickprs/trait_1_score_P$j
 
@@ -596,19 +596,52 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
   dir_data="/home/lezh/dsmwpred/data/ukbb"
   dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
    echo "#"'!'"/bin/bash
-    #SBATCH --mem 32G
+    #SBATCH --mem 128G
     #SBATCH -t 10:0:0
     #SBATCH -c 8
     #SBATCH -A dsmwpred
+
    ${dir}/software/plink \
     --bfile ${dir_RA}/data/geno2_test \
     --indep-pairwise 200 50 0.25 \
-    --out ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno2_test
+    --out ${dir_RA}/data/geno2_test
+
+
+    ${dir}/software/plink \
+      --bfile ${dir_RA}/data/geno2_test \
+      --extract ${dir_RA}/data/geno2_test.prune.in \
+      --pca 10 \
+      --out ${dir_RA}/data/geno2_test
+
 
     " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_Trait_1_classicalprs_step3
 
     # I am doing blabla
-    cd " > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
+    cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
     sbatch geno_LDAK_Trait_1_classicalprs_step3
+
+```
+
+4. calculate score
+```python
+for j in {1..1}; do 
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --calc-scores ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_Trait_1_P$j --scorefile ${dir_RA}/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_Trait_1_P$j.bestscore --bfile ${dir_RA}/data/geno_test --power 0 --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.test  --mpheno $j
+
+" > ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/geno_LDAK_classicalprs_bestscore_Trait_1_P$j
+
+cd ${dir_RA}/scripts/simulateddata_prs/trait_1/classicalprs/
+sbatch geno_LDAK_classicalprs_bestscore_Trait_1_P$j
+done
 
 ```
