@@ -43,6 +43,7 @@ def LDAK_thin(genotype,tau):
 
 def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
     genotype = np.random.choice([0,1,2], size=(n_inds, n_snps), replace=True)
+    print(genotype)
     effects = np.random.normal(size=n_snps)
     genetics = np.dot(genotype,effects) # genotype * effects
     print("genetics: ", genetics)
@@ -52,7 +53,7 @@ def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
     # her[0] = tau # GCTA model
     her = LDAK_thin(genotype, tau) # LDAK-thin model
 
-    phenotype = her[0]*genetics + (1-her[0]) * environments
+    phenotype = np.sqrt(her[0])*genetics + np.sqrt(1-her[0]) * environments
 
 
     phenotype_file = pd.DataFrame({'FID': range(1,n_inds+1),'IID': range(1,n_inds+1),"Phenotype": phenotype})
