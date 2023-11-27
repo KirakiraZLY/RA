@@ -1,9 +1,11 @@
 """
 This is a code to simulate phenotypes. It supports to select the number of individuals, the number of genotypes,
 the tau (which represents the h2 in GCTA model, and tau1 in LDAK-thin model). You can choose heritability models
-between GCTA and LDAK-thin by commenting the line 38 or the line 39. If you choose the LDAK-thin model, then the
+between GCTA and LDAK-thin by commenting in def Simulated_Phenotype. If you choose the LDAK-thin model, then the
 maf is calculated based on the genotype simulation, and W for LD is simulated randomly between 0 and 1 (Can only
 calculate ld_score_matrix by now).
+
+Question: if maf 1...j corresponds to SNP 1...j, then how were these values calculated?
 """
 
 import numpy as np
@@ -23,8 +25,8 @@ def Calc_MAF(genotype):
 
 def Calc_LD(genotype):
     allele_freq = np.mean(genotype, axis=0) / 2.0 * 2.0
-    standard_genotype = genotype - allele_freq
-    ld_score_matrix = np.square(np.cov(standard_genotype, rowvar=False))
+    centered_genotype = genotype - allele_freq
+    ld_score_matrix = np.square(np.cov(centered_genotype, rowvar=False))
     print(ld_score_matrix)
     return ld_score_matrix
 
@@ -33,7 +35,9 @@ def LDAK_thin(genotype,tau):
     W = np.random.choice([0,1], size=(1, genotype.shape[0]), replace=True) # To represent the regions with high or low LD
     # W = Calc_LD(genotype)
     maf = Calc_MAF(genotype)
+    print("maf: ", maf)
     her = tau * W * (maf * (1-maf)) ** 0.75
+    print("her: ", her)
     return her
 
 
@@ -41,13 +45,14 @@ def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
     genotype = np.random.choice([0,1,2], size=(n_inds, n_snps), replace=True)
     effects = np.random.normal(size=n_snps)
     genetics = np.dot(genotype,effects) # genotype * effects
+    # print(genetics)
     environments = np.random.normal(size=n_inds)
 
     her = np.zeros((1,n_inds))
     # her[0] = tau # GCTA model
     her = LDAK_thin(genotype, tau) # LDAK-thin model
 
-    phenotype = np.sqrt(her[0])*genetics + np.sqrt(1-her[0]) * environments
+    phenotype = her[0]*genetics + (1-her[0]) * environments
 
 
     phenotype_file = pd.DataFrame({'FID': range(1,n_inds+1),'IID': range(1,n_inds+1),"Phenotype": phenotype})
