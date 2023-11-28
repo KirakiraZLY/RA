@@ -104,13 +104,13 @@ def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
 
 
     phenotype_file = pd.DataFrame({'FID': range(1,n_inds+1),'IID': range(1,n_inds+1),"Phenotype": phenotype})
-    return phenotype_file
+    print(phenotype_file)
 
 def main():
     start_time = time.time()
     np.random.seed(123)
-    pheno_simulated = Simulated_Phenotype()
-    print(pheno_simulated)
+    Simulated_Phenotype()
+    # print(pheno_simulated)
     print("Time Usage: %s seconds" % (time.time() - start_time))
 
 if __name__ == '__main__':
