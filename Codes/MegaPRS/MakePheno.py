@@ -21,7 +21,7 @@ def Calc_MAF(gen):
         n_m = np.sum(genotype[j] == 1)
         minor = min(n_a, n_u)
         maf[0][j] = (minor * 2 + n_m) / total_alleles
-    print("MAF: ", maf)
+    # print("MAF: ", maf)
     return maf
 
 def Calc_LD(genotype):
@@ -32,7 +32,7 @@ def Calc_LD(genotype):
     sd = np.sqrt(np.diag(covariance_matrix))
     # print("sd: ", sd)
     ld_score_matrix = covariance_matrix / np.outer(sd, sd)
-    print("LD_score_matrix: ", "\n", ld_score_matrix) ## Cov(Xi,Xj) / sqrt(Var(Xi))sqrt(Var(Xj))
+    # print("LD_score_matrix: ", "\n", ld_score_matrix) ## Cov(Xi,Xj) / sqrt(Var(Xi))sqrt(Var(Xj))
     return ld_score_matrix
 
 def LDAK_thin(genotype,tau):
@@ -50,21 +50,21 @@ def LDAK_thin(genotype,tau):
     W = ld_vector
     # W = np.random.choice([1,1], size=(1, genotype.shape[1]), replace=True) # To represent the regions with high or low LD
     # W = np.ones((genotype.shape[1]))
-    print("LD Weighting: ", W)
+    # print("LD Weighting: ", W)
     # W = Calc_LD(genotype)
     maf = Calc_MAF(genotype)
     # print("maf: ", maf)
     # print(np.sum(maf))
     her = tau * W * ((maf * (1-maf)) ** 0.75)
-    print((maf * (1-maf)) ** 0.75)
-    print("her: ", her)
+    # print((maf * (1-maf)) ** 0.75)
+    # print("her: ", her)
     return her
 
 def Check(phenotype, genetics, h2):
     hXb = genetics * (h2 ** 0.5)
     var_delta = np.var(phenotype - hXb)
     # print("varY, varhXb: ", np.var(phenotype), np.var(hXb))
-    print("Observed h2, Set h2: ", 1-var_delta, h2)
+    # print("Observed h2, Set h2: ", 1-var_delta, h2)
 
 
 def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
@@ -78,13 +78,13 @@ def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
         # print(np.var(genotype1[j]))
     genotype = genotype1.T
     # print(np.mean(genotype))
-    print("genotype: ", "\n", genotype)
+    # print("genotype: ", "\n", genotype)
     effects = np.random.normal(size=n_snps)
     effects = (effects - np.mean(effects)) / np.sqrt(np.var(effects))
-    print("effects: ", effects)
+    # print("effects: ", effects)
     genetics = np.dot(genotype,effects) # genotype * effects
     genetics = (genetics - np.mean(genetics)) / np.sqrt(np.var(genetics))
-    print("genotype * effects: ", genetics)
+    # print("genotype * effects: ", genetics)
     environments = np.random.normal(size=n_inds)
     environments = (environments - np.mean(environments)) / np.sqrt(np.var(environments))
     her = np.zeros((1,n_inds))
@@ -104,13 +104,15 @@ def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
 
 
     phenotype_file = pd.DataFrame({'FID': range(1,n_inds+1),'IID': range(1,n_inds+1),"Phenotype": phenotype})
-    return phenotype_file
+    return genotype, phenotype, phenotype_file
 
 def main():
     start_time = time.time()
     np.random.seed(123)
-    pheno_simulated = Simulated_Phenotype()
-    print(pheno_simulated)
+    ## To generate some genotype and phenotype data.
+    genotype, phenotype, phenotype_file = Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7)
+    print(phenotype_file)
+
     print("Time Usage: %s seconds" % (time.time() - start_time))
 
 if __name__ == '__main__':
