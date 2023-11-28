@@ -5,6 +5,8 @@
 ### Data
 ```python
 dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ${dir_RA}/data/geno_train
 ```  
@@ -59,29 +61,6 @@ sbatch white_train_test
 
 Summary statistics will store in white_train.summaries
 
-### Identify high LD region
-```python
-dir="/home/lezh/dsmwpred/zly"
-dir_RA="/home/lezh/dsmwpred/zly/RA"
-dir_data="/home/lezh/dsmwpred/data/ukbb"
-dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir_LDAK} --cut-genes ${dir_RA}/megaprs/highld_white --bfile ${dir_data}/geno --genefile ${dir_RA}/data/highld.txt
-
-" > ${dir_RA}/scripts/megaprs/highld_white
-
-# I am doing blabla
-cd ${dir_RA}/scripts/megaprs/
-sbatch highld_white
-``` 
-
 Usually, the lists of SNPs in high-LD regions would be saved in the file highld/genes.predictors.used   
 
 ### Calculate predictor-predictor correlations.
@@ -100,13 +79,13 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-cors ${dir_RA}/megaprs/pred_cor/cors_white_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j
+${dir_LDAK} --calc-cors ${dir_RA}/test/cors_geno_train_$j --bfile ${dir_RA}/data/geno_train --window-cm 3 --chr $j
 
-" > ${dir_RA}/scripts/megaprs/pred_cor/cors_white_$j
+" > ${dir_RA}/scripts/test/cors_geno_train_$j
 
 # I am doing blabla
-cd ${dir_RA}/scripts/megaprs/pred_cor/
-sbatch cors_white_$j
+cd ${dir_RA}/scripts/test/
+sbatch cors_geno_train_$j
 done
 ``` 
 放到pred_cor中
