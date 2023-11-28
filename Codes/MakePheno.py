@@ -8,6 +8,7 @@ of values (1*M) taking from the mean of each column in LD score matrix.
 
 import numpy as np
 import pandas as pd
+import time
 
 def Calc_MAF(gen):
     genotype = gen.T
@@ -66,7 +67,7 @@ def Check(phenotype, genetics, h2):
     print("Observed h2, Set h2: ", 1-var_delta, h2)
 
 
-def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
+def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
     genotype = np.random.choice([0,1,2], size=(n_inds, n_snps), replace=True)
     for j in range(genotype.shape[0]):
         genotype[j] = (genotype[j] - np.mean(genotype[j])) / np.sqrt(np.var(genotype[j]))
@@ -92,7 +93,7 @@ def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
     her = LDAK_thin(genotype, tau) # LDAK-thin model
 
     h2 = np.sum(her)
-    print("heritability: ", h2)
+    # print("heritability: ", h2)
     phenotype = np.dot(genetics,(h2 ** 0.5)) + np.dot(environments,((1-h2) ** 0.5))
     phenotype = (phenotype - np.mean(phenotype)) / np.sqrt(np.var(phenotype))
 
@@ -103,12 +104,14 @@ def Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7):
 
 
     phenotype_file = pd.DataFrame({'FID': range(1,n_inds+1),'IID': range(1,n_inds+1),"Phenotype": phenotype})
-    return phenotype_file
+    print(phenotype_file)
 
 def main():
+    start_time = time.time()
     np.random.seed(123)
-    pheno_simulated = Simulated_Phenotype()
-    print(pheno_simulated)
+    Simulated_Phenotype()
+    # print(pheno_simulated)
+    print("Time elapsed: %s seconds", time.time() - start_time)
 
 if __name__ == '__main__':
     main()
