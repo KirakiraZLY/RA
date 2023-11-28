@@ -79,12 +79,12 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-cors ${dir_RA}/test/cors_geno_train_$j --bfile ${dir_RA}/data/geno_train --window-cm 3 --chr $j
+${dir_LDAK} --calc-cors ${dir_RA}/test/cors/cors_geno_train_$j --bfile ${dir_RA}/data/geno_train --window-cm 3 --chr $j
 
-" > ${dir_RA}/scripts/test/cors_geno_train_$j
+" > ${dir_RA}/scripts/test/cors/cors_geno_train_$j
 
 # I am doing blabla
-cd ${dir_RA}/scripts/test/
+cd ${dir_RA}/scripts/test/cors/
 sbatch cors_geno_train_$j
 done
 ``` 
