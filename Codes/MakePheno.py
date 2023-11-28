@@ -111,7 +111,7 @@ def main():
     np.random.seed(123)
     Simulated_Phenotype()
     # print(pheno_simulated)
-    print("Time elapsed: %s seconds", time.time() - start_time)
+    print("Time Usage: %s seconds" % (time.time() - start_time))
 
 if __name__ == '__main__':
     main()
