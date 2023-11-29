@@ -67,7 +67,7 @@ def Check(phenotype, genetics, h2):
     print("Observed h2, Set h2: ", 1-var_delta, h2)
 
 
-def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
+def Simulated_Phenotype(n_inds = 5, n_snps = 4, tau = 0.7):
     genotype = np.random.choice([0,1,2], size=(n_inds, n_snps), replace=True)
     for j in range(genotype.shape[0]):
         genotype[j] = (genotype[j] - np.mean(genotype[j])) / np.sqrt(np.var(genotype[j]))
