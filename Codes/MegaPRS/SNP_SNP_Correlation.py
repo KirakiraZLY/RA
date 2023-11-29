@@ -9,3 +9,4 @@ def Calc_Cor(genotype_matrix):
     correlation_matrix = np.corrcoef(genotype_matrix, rowvar=False)
     print("Correlation Matrix: ", correlation_matrix)
     print("\n")
+    return correlation_matrix

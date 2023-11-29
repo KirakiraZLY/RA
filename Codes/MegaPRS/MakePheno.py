@@ -78,10 +78,10 @@ def Simulated_Phenotype(n_inds = 5000, n_snps = 10000, tau = 0.7):
         # print(np.var(genotype1[j]))
     genotype = genotype1.T
     # print(np.mean(genotype))
-    # print("genotype: ", "\n", genotype)
+    print("genotype: ", "\n", genotype)
     effects = np.random.normal(size=n_snps)
     effects = (effects - np.mean(effects)) / np.sqrt(np.var(effects))
-    # print("effects: ", effects)
+    print("effects: ", effects)
     genetics = np.dot(genotype,effects) # genotype * effects
     genetics = (genetics - np.mean(genetics)) / np.sqrt(np.var(genetics))
     # print("genotype * effects: ", genetics)
