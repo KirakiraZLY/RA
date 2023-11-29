@@ -111,7 +111,7 @@ def main():
     np.random.seed(123)
     ## To generate some genotype and phenotype data.
     genotype, phenotype, phenotype_file = Simulated_Phenotype(n_inds = 5, n_snps = 10, tau = 0.7)
-    print(phenotype_file)
+    # print(phenotype_file)
 
     print("Time Usage: %s seconds" % (time.time() - start_time))
 

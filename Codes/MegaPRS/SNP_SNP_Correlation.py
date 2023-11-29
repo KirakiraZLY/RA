@@ -7,4 +7,5 @@ import time
 
 def Calc_Cor(genotype_matrix):
     correlation_matrix = np.corrcoef(genotype_matrix, rowvar=False)
-    print(correlation_matrix)
+    print("Correlation Matrix: ", correlation_matrix)
+    print("\n")

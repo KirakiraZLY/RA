@@ -1,7 +1,7 @@
 # Commands for MegaPRS test
  
 
-## Simulation, fam -> bed
+## To generate basic plink data
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -15,12 +15,17 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/plink --bfile ${dir_data}/geno --noweb --keep ${dir_RA}/test/data/geno_t.fam --make-bed --out ${dir_RA}/test/data/geno_t
+${dir_LDAK} --make-snps ${dir_RA}/test/data/snps_t --num-samples 10 --num-snps 100
 
-" > ${dir_RA}/scripts/test/data/geno_t
+" > ${dir_RA}/scripts/test/data/snps_t
 
 # I am doing blabla
 cd ${dir_RA}/scripts/test/data/
-sbatch geno_t
+sbatch snps_t
 
+```
+
+## conver to vcf file
+```
+${dir}/software/plink --file ${dir_RA}/test/data/snps_t --recode vcf --out ${dir_RA}/test/data/snps_t
 ```
