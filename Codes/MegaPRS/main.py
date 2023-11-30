@@ -27,7 +27,7 @@ def main():
     pheno_pred = Prediction.Pred_Pheno(her, genotype) # Since I don't have the effect sizes from Summary Statistics, I simulate some by normal distribution
     print("Var: ",Check(pheno_pred, phenotype))
     # print(np.var(phenotype), np.var(pheno_obs))
-    print(phenotype)
+    # print(phenotype)
 
 
 
