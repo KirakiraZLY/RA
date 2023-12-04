@@ -15,7 +15,7 @@ echo "#"'!'"/bin/bash
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --make-snps ${dir_RA}/test/data/snps_t --num-samples 10 --num-snps 100
+${dir_LDAK} --make-snps ${dir_RA}/test/data/snps_t --num-samples 50 --num-snps 100
 
 " > ${dir_RA}/scripts/test/data/snps_t
 
@@ -27,5 +27,5 @@ sbatch snps_t
 
 ## conver to vcf file
 ```
-${dir}/software/plink --file ${dir_RA}/test/data/snps_t --recode vcf --out ${dir_RA}/test/data/snps_t
+${dir}/software/plink --bfile ${dir_RA}/test/data/snps_t --recode vcf --out ${dir_RA}/test/data/snps_t
 ```
