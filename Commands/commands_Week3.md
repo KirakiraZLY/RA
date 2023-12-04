@@ -26,7 +26,7 @@ ${dir_LDAK} --calc-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors_$j --bfil
 " > ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors_$j
 
 # I am doing blabla
-cd ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors_$j
+cd ${dir_RA}/scripts/megaprs_new/pred_cor/
 sbatch geno_train_cors_$j
 done
 ``` 
