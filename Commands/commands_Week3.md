@@ -21,7 +21,7 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors_$j --bfile ${dir_RA}/data/geno_train --window-cm 3 --chr $j  -- allow-many-samples YES
+${dir_LDAK} --calc-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j  -- allow-many-samples YES
 
 " > ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors_$j
 
