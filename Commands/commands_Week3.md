@@ -35,33 +35,6 @@ sbatch geno_train_cors
 done
 ``` 
 
-
-```python
-rm list.txt; for j in {1..22}; do echo "cors_white_$j" >> list.txt; done
-```
-
-```python
-dir="/home/lezh/dsmwpred/zly"
-dir_RA="/home/lezh/dsmwpred/zly/RA"
-dir_data="/home/lezh/dsmwpred/data/ukbb"
-dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --join-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors_total --corslist ${dir_RA}/megaprs_new/pred_cor/list.txt
-
-" > ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors_total
-
-cd ${dir_RA}/scripts/megaprs_new/pred_cor/
-sbatch geno_train_cors_total
-``` 
-
-
-
 ## 2. Prediction Model
 
 
@@ -86,4 +59,28 @@ ${dir_LDAK} --mega-prs ${dir_RA}/megaprs_new/geno_train_megabayesr --model bayes
 # I am doing blabla
 cd ${dir_RA}/scripts/megaprs_new/
 sbatch geno_train_megabayesr
+```
+
+## 3. Predict Phenotype
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --calc-scores ${dir_RA}/megaprs_new/prediction/geno_test_scores_megaprs_new --scorefile ${dir_RA}/megaprs_new/geno_train_megabayesr.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_data}/height.test
+
+" > ${dir_RA}/scripts/megaprs_new/prediction/geno_test_scores_megaprs_new
+
+cd ${dir_RA}/scripts/megaprs_new/prediction
+sbatch geno_test_scores_megaprs_new
+
+
 ```
