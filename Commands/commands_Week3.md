@@ -7,6 +7,11 @@
 ## 1. Pre-pre cor
 
 ```python
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+shuf -n 5000 ${dir_data}/geno.fam > ${dir_RA}/megaprs_new/pred_cor/rand.5000 
+```
+
+```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
