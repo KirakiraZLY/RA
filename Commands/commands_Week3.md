@@ -7,7 +7,6 @@
 ## 1. Pre-pre cor
 
 ```python
-for j in {1..22}; do
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
@@ -21,13 +20,13 @@ echo "#"'!'"/bin/bash
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors_$j --bfile ${dir_data}/geno --window-cm 3 --chr $j
+${dir_LDAK} --calc-cors ${dir_RA}/megaprs_new/pred_cor/geno_train_cors --bfile ${dir_data}/geno --window-cm 3  --keep ${dir_RA}/scripts/megaprs_new/pred_cor/rand.5000
 
-" > ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors_$j
+" > ${dir_RA}/scripts/megaprs_new/pred_cor/geno_train_cors
 
 # I am doing blabla
 cd ${dir_RA}/scripts/megaprs_new/pred_cor/
-sbatch geno_train_cors_$j
+sbatch geno_train_cors
 done
 ``` 
 
