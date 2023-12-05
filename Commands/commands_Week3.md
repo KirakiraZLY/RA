@@ -84,3 +84,31 @@ sbatch geno_test_scores_megaprs_new
 
 
 ```
+
+
+
+# On 100 phenotypes from FinnGen
+
+## Download
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 10:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+#SBATCH --constraint \"s05\"
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+wget -i ${dir_RA}/data/FinnGen/list_100_ss_links.txt -P ${dir_RA}/data/FinnGen/summarystatistics/
+
+" > ${dir_RA}/scripts/data/FinnGen/ss_100_download
+
+cd ${dir_RA}/scripts/data/FinnGen/
+sbatch ss_100_download
+
+
+```
