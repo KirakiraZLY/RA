@@ -213,7 +213,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
-for j in {1..3}; do
+for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -265,7 +265,7 @@ for j in {1..3}; do
 
 
     #awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13}' $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleaned_bed
-    awk 'BEGIN {OFS="\t"} {print chr$1,$2-1}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleaned_bed
+    awk '{print chr$1,$2-1}'  $linecleanedstring_withouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleaned_bed
 
     " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/$linenamecleaned_bed_script
 
