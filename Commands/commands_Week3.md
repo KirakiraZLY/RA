@@ -206,6 +206,44 @@ done
 ``` 
 
 
+
+
+
+
+# Modifying FinnGen SS
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 10:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript ${dir_RA}/data/FinnGen/finn_gen_qc.R
+
+
+" > ${dir_RA}/scripts/data/FinnGen/finn_gen_qc.sh
+
+cd ${dir_RA}/scripts/data/FinnGen/
+sbatch finn_gen_qc.sh
+
+```
+
+
+
+
+
+
+
 ## Delete the title of SS files
 ```python
 dir="/home/lezh/dsmwpred/zly"
