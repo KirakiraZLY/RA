@@ -284,7 +284,7 @@ for j in {1..100}; do
     linenamecleanedbedscript=()
     for p in "$linenamecleanedbed"; do linenamecleanedbedscript+=("$p.sh"); done
 
-    awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+    awk -F '\t' 'NR>1 {print "chr"$1, ($2-1), $2, $0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
 
     echo -e $j $linenamecleanedbed
 
@@ -365,7 +365,7 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..100}; do
+for j in {1..3}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -379,14 +379,26 @@ for j in {1..100}; do
     for p in "$linenamecleaned"; do linenamecleanedbed+=("$p.bed"); done
 
     linenamecleanedlift=()
-    for p in "$linenamecleaned"; do linenamecleanedbedscript+=("$p.lifted"); done
+    for p in "$linenamecleaned"; do linenamecleanedlift+=("$p.lifted"); done
 
     linenamecleanedunlift=()
-    for p in "$linenamecleaned"; do linenamecleanedbedscript+=("$p.unlifted"); done
+    for p in "$linenamecleaned"; do linenamecleanedunlift+=("$p.unlifted"); done
 
-    ${dir_RA}/data/liftover/liftOver ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+    echo "#"'!'"/bin/bash
+    #SBATCH --mem 1G
+    #SBATCH -t 2:0:0
+    #SBATCH -c 4
+    #SBATCH -A dsmwpred
+    source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
     echo -e $j $linenamecleanedlift
+
+    ${dir_RA}/data/liftover/liftOver ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+  
+    " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/result/finngen_liftover_$j
+
+    cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/result/
+    sbatch finngen_liftover_$j
 
 done
 
