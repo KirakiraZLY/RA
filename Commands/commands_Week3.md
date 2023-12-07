@@ -279,7 +279,7 @@ for j in {1..3}; do
     #SBATCH --constraint \"s05\"
     source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-    awk '{print chr$1,$2-1,$2,$0}'  $linecleanedstringwithouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+    awk -F "\t" '{print chr$1, $2, $2+1, $0}'  $linecleanedstringwithouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
 
     " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/$linenamecleanedbedscript
 
