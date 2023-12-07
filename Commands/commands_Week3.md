@@ -138,3 +138,66 @@ sbatch ss_100_gunzip
 
 
 ```
+
+
+### Try to make a loop in the list.
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
+for j in {1..3}; do
+    line=$(head -n $j $ss_filename | tail -n 1)
+    linename=$(head -n $j $ss_name_filename | tail -n 1)
+    linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
+    linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+    echo -e $line
+    echo -e $linenamecleaned
+done
+```
+
+
+### Construct the prediction model.
+
+Using 100 SS in the list.
+
+```python
+
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
+
+
+for j in {1..3}; do
+
+    line=$(head -n $j $ss_filename | tail -n 1)
+    linename=$(head -n $j $ss_name_filename | tail -n 1)
+    linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
+    linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+    echo "#"'!'"/bin/bash
+    #SBATCH --mem 16G
+    #SBATCH -t 8:0:0
+    #SBATCH -c 4
+    #SBATCH -A dsmwpred
+    #SBATCH --constraint \"s05\"
+    source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+
+
+    ${dir_LDAK} --mega-prs ${dir_RA}/proj1_testprs_finngen_ukbb/megaprs_new/prediction/megabayesr_$linename --model bayesr --summary $linecleanedstring --cors ${dir_RA}/megaprs/pred_cor/cors_white_total --cv-proportion .1 --high-LD ${dir_RA}/megaprs/highld_white/genes.predictors.used --window-cm 1 --allow-ambiguous YES  --power -0.25
+
+    " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/megaprs_new/prediction/megabayesr_$linename
+
+    cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/megaprs_new/prediction/
+    sbatch megabayesr_$linename
+
+done
+``` 

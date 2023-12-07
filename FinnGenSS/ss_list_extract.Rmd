@@ -1,0 +1,45 @@
+---
+title: "SNP extract"
+output: html_document
+date: "2023-11-21"
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+# library(qqman)
+# library(tidyverse)
+# library(tidyr)
+library(readr)
+```
+
+## Subset of 2400 Summary Statistics
+```{r}
+# snps <- read_table2("R8_manifest.tsv", col_names = FALSE)
+data_tsv <- read_tsv("R8_manifest.tsv")
+
+data_tsv_100 <- data_tsv[sample(nrow(data_tsv), 100),]
+
+write.table(data_tsv_100$phenocode,"list_100_ss_phenocode.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+write.table(data_tsv_100$path_https,"list_100_ss_links.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+
+
+## Adding prefix
+```{r}
+
+df <- read_table2("list_100_ss_phenocode.txt", col_names = FALSE)
+df$X1 <- paste("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/finngen_R8_", df$X1, sep = "")
+write.table(df,"list_100_ss_phenocode_withprefix.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+```
+
+
+## Changing the format of SS in FinnGen
+```{r}
+list_fg <- read_table2("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt", col_names = FALSE)
+# df_fg <- read_table2("finngen_R8_AB1_BACT_INTEST_OTH", col_names = FALSE)
+df_tagging <- read_table2("/home/lezh/dsmwpred/zly/RA/data/tagging/ldak.thin.genotyped.gbr.tagging", col_names = FALSE)
+```
+
