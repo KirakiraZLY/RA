@@ -210,7 +210,7 @@ done
 
 
 
-# Modifying FinnGen SS
+# Liftover, Modifying FinnGen SS, QC
 
 ```python
 dir="/home/lezh/dsmwpred/zly"
@@ -244,7 +244,7 @@ sbatch finn_gen_qc.sh
 
 
 
-## Delete the title of SS files
+## Liftover, Deleting the title of SS files
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -259,6 +259,11 @@ for j in {1..100}; do
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
+    linecleanedstringqc=()
+    for p in $linecleanedstring; do 
+    linecleanedstringqc+=("$p.qc"); 
+    done
+
     linecleanedstringwithouttitle=()
     for p in $linecleanedstring; do 
     linecleanedstringwithouttitle+=("$p.notitle"); 
@@ -268,34 +273,15 @@ for j in {1..100}; do
     for p in $linenamecleaned; do 
     linenamecleanednotitle+=("$p.notitle.sh"); done
 
-    echo -e $linecleanedstringwithouttitle
+    echo -e $j $linecleanedstringqc
 
-    tail -n +2 $linecleanedstring > $linecleanedstringwithouttitle
-
-done
-
-
-
-    echo "#"'!'"/bin/bash
-    #SBATCH --mem 1G
-    #SBATCH -t 1:0:0
-    #SBATCH -c 4
-    #SBATCH -A dsmwpred
-    source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-
-    tail -n +2 $linecleanedstring > $linecleanedstringwithouttitle
-
-
-    " > ${dir_RA}/scripts/data/FinnGen/notitle/$linenamecleanednotitle
-
-    cd ${dir_RA}/scripts/data/FinnGen/notitle/
-    sbatch $linenamecleanednotitle
+    tail -n +2 $linecleanedstringqc > $linecleanedstringwithouttitle
 
 done
+
 ```
 
-## Liftover, hg38 to hg19, SS -> bed
+## Liftover, SS -> bed
 https://www.biostars.org/p/9476954/
 
 ```python
@@ -322,32 +308,15 @@ for j in {1..100}; do
     linenamecleanedbedscript=()
     for p in "$linenamecleanedbed"; do linenamecleanedbedscript+=("$p.sh"); done
 
-    awk -F '\t' 'NR>1 {print "chr"$1, ($2-1), $2, $0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
-
     echo -e $j $linenamecleanedbed
 
-done
+    awk '{print "chr"$1, ($2-1), $2, $0}'  $linecleanedstringwithouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
 
-    echo "#"'!'"/bin/bash
-    #SBATCH --mem 1G
-    #SBATCH -t 2:0:0
-    #SBATCH -c 4
-    #SBATCH -A dsmwpred
-    #SBATCH --constraint \"s05\"
-    source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-    #awk -F '\t' 'NR>1 {print "chr"$1,$2-1,$2,$0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
-
-    awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
-
-    echo -e $linenamecleanedbed
-
-    " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/$linenamecleanedbedscript
-
-    cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/
-    sbatch $linenamecleanedbedscript
+    #awk -F '\t' 'NR>1 {print "chr"$1, ($2-1), $2, $0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
 
 done
+
+
 ```
 
 
@@ -403,15 +372,15 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..3}; do
+for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
     
-    linecleanedstringwithouttitle=()
-    for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
+    #linecleanedstringwithouttitle=()
+    #for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
 
     linenamecleanedbed=()
     for p in "$linenamecleaned"; do linenamecleanedbed+=("$p.bed"); done
