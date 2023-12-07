@@ -147,17 +147,18 @@ dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
-ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
-for j in {1..3}; do
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+for j in {1..5}; do
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
     a=()
     for p in "$linenamecleaned"; do a+=("$p.bed"); done
-    echo -e $line
-    echo -e $a
+    echo -e $linecleanedstring
+    echo -e $linenamecleaned
+    echo -e $p
 done
 ```
 
@@ -173,11 +174,11 @@ dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
-ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..3}; do
+for j in {1..5}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -211,8 +212,8 @@ dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
-ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
@@ -220,10 +221,22 @@ for j in {1..100}; do
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
-    linecleanedstring_withouttitle=()
-    for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
+    linecleanedstringwithouttitle=()
+    for p in $linecleanedstring; do 
+    linecleanedstringwithouttitle+=("$p.notitle"); 
+    done
+
     linenamecleanednotitle=()
-    for p in "$linenamecleaned"; do linenamecleanednotitle+=("$p.notitle.sh"); done
+    for p in $linenamecleaned; do 
+    linenamecleanednotitle+=("$p.notitle.sh"); done
+
+    echo -e $linecleanedstringwithouttitle
+
+    tail -n +2 $linecleanedstring > $linecleanedstringwithouttitle
+
+done
+
+
 
     echo "#"'!'"/bin/bash
     #SBATCH --mem 1G
@@ -244,7 +257,7 @@ for j in {1..100}; do
 done
 ```
 
-## Liftover, hg38 to hg19
+## Liftover, hg38 to hg19, SS -> bed
 https://www.biostars.org/p/9476954/
 
 ```python
@@ -253,11 +266,11 @@ dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
-ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt"
-ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode.txt"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..3}; do
+for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -271,15 +284,25 @@ for j in {1..3}; do
     linenamecleanedbedscript=()
     for p in "$linenamecleanedbed"; do linenamecleanedbedscript+=("$p.sh"); done
 
+    awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+
+    echo -e $j $linenamecleanedbed
+
+done
+
     echo "#"'!'"/bin/bash
-    #SBATCH --mem 16G
-    #SBATCH -t 8:0:0
+    #SBATCH --mem 1G
+    #SBATCH -t 2:0:0
     #SBATCH -c 4
     #SBATCH -A dsmwpred
     #SBATCH --constraint \"s05\"
     source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-    awk -F '\t' 'NR>1 {print "chr"$1,$2-1,$2,$0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+    #awk -F '\t' 'NR>1 {print "chr"$1,$2-1,$2,$0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+
+    awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+
+    echo -e $linenamecleanedbed
 
     " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/$linenamecleanedbedscript
 
@@ -287,4 +310,84 @@ for j in {1..3}; do
     sbatch $linenamecleanedbedscript
 
 done
+```
+
+
+
+
+## By using R
+
+```python
+
+
+cd /faststorage/project/dsmwpred/takiy/analysis12_biobanks_finngen/1_data/finngen_sumstats_folder/ # example using my folder
+
+conda activate r4 # use R envirenment
+R
+library(data.table)
+#read sumstat
+sumstat = fread("/faststorage/project/dsmwpred/takiy/analysis12_biobanks_finngen/1_data/finngen_sumstats_folder/finngen_R8_ASTHMA_ALLERG.gz") # example using finngen_R8_ASTHMA_ALLERG.gz sumstat
+setnames(sumstat,"#chrom","chrom")
+summary(sumstat)
+# some qc (remove non SNP varaints, MAF <0.01, info if available)
+sumstat_qc1 = sumstat[nchar(ref)==1 & nchar(alt)==1 & (af_alt_cases>=0.01 & af_alt_cases<=0.99) & (af_alt_controls>=0.01 & af_alt_controls<=0.99),]
+
+# hg38 to hg19
+sumstat_qc1[,c("CHR_hg38","start","end","pos_hg38"):=.(paste0("chr",chrom),pos,pos,pos)]
+sumstat_qc1[CHR_hg38=="chr23",CHR_hg38:="chrX"]
+
+library(rtracklayer) # need to install rtracklayer from bioconductor repository conda install -c bioconda bioconductor-rtracklayer
+path = system.file(package="liftOver", "extdata", "hg38ToHg19.over.chain")
+ch = import.chain(path)
+ch
+
+sumstat_qc1_granges = makeGRangesFromDataFrame(sumstat_qc1,seqnames.field="CHR_hg38",start.field="start",end.field="end",keep.extra.columns=T)
+sumstat_qc1_granges_res = data.table(as.data.frame(liftOver(sumstat_qc1_granges,ch)))
+sumstat_qc1_granges_res [,pos_hg19 :=start]
+sumstat_qc1_granges_res[,posid_hg19 := paste0(chrom,":",pos_hg19)]
+
+# reformat sumstat keeping only columns of interst then saving
+#rio::export(sumstat_qc1_format,"path/sumstat_qc1_format.tsv") # need install rio package conda install -c conda-forge r-rio, then first time loading rio "library(rio)" run install_formats() function as required
+
+```
+
+
+
+## Using liftover
+
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+
+for j in {1..100}; do
+
+    line=$(head -n $j $ss_filename | tail -n 1)
+    linename=$(head -n $j $ss_name_filename | tail -n 1)
+    linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
+    linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+    
+    linecleanedstringwithouttitle=()
+    for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
+
+    linenamecleanedbed=()
+    for p in "$linenamecleaned"; do linenamecleanedbed+=("$p.bed"); done
+
+    linenamecleanedlift=()
+    for p in "$linenamecleaned"; do linenamecleanedbedscript+=("$p.lifted"); done
+
+    linenamecleanedunlift=()
+    for p in "$linenamecleaned"; do linenamecleanedbedscript+=("$p.unlifted"); done
+
+    ${dir_RA}/data/liftover/liftOver ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+
+    echo -e $j $linenamecleanedlift
+
+done
+
 ```
