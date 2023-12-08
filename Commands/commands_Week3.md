@@ -244,7 +244,7 @@ sbatch finn_gen_qc.sh
 
 
 
-## Liftover, Deleting the title of SS files
+## Liftover, Deleting the title of SS files (Can skip)
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -282,7 +282,11 @@ done
 ```
 
 ## Liftover, SS -> bed
-https://www.biostars.org/p/9476954/
+
+https://www.biostars.org/p/9476954/   
+
+https://groups.google.com/a/soe.ucsc.edu/g/genome/c/8dN0d5-N61Q   
+
 
 ```python
 
@@ -294,25 +298,30 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..100}; do
+for j in {1..3}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+    linecleanedstringqc=()
+    for p in $linecleanedstring; do 
+    linecleanedstringqc+=("$p.qc"); 
+    done
     
     linecleanedstringwithouttitle=()
     for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
-    linenamecleanedbed=()
-    for p in "$linenamecleaned"; do linenamecleanedbed+=("$p.bed"); done
+    linecleanedstringbed=()
+    for p in "$linecleanedstring"; do linecleanedstringbed+=("$p.bed"); done
     linenamecleanedbedscript=()
     for p in "$linenamecleanedbed"; do linenamecleanedbedscript+=("$p.sh"); done
 
-    echo -e $j $linenamecleanedbed
+    echo -e $j $linecleanedstringqc  $linecleanedstringbed
 
-    awk '{print "chr"$1, ($2-1), $2, $0}'  $linecleanedstringwithouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+    #awk '{print "chr"$1, ($2-1), $2, $3, $4, $5, $6, $7, $8, $9}'  $linecleanedstringwithouttitle > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
 
-    #awk -F '\t' 'NR>1 {print "chr"$1, ($2-1), $2, $0}'  $linecleanedstring > ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed
+    awk 'NR>1 {print "chr"$1, ($2-1), $2, $5}'  $linecleanedstringqc > $linecleanedstringbed
 
 done
 
@@ -359,6 +368,29 @@ sumstat_qc1_granges_res[,posid_hg19 := paste0(chrom,":",pos_hg19)]
 ```
 
 
+```python
+
+library(readr)
+library(data.table)
+
+list_fg <- read_table("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+# list_fg <- read_table("./list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+
+for (j in list_fg$X1) {
+  j <- trimws(j)
+  sumstat = fread(j)
+  print(j)
+  outfile = paste(j, ".qc", sep='')
+  setnames(sumstat,"#chrom","chrom")
+  summary(sumstat)
+  # some qc (remove non SNP varaints, MAF <0.01, info if available)
+  sumstat_qc1 = sumstat[nchar(ref)==1 & nchar(alt)==1 & (af_alt_cases>=0.01 & af_alt_cases<=0.99) & (af_alt_controls>=0.01 & af_alt_controls<=0.99),]
+  write.table(sumstat_qc1, outfile, col.names = TRUE, quote = FALSE, row.names = FALSE)
+}
+
+```
+
+
 
 ## Using liftover
 
@@ -372,7 +404,7 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..100}; do
+for j in {1..3}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -390,6 +422,17 @@ for j in {1..100}; do
 
     linenamecleanedunlift=()
     for p in "$linenamecleaned"; do linenamecleanedunlift+=("$p.unlifted"); done
+
+
+
+    echo -e $j $linenamecleanedlift
+
+    ${dir_RA}/data/liftover/liftOver ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+
+done
+
+
+
 
     echo "#"'!'"/bin/bash
     #SBATCH --mem 1G
