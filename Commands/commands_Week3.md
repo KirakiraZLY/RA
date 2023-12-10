@@ -244,7 +244,7 @@ sbatch finn_gen_qc.sh
 
 
 
-## Liftover, Deleting the title of SS files (Can skip)
+## Liftover, Deleting the title of SS files (SKIP)
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -298,7 +298,7 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..3}; do
+for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -404,7 +404,7 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..3}; do
+for j in {1..100}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -414,20 +414,26 @@ for j in {1..3}; do
     #linecleanedstringwithouttitle=()
     #for p in "$linecleanedstring"; do linecleanedstringwithouttitle+=("$p.notitle"); done
 
-    linenamecleanedbed=()
-    for p in "$linenamecleaned"; do linenamecleanedbed+=("$p.bed"); done
+    linecleanedstringbed=()
+    for p in "$linecleanedstring"; do linecleanedstringbed+=("$p.bed"); done
+
 
     linenamecleanedlift=()
-    for p in "$linenamecleaned"; do linenamecleanedlift+=("$p.lifted"); done
+    for p in "$linenamecleaned"; do 
+    a=("finngen_R8_$p");
+    linenamecleanedlift+=("$a.lifted"); done
 
     linenamecleanedunlift=()
-    for p in "$linenamecleaned"; do linenamecleanedunlift+=("$p.unlifted"); done
+    for p in "$linenamecleaned"; do 
+    a+=("finngen_R8_$p");
+    linenamecleanedunlift+=("$a.unlifted"); done
 
 
 
     echo -e $j $linenamecleanedlift
 
-    ${dir_RA}/data/liftover/liftOver ${dir_RA}/data/FinnGen/summarystatistics/liftover_hg19/$linenamecleanedbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+
+    ${dir_RA}/data/liftover/liftOver $linecleanedstringbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
 
 done
 
@@ -452,4 +458,37 @@ done
 
 done
 
+```
+
+
+## Changing FinnGen SS into hg19
+with the suffix .hg19
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+for j in {1..100}; do
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 1:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript ${dir_RA}/data/FinnGen/finn_gen_liftover_hg19.R $j
+
+echo -e $j "done"
+
+" > ${dir_RA}/scripts/data/FinnGen/hg19/finn_gen_liftover_hg19_sh_$j
+
+cd ${dir_RA}/scripts/data/FinnGen/hg19/
+sbatch finn_gen_liftover_hg19_sh_$j
+done
 ```
