@@ -491,4 +491,6 @@ echo -e $j "done"
 cd ${dir_RA}/scripts/data/FinnGen/hg19/
 sbatch finn_gen_liftover_hg19_sh_$j
 done
+
+
 ```
