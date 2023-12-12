@@ -140,7 +140,7 @@ sbatch ss_100_gunzip
 ```
 
 
-### Try to make a loop in the list.
+### Try to make a loop in the list, print.
 
 ```python
 dir="/home/lezh/dsmwpred/zly"
@@ -149,7 +149,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
-for j in {1..5}; do
+for j in {1..3}; do
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
     linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
@@ -404,7 +404,7 @@ ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
 
-for j in {1..100}; do
+for j in {1..3}; do
 
     line=$(head -n $j $ss_filename | tail -n 1)
     linename=$(head -n $j $ss_name_filename | tail -n 1)
@@ -428,12 +428,20 @@ for j in {1..100}; do
     a+=("finngen_R8_$p");
     linenamecleanedunlift+=("$a.unlifted"); done
 
-
-
-    echo -e $j $linenamecleanedlift
+    echo "#"'!'"/bin/bash
+    #SBATCH --mem 1G
+    #SBATCH -t 2:0:0
+    #SBATCH -c 4
+    #SBATCH -A dsmwpred
+    source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 
     ${dir_RA}/data/liftover/liftOver $linecleanedstringbed ${dir_RA}/data/liftover/hg38ToHg19.over.chain.gz ${dir_RA}/data/liftover/lift_output/$linenamecleanedlift ${dir_RA}/data/liftover/unlift_output/$linenamecleanedunlift
+
+    " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/liftover_result/finngen_liftover_$j
+
+    cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/liftover_hg19/liftover_result/
+    sbatch finngen_liftover_$j
 
 done
 
@@ -472,7 +480,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
-for j in {1..100}; do
+for j in {1..3}; do
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 16G
