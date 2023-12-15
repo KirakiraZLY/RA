@@ -1,0 +1,165 @@
+---
+title: "SNP extract"
+output: html_document
+date: "2023-11-21"
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+# library(qqman)
+# library(tidyverse)
+# library(tidyr)
+library(readr)
+library(data.table)
+library(dplyr)
+# library(biomaRt)
+```
+
+## Subset of 2400 Summary Statistics
+```{r}
+# snps <- read_table2("R8_manifest.tsv", col_names = FALSE)
+data_tsv <- read_tsv("R8_manifest.tsv")
+
+data_tsv_100 <- data_tsv[sample(nrow(data_tsv), 100),]
+
+write.table(data_tsv_100$phenocode,"list_100_ss_phenocode.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+write.table(data_tsv_100$path_https,"list_100_ss_links.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+
+
+## Adding prefix
+```{r}
+
+df <- read_table2("list_100_ss_phenocode.txt", col_names = FALSE)
+df$X1 <- paste("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/finngen_R8_", df$X1, sep = "")
+write.table(df,"list_100_ss_phenocode_withprefix.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+```
+
+
+## Changing the format of SS in FinnGen
+
+Reading Data
+```{r}
+list_fg <- read_table2("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_3_ss_phenocode_withprefix.txt", col_names = FALSE)
+# df_tagging <- read_table2("/home/lezh/dsmwpred/zly/RA/data/tagging/ldak.thin.genotyped.gbr.tagging", col_names = TRUE)
+df_tagging <- read.csv("/home/lezh/dsmwpred/zly/RA/data/tagging/ldak.thin.genotyped.gbr.tagging", sep = ' ', header = T)
+df_fg <- read_table2(list_fg$X1[1], col_names = TRUE)
+```
+
+Modification
+```{r}
+
+colnames(df_fg)[1] <- "Chromosome"
+colnames(df_fg)[2] <- "Basepair"
+colnames(df_fg)[3] <- "A1"
+colnames(df_fg)[4] <- "A2"
+df_fg$Predictor <- paste(df_fg$Chromosome, df_fg$Basepair, sep = ":")
+label <- data.frame(df_tagging$Predictor)
+colnames(label) <- c("Predictor")
+df_fg_1 <- merge(df_fg, label, by = c("Predictor"))
+```
+
+
+
+## FinnGen SS QC
+```{r}
+
+# list_fg <- read_table2("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+list_fg <- read_table2("./list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+
+for (j in list_fg) {
+  sumstat = fread(j)
+  setnames(sumstat,"#chrom","chrom")
+  summary(sumstat)
+  # some qc (remove non SNP varaints, MAF <0.01, info if available)
+  sumstat_qc1 = sumstat[nchar(ref)==1 & nchar(alt)==1 & (af_alt_cases>=0.01 & af_alt_cases<=0.99) & (af_alt_controls>=0.01 & af_alt_controls<=0.99),]
+
+}
+
+```
+
+## FinnGen coordinate QC with liftover
+```{r}
+
+args <- commandArgs(trailingOnly = TRUE)
+
+list_fg <- read_table2("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+# list_fg <- read_table("./list_100_ss_phenocode_withprefix.txt", col_names = FALSE)
+
+
+j <- list_fg$X1[as.numeric(args[1])]
+liftover_path <- paste(j, ".lifted", sep = "")
+liftover <- read_table(liftover_path, col_names = FALSE)
+colnames(liftover) <- c("chrom", "pos_start", "pos", "rsid")
+
+sumstat_path <- paste(j, ".qc", sep = "")
+sumstat <- read_table(sumstat_path)
+# tagging <- read.table("./ldak.thin.genotyped.gbr.tagging", header = TRUE, sep=" ")
+
+sumstat <- distinct(sumstat, rsids, .keep_all = TRUE)
+
+df_liftover_1 <- paste(liftover$chrom, liftover$pos, sep = ":")
+liftover$predictor <- df_liftover_1
+df_ss_1 <- paste(sumstat$chrom, sumstat$pos, sep = ":")
+sumstat$predictor <- df_ss_1
+liftover$predictor <- substr(liftover$predictor, start = 4, stop = nchar(liftover$predictor))
+colnames(liftover)[colnames(liftover) == "rsid"] <- "rsids"
+sumstat1 <- sumstat[sumstat$rsids %in% liftover$rsids, ]
+# sumstat1$predictor <- liftover$predictor
+
+liftover_pre <- data.frame(liftover$predictor)
+colnames(liftover_pre) <- "predictor"
+sumstat1 <- merge(sumstat1, liftover_pre, by = "predictor", all.x = TRUE)
+
+# tagging_ed <- sumstat1[sumstat1$predictor %in% tagging$Predictor, ]
+# any(duplicated(sumstat$rsids))
+
+hg19_path <- paste(j, ".hg19", sep = "")
+colnames(sumstat1) <- c("Predictor", "Chr", "Pos",	"A1",	"A2",	"rsids",	"nearest_genes",
+                        "P",	"mlogp",	"beta",	"sebeta",	"af_alt",	"af_alt_cases",
+                        "af_alt_controls")
+
+sumstat1$Direction <- ifelse(sumstat1$beta > 0, 1, -1)
+sumstat1$Z <- sumstat1$beta / sumstat1$sebeta
+sumstat1$beta <- abs(sumstat1$beta)
+sumstat1 <- sumstat1[!duplicated(sumstat1$Predictor), ]
+
+sumstat1 <- sumstat1[, c("Predictor", "A1",	"A2", "P", "Direction", "Z")]
+write.table(sumstat1, hg19_path, row.names = FALSE, col.names = TRUE, quote = FALSE)
+
+```
+
+
+
+
+## exclude
+```{r}
+hg19 <- read.table("./finngen_R8_G6_HEADACHE.hg19", header = TRUE)
+cor_bim <- read.table("./geno2_train_cors.cors.bim", header = FALSE, sep = "\t")
+colnames(cor_bim) <- c("chr", "Predictor", "Stat", "Pos", "A1", "A2")
+cor_bim_pre <- data.frame(cor_bim$Predictor)
+colnames(cor_bim_pre) <- "Predictor"
+exclude <- cor_bim_pre %>% filter(!(Predictor %in% hg19$Predictor))
+# hg19_test <- merge(hg19, cor_bim, by = "Predictor", all.x = TRUE)
+
+```
+
+
+## Check if duplicate in extract
+```{r}
+extract <- read.table("./finngen_R8_G6_HEADACHE.extrac", header = FALSE)
+anyDuplicated(extract$V1)
+bimfile <- read.table("./geno2.bim", header = FALSE)
+colnames(bimfile) <- c("chr", "Predictor", "Stat", "Pos", "A1", "A2")
+bimfile1 <- bimfile[((bimfile$A1 == 'A' & !(bimfile$A2 == 'T'))|
+                      (bimfile$A1 == 'T' & !(bimfile$A2 == 'A'))|
+                       (bimfile$A1 == 'C' & !(bimfile$A2 == 'G'))|
+                       (bimfile$A1 == 'G' & !(bimfile$A2 == 'C'))
+                      ), ]
+
+write.table(bimfile1$Predictor, "./geno2_consistent_bim_list.txt", row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
