@@ -1,0 +1,158 @@
+# Commands during RA
+## Week 5
+
+17/12/2023
+
+# non-iid problem
+
+## high LD region
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir}/software/plink --bfile ${dir_noniid_data}/mhc --r2 --ld-window-r2 0.8 --ld-window 50000 --ld-window-kb 1000 --out ${dir_RA}/proj2_noniid_problem/highld/mhc_highld
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/highld/mhc_highld
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/highld/
+sbatch mhc_highld
+```
+
+## "make genotype"
+```python
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+${dir_LDAK} --make-snps ${dir_RA}/proj2_noniid_problem/pseudo_genotype/smallset --num-samples 20 --num-snps 100
+```
+
+## make phenotype
+
+### 1 Weighting
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+shuf -n 5000 ${dir_noniid_data}/mhc.fam > ${dir_RA}/proj2_noniid_problem/mhc_phenotype/rand.5000 
+
+${dir_LDAK} --bfile ${dir_noniid_data}/mhc  --max-threads 4  --thin ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin  --window-prune 0.98 --window-kb 100 --keep ${dir_RA}/proj2_noniid_problem/mhc_phenotype/rand.5000
+
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/
+sbatch mhc_weighting_thin
+
+```
+
+### 1.5
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+awk < ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin.in '{print $1, 1}' > ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin.thin
+```
+
+### 2 SNP extract for mhc, chr == 6
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+conda activate zly2
+Rscript ${dir_RA}/proj2_noniid_problem/codes/mhc_snp_extract.R
+```
+
+### 3 Simulating 
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} \
+  --make-phenos ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_1 \
+  --bfile ${dir_noniid_data}/mhc \
+  --weights ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin.thin \
+  --power -0.25 \
+  --her 0.9 \
+  --num-phenos 1 \
+  --num-causals 5000 \
+  --extract ${dir_RA}/proj2_noniid_problem/mhc_phenotype/snps_only_chr6_mhc.txt
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/mhc_trait_1.sh
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/
+sbatch mhc_trait_1.sh
+```
+
+## Make Summary Statistics
+By LDAK
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --pheno ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_1.pheno --max-threads 4  --bfile ${dir_noniid_data}/mhc  --linear ${dir_RA}/proj2_noniid_problem/summarystatistics/mhc_ldak_trait_1
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/summarystatistics/mhc_ldak_trait_1
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/summarystatistics/
+sbatch mhc_ldak_trait_1
+
+```
