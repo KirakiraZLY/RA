@@ -32,6 +32,69 @@ cd ${dir_RA}/scripts/proj2_noniid_problem/highld/
 sbatch mhc_highld
 ```
 
+### high ld for a single snp
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir}/software/plink --bfile ${dir_noniid_data}/mhc --r2  --ld-snp 6:25279824:G:A  --ld-window-r2 0 --ld-window 99999 --ld-window-kb 1000  --out ${dir_RA}/proj2_noniid_problem/highld/mhc_highld_6:25279824:G:A  
+
+#${dir}/software/plink --bfile ${dir_RA}/proj2_noniid_problem/pseudo_genotype/smallset  --r2   --ld-window-r2 0 --ld-window 99999 --ld-window-kb 1000  --out ${dir_RA}/proj2_noniid_problem/highld/smallset_highld_nomatrix
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/highld/mhc_highld_6:25279824:G:A  
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/highld/
+sbatch mhc_highld_6:25279824:G:A  
+```
+
+
+### By calculating Genetic Correlation
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 4:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --linear ${dir_RA}/proj2_noniid_problem/highld/genetic_correlation/mhc_trait_1 --bfile ${dir_noniid_data}/mhc --pheno ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_1.pheno
+${dir_LDAK} --linear ${dir_RA}/proj2_noniid_problem/highld/genetic_correlation/mhc_trait_2 --bfile ${dir_noniid_data}/mhc --pheno ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_2.pheno
+
+${dir_LDAK} --sum-cors ${dir_RA}/proj2_noniid_problem/highld/genetic_correlation/mhc_gencor --summary ${dir_RA}/proj2_noniid_problem/highld/genetic_correlation/mhc_trait_1.summaries --summary2 ${dir_RA}/proj2_noniid_problem/highld/genetic_correlation/mhc_trait_2.summaries --tagfile ${dir_RA}/proj2_noniid_problem/highld/ldak.thin.genotyped.gbr.tagging --allow-ambiguous YES  --cutoff 0.01  --extract ${dir_RA}/proj2_noniid_problem/mhc_phenotype/snps_only_chr6_mhc.txt
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/highld/genetic_correlation/mhc_trait_1and2_geneticcorrelation
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/highld/genetic_correlation/
+sbatch mhc_trait_1and2_geneticcorrelation
+
+```
+
+
+
 ## "make genotype"
 ```python
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -113,20 +176,20 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 ${dir_LDAK} \
-  --make-phenos ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_1 \
+  --make-phenos ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_2 \
   --bfile ${dir_noniid_data}/mhc \
   --weights ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_weighting_thin.thin \
   --power -0.25 \
-  --her 0.9 \
+  --her 0.1 \
   --num-phenos 1 \
   --num-causals 5000 \
   --extract ${dir_RA}/proj2_noniid_problem/mhc_phenotype/snps_only_chr6_mhc.txt
 
-" > ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/mhc_trait_1.sh
+" > ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/mhc_trait_2.sh
 
 # I am doing blabla
 cd ${dir_RA}/scripts/proj2_noniid_problem/mhc_phenotype/
-sbatch mhc_trait_1.sh
+sbatch mhc_trait_2.sh
 ```
 
 ## Make Summary Statistics

@@ -141,7 +141,8 @@ for (i in 1:nrow(icd10_pheno)) {
   for (j in 1:nrow(finngen_pheno)) {
     string1 <- icd10_pheno$phenocode[i]
     string2 <- finngen_pheno$phenocode[j]
-    
+    print(string1)
+    print(string2)
     # output_string <- paste("String1 :", string1)
     # print(output_string)
     # output_string <- paste("String2 :", string2)
