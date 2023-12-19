@@ -219,3 +219,28 @@ cd ${dir_RA}/scripts/proj2_noniid_problem/summarystatistics/
 sbatch mhc_ldak_trait_1
 
 ```
+
+
+# Bolt Predict
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+${dir_LDAK} --bolt ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/geno_train_Trait1_bolt_prs --LDpred YES --bfile ${dir_RA}/data/geno_train --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.train --LOCO NO  --mpheno 1
+
+" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/bolt_pred/geno_train_Trait1_bolt_prs
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/bolt_pred/
+sbatch geno_train_Trait1_bolt_prs
+
+```

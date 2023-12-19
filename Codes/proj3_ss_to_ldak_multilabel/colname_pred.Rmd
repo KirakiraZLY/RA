@@ -71,3 +71,50 @@ colnames(df_other_out) <- c("Predictor", "A1", "A2", "Direction", "Stat", "n")
 write.table(df_other_out, "./ss_out/test.summaries", col.names = TRUE)
 ```
 
+
+
+# 2. By K-Means
+```{r}
+# Sample data
+set.seed(123)
+df1 <- data.frame(A = c("apple", "banana", "orange", "grape"),
+                  B = c("red", "yellow", "orange", "purple"),
+                  C = c("cat", "dog", "bird", "fish"),
+                  D = c("big", "small", "medium", "small"))
+
+df2 <- data.frame(E = c("apple", "grape", "orange", "banana", "kiwi"),
+                  F = c("red", "purple", "orange", "yellow", "green"),
+                  G = c("dog", "cat", "bird", "turtle", "rabbit"),
+                  H = c("small", "big", "medium", "large", "small"),
+                  I = rnorm(5))
+
+# Function to calculate Jaccard similarity for character vectors
+jaccard_similarity <- function(x, y) {
+  if (is.character(x) && is.character(y)) {
+    intersection <- length(intersect(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
+    union <- length(union(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
+    return(intersection / union)
+  } else {
+    # If not character data, return 0 similarity
+    return(0)
+  }
+}
+
+# Initialize an empty data frame to store the most similar columns
+df2_selected <- data.frame(matrix(nrow = nrow(df1), ncol = ncol(df1)))
+
+# Calculate the most similar column for each column in df1
+for (i in seq_along(df1)) {
+  similarities <- sapply(df2, function(col) jaccard_similarity(df1[[i]], col))
+  most_similar_index <- which.max(similarities)
+  df2_selected[, i] <- df2[[most_similar_index]]
+}
+
+# Rename the columns in df2_selected
+colnames(df2_selected) <- colnames(df1)
+
+# Print the result
+print(df2_selected)
+
+```
+
