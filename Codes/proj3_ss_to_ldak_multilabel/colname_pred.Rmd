@@ -1,0 +1,73 @@
+---
+title: "Summary Statistics changing into LDAK format"
+author: "zly"
+date: "2023-12-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(rpart)
+library(randomForest)
+library(MASS)
+library(dplyr)
+```
+
+## Read Files
+```{r}
+df_ldak1 <- read_table("./ss_ldak/geno_LDAK_Trait_1_P5.summaries", col_names = TRUE)
+df_other1 <- read_table("./ss_not_ldak/geno_LDAK_Trait_4_P2.summaries")
+df_ldak <- df_ldak1[1:1000,]
+df_other <- df_other1[1:1000,]
+```
+
+## Similarity
+```{r}
+
+jaccard_similarity <- function(x, y) {
+  intersection <- length(intersect(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
+  union <- length(union(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
+  return(intersection / union)
+}
+
+similarity_matrix <- matrix(0, nrow = ncol(df_ldak), ncol = ncol(df_other))
+
+for (i in 1:ncol(df_ldak)) {
+  for (j in 1:ncol(df_other)) {
+    print(i,j)
+    col1 <- as.character(df_ldak[, i])
+    col2 <- as.character(df_other[, j])
+     if (is.numeric(col1) && is.numeric(col2)) {
+      # Euclidean distance for numeric columns
+      similarity_matrix[i, j] <- 1 / (1 + sqrt(sum((col_i - col_j)^2)))
+     } else{ # If char -> Jaccard similarity coefficient
+      similarity_matrix[i, j] <- jaccard_similarity(col1, col2)
+    }
+  }
+}
+
+most_similar_column <- apply(similarity_matrix, 1, which.max)
+
+#### Calculate the similarity between row at most_similar_column[2] and the left one or the right one, to see which are A1 and A2
+col_A <- as.character(df_other[,most_similar_column[2]])
+col_B <- as.character(df_other[,most_similar_column[2]+1])
+col_C <- as.character(df_other[,most_similar_column[2]-1])
+similarity_left <- jaccard_similarity(col_A, col_C)
+similarity_right <- jaccard_similarity(col_A, col_B)
+if (similarity_left > similarity_right) {
+  most_similar_column[3] <- most_similar_column[2]
+  most_similar_column[2] <- most_similar_column[2] - 1
+} else{
+  most_similar_column[3] <- most_similar_column[2] + 1
+}
+
+
+print(most_similar_column)
+most_similar_column <- c(most_similar_column)
+df_other_out <- df_other1[,most_similar_column]
+colnames(df_other_out) <- c("Predictor", "A1", "A2", "Direction", "Stat", "n")
+write.table(df_other_out, "./ss_out/test.summaries", col.names = TRUE)
+```
+
