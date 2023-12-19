@@ -13,6 +13,7 @@ library(rpart)
 library(randomForest)
 library(MASS)
 library(dplyr)
+library(stringdist)
 ```
 
 ## Read Files
@@ -56,6 +57,7 @@ most_similar_column <- apply(similarity_matrix, 1, which.max)
 #### Calculate the similarity between row at most_similar_column[2] and the left one or the right one, to see which are A1 and A2
 
 if (most_similar_column[2] > 1) { # Considering if col(A1) == 1, that col(A1) -1 out of bound.
+  # While it is not allowed if A2 is before A1, since there is no good way to detect which is ref and which is alt
   col_A <- as.character(df_other[,most_similar_column[2]])
   col_B <- as.character(df_other[,most_similar_column[2]+1])
   col_C <- as.character(df_other[,most_similar_column[2]-1])
@@ -82,46 +84,75 @@ most_similar_column <- c(most_similar_column)
 
 # 2. By K-Means
 ```{r}
-# Sample data
+
 set.seed(123)
-df1 <- data.frame(A = c("apple", "banana", "orange", "grape"),
-                  B = c("red", "yellow", "orange", "purple"),
-                  C = c("cat", "dog", "bird", "fish"),
-                  D = c("big", "small", "medium", "small"))
+n <- 100
+m1 <- 5 
+m2 <- 7 
 
-df2 <- data.frame(E = c("apple", "grape", "orange", "banana", "kiwi"),
-                  F = c("red", "purple", "orange", "yellow", "green"),
-                  G = c("dog", "cat", "bird", "turtle", "rabbit"),
-                  H = c("small", "big", "medium", "large", "small"),
-                  I = rnorm(5))
 
-# Function to calculate Jaccard similarity for character vectors
+df1_chars <- data.frame(matrix(sample(letters, n * m1, replace = TRUE), ncol = m1))
+df2_chars <- data.frame(matrix(sample(letters, n * m2, replace = TRUE), ncol = m2))
+
+
+df1_nums <- data.frame(matrix(rnorm(n * m1), ncol = m1))
+df2_nums <- data.frame(matrix(rnorm(n * m2), ncol = m2))
+
+
+df1 <- cbind(df1_chars, df1_nums)
+df2 <- cbind(df2_chars, df2_nums)
+
+
 jaccard_similarity <- function(x, y) {
-  if (is.character(x) && is.character(y)) {
-    intersection <- length(intersect(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
-    union <- length(union(strsplit(x, NULL)[[1]], strsplit(y, NULL)[[1]]))
-    return(intersection / union)
-  } else {
-    # If not character data, return 0 similarity
-    return(0)
+  intersection <- length(intersect(strsplit(as.character(x), NULL)[[1]], strsplit(as.character(y), NULL)[[1]]))
+  union <- length(union(strsplit(as.character(x), NULL)[[1]], strsplit(as.character(y), NULL)[[1]]))
+  return(1 - intersection / union)
+}
+
+
+result_list <- list()
+
+
+for (col_df1 in colnames(df1)) {
+  column_df1 <- df1[[col_df1]]
+
+  temp_result_list <- list()
+
+  for (col_df2 in colnames(df2)) {
+    column_df2 <- df2[[col_df2]]
+
+    is_numeric_df1 <- is.numeric(column_df1)
+    is_numeric_df2 <- is.numeric(column_df2)
+
+    if (is_numeric_df1 && is_numeric_df2) {
+      # num -> Euc
+      dist_matrix <- dist(cbind(column_df1, column_df2), method = "euclidean")
+    } else {
+      # char -> Jaccard
+      dist_matrix <- stringdist::stringdistmatrix(column_df1, column_df2, method = "jaccard")
+    }
+
+    # K-means
+    k <- 2  # 设置聚类数
+    kmeans_result <- kmeans(as.matrix(dist_matrix), centers = k, iter.max = 100, nstart = 25, algorithm = "Lloyd")
+
+    cluster_assignments <- kmeans_result$cluster
+    most_similar_index <- which.min(kmeans_result$withinss[-1]) + 1
+
+
+    temp_result_list[[col_df2]] <- tibble(
+      Column_df1 = col_df1,
+      Column_df2 = col_df2,
+      Similarity = 1 - kmeans_result$withinss[most_similar_index] / sum(kmeans_result$withinss)
+    )
   }
+
+  temp_result_df <- bind_rows(temp_result_list)
+
+  result_list[[col_df1]] <- temp_result_df
 }
 
-# Initialize an empty data frame to store the most similar columns
-df2_selected <- data.frame(matrix(nrow = nrow(df1), ncol = ncol(df1)))
-
-# Calculate the most similar column for each column in df1
-for (i in seq_along(df1)) {
-  similarities <- sapply(df2, function(col) jaccard_similarity(df1[[i]], col))
-  most_similar_index <- which.max(similarities)
-  df2_selected[, i] <- df2[[most_similar_index]]
-}
-
-# Rename the columns in df2_selected
-colnames(df2_selected) <- colnames(df1)
-
-# Print the result
-print(df2_selected)
-
+result_df <- bind_rows(result_list)
+print(result_df)
 ```
 
