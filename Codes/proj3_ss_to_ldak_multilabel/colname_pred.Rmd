@@ -133,7 +133,7 @@ for (col_df1 in colnames(df1)) {
     }
 
     # K-means
-    k <- 2  # 设置聚类数
+    k <- 2
     kmeans_result <- kmeans(as.matrix(dist_matrix), centers = k, iter.max = 100, nstart = 25, algorithm = "Lloyd")
 
     cluster_assignments <- kmeans_result$cluster

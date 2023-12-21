@@ -207,12 +207,12 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 ${dir_LDAK} \
-  --make-phenos ${dir_RA}/data/makepheno/Trait_1 \
+  --make-phenos ${dir_RA}/data/makepheno/Trait_1_pheno1 \
   --bfile ${dir_data}/geno \
   --weights ${dir_RA}/data/geno_weighting_thin.thin \
   --power -0.25 \
   --her 0.9 \
-  --num-phenos 5 \
+  --num-phenos 1 \
   --num-causals 50000 \
   --extract ${dir_RA}/data/snps_1_to_12_geno.txt
 

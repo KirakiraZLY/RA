@@ -55,6 +55,8 @@ def CalcPRS(X_train, y_train, X_val, X_test, y_val, y_test):
     criterion_seq = nn.MSELoss()
     optimizer_seq = torch.optim.Adam(model_seq.parameters(), lr=0.001)
 
+    print("Training...")
+
     # Training loop
     epochs_seq = 10
     for epoch_seq in range(epochs_seq):
@@ -74,6 +76,7 @@ def CalcPRS(X_train, y_train, X_val, X_test, y_val, y_test):
             r2_val_seq = r2_score(y_val, predictions_val_seq.numpy())
             print(f"Epoch {epoch_seq + 1}/{epochs_seq}, MSE on Validation Set: {mse_val_seq}, R2 Score: {r2_val_seq}")
 
+    print("Testing...")
     model_seq.eval()
     with torch.no_grad():
         predictions_test_seq = model_seq(X_test_tensor)

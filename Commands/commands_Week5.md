@@ -220,6 +220,56 @@ sbatch mhc_ldak_trait_1
 
 ```
 
+## Make phenotype by smallset
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+
+${dir_LDAK} \
+  --make-phenos ${dir_RA}/proj2_noniid_problem/pseudo_genotype/smallset_pheno \
+  --bfile ${dir_RA}/proj2_noniid_problem/pseudo_genotype/smallset \
+  --ignore-weights YES  \
+  --power -1 \
+  --her 0.5 \
+  --num-phenos 1 \
+  --num-causals 5
+
+```
+
+## Run PRS on an example data
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly_python3.6.3
+
+python ${dir_RA}/proj2_noniid_problem/codes/Transformer_PRS/main.py --bfile ${dir_noniid_data}/mhc  --phenoFile ${dir_RA}/proj2_noniid_problem/mhc_phenotype/mhc_trait_1.pheno  --out ${dir_RA}/proj2_noniid_problem/results/mhc_result
+
+" > ${dir_RA}/scripts/proj2_noniid_problem/results/mhc_result
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj2_noniid_problem/results/
+sbatch mhc_result
+```
+
+
+
 
 # Bolt Predict
 ```python
@@ -231,8 +281,8 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
+#SBATCH --mem 64G
+#SBATCH -t 20:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 ${dir_LDAK} --bolt ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/geno_train_Trait1_bolt_prs --LDpred YES --bfile ${dir_RA}/data/geno_train --pheno ${dir_RA}/data/makepheno/Trait_1.pheno.train --LOCO NO  --mpheno 1
@@ -244,3 +294,31 @@ cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/bolt_pred/
 sbatch geno_train_Trait1_bolt_prs
 
 ```
+
+## Example
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_noniid_data="/home/lezh/dsmwpred/ml"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 20:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+${dir_LDAK} --make-snps ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/fake --num-samples 10000 --num-snps 10000
+${dir_LDAK} --make-phenos ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/fake --num-phenos 1 --her .3 --power -1 --num-causals 100 --bfile ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/fake
+
+${dir_LDAK}  --bolt ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/ldpred_fake --LDpred YES --bfile ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/fake --pheno ${dir_RA}/proj1_testprs_finngen_ukbb/bolt_pred/fake.pheno --LOCO NO
+
+" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/bolt_pred/ldpred_fake
+
+# I am doing blabla
+cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/bolt_pred/
+sbatch ldpred_fake
+```
+
