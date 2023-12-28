@@ -76,8 +76,6 @@ ${dir_LDAK} --calc-scores ${dir_RA}/quickprs/white_scores --scorefile ${dir_RA}/
 
 cd ${dir_RA}/scripts/quickprs/
 sbatch white_scores
-
-
 ```
 
 

@@ -156,6 +156,7 @@ for j in {1..3}; do
     linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
     a=()
     for p in "$linenamecleaned"; do a+=("$p.bed"); done
+    echo -e $line
     echo -e $linecleanedstring
     echo -e $linenamecleaned
     echo -e $p
