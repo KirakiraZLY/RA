@@ -610,4 +610,47 @@ done
 
 
 
+3 Try to use 42 traits on one SS   
+**AB1_BACT_INTEST_OTH.bld.ldak.bayesr.effects**   
+Predict Phenotype
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+icd10="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/icd10_100pheno_list.txt"
+finngen_ss_link="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/list_100_ss_phenocode_withprefix.txt"
+finngen_ss_name="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/list_100_ss_phenocode.txt"
+finngen_42phenos="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/finngen_42phenos.txt"
+for j in {1..42}; do
+linename=$(head -n $j ${finngen_42phenos} | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+line=()
+for p in "$linenamecleaned"; do linecleanedstring+=("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/finngen_R8_$linenamecleaned"); done
+
+linenameCleanedQuick=()
+for p in "$linenamecleaned"; do linenameCleanedQuick+=("$p.bld.ldak"); done
+linecleanedStringHG=()
+for p in "$linecleanedstring"; do linecleanedStringHG+=("$p.hg19"); done
+extractnamelist=()
+for p in "$linenamecleaned"; do   a=("finngen_R8_$p");  extractnamelist+=("$a.extract.list"); done
+icdname=$(head -n $j ${icd10} | tail -n 1)
+icdnamecleaned=$(echo -n "$icdname" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/${linenamecleaned}.scores --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/AB1_BACT_INTEST_OTH.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${icdnamecleaned}  --extract ${dir_RA}/proj1_testprs_finngen_ukbb/ss_extract/$extractnamelist
+
+" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/${linenamecleaned}.scores
+
+cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/
+sbatch ${linenamecleaned}.scores
+done
+
+```
 
