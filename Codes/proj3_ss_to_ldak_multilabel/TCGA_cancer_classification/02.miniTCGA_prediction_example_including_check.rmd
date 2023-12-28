@@ -1,0 +1,187 @@
+---
+title: "Working with miniTCGA data"
+author: "Palle Villesen"
+date: 'Last update: `r Sys.time()`'
+output: 
+  html_document:
+    theme: united
+    code_folding: show
+    toc: true
+editor_options: 
+  chunk_output_type: console
+--- 
+
+```{r}
+
+library(tidyverse)
+
+df <- read_rds(file = "miniTCGA.3349x4006.rds") 
+
+```
+
+# Quick view of all data
+
+```{r}
+
+df[1:10,1:10]
+
+```
+
+# Split into training and prediction set
+
+```{r}
+
+set.seed(0)
+
+data_train    <- df %>% filter(!is.na(response))
+dim(data_train)
+
+data_predict  <- df %>% filter(is.na(response))                              
+dim(data_predict)
+
+```
+
+# Split into train and test fold
+
+```{r}
+
+# Always make the same split
+set.seed(0)
+
+# We use 80% for training and 20% for evaluation
+trainfold <- data_train %>% sample_frac(size=0.80)
+testfold  <- setdiff(data_train, trainfold)
+
+# We fit our model (simple logistic regression on pc1 and pc2 with interaction)
+fit <-  glm(response ~ pc2 * pc3, data = trainfold, family=binomial(link='logit'))
+
+# We predict on the test fold
+predicted <- predict(fit, newdata = testfold, type = "response")
+predicted <- round(predicted)+1 # Convert probabilities to 1 or 2
+predicted <- levels(trainfold$response)[predicted]
+
+# We compare with the observed values and calculate error rate
+observed    <- testfold$response
+
+# Our guess on the general error rate of the model (very unprecise!)
+(test_error <- sum(observed!=predicted)/length(observed)) 
+
+```
+
+# PCA overview 
+
+```{r}
+
+ggplot(df, aes(x=pc1, y=pc2, color=response)) +
+  geom_point() +
+  theme_classic()
+
+ggplot(df, aes(x=pc1, y=pc3, color=response)) +
+  geom_point() +
+  theme_classic()
+
+ggplot(df, aes(x=pc2, y=pc3, color=response)) +
+  geom_point() +
+  theme_classic()
+
+ggplot(df, aes(x=pc1, y=pc2, color=tissue)) +
+  geom_point() +
+  theme_classic()
+
+ggplot(df, aes(x=pc1, y=pc3, color=tissue)) +
+  geom_point() +
+  theme_classic()
+
+ggplot(df, aes(x=pc2, y=pc3, color=tissue)) +
+  geom_point() +
+  theme_classic()
+
+
+```
+
+# Predict the real unknown data
+
+First we fit the model to all of our known data
+
+Then we predict on the unknown data
+
+The predictions must have the following column and the row order must be the same as the original!
+
+* predicted (the predicted class, either "Normal" or "Tumor")
+
+```{r}
+
+fit <-  glm(response ~ pc2 * pc3, data = data_train, family=binomial(link='logit'))
+
+predicted <- predict(fit, newdata = data_predict, type = "response")
+predicted <- round(predicted)+1 # Convert probabilities to 1 or 2
+predicted <- levels(data_train$response)[predicted]
+
+submission <- tibble(predicted = predicted)
+
+head(submission)
+
+```
+
+# Submitting your answer
+
+The following code will give us
+
+* your chosen team name
+* the name of the people on the team
+* your estimated error rate (from train/test or CV or similar)
+* your predictions
+
+Please edit the values below .
+
+The filename of the output will be automated minitcga_cancer_classification.TEAMNAME.rds
+
+Please - do not use space or funny letters in your team name.
+
+```{r}
+
+team_name        <- "team_palle"
+team_people      <- c("Palle", "Thomas", "Asger")
+team_error       <- test_error
+team_predictions <- submission
+
+#
+# Always run this code
+# If it fails you have done something wrong!
+#
+# Extract the columns needed
+team_predictions <- team_predictions %>% select(predicted)
+
+# Save all the stuff in one object
+write_rds(x = list(team_name, team_people, team_error, team_predictions), 
+          file = paste("minitcga_cancer_classification.", team_name, ".rds", sep=""))
+
+```
+
+# Checking format of all saved objects
+
+```{r}
+
+files   <- Sys.glob("minitcga_cancer_classification.*.rds")
+results <- tibble(filename = files)
+
+for (i in 1:nrow(results)) {
+  x <- read_rds(file = as.character(results$filename[i]))
+  results$team_name[i]     <- x[[1]]
+  results$team_people[i]   <- paste(x[[2]], collapse=",", sep=" ")
+  results$team_error[i]    <- x[[3]]
+  y                        <- x[[4]]
+  results$n_tumor          <- sum(y$predicted=="Tumor")
+  results$n_normal         <- sum(y$predicted=="Normal")
+  results$submission[i]    <- list(x[[4]])
+}
+
+rm(x,y)
+
+results %>% select(-filename)
+
+results$submission[[1]]
+
+```
+
+# Upload your rds file!

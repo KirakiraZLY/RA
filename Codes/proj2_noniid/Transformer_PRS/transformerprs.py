@@ -24,7 +24,83 @@ class TransformerLinearRegression(nn.Module):
         output = self.fc(transformer_output[:, -1, :])  # Use the last transformer layer output
         return output
 
-def CalcPRS(X_train, y_train, X_val, X_test, y_val, y_test):
+def JustDoIt(model_seq, train_loader, optimizer_seq, criterion_seq, X_val_tensor, y_val, X_test_tensor, y_test, args):
+    epochs_seq = 10
+    # if hasattr(args, 'epoch'):
+    #     epochs_seq = args.epoch
+
+    for epoch_seq in range(epochs_seq):
+        model_seq.train()
+        for inputs_seq, targets_seq in train_loader:
+            optimizer_seq.zero_grad()
+            outputs_seq = model_seq(inputs_seq)
+            loss_seq = criterion_seq(outputs_seq, targets_seq)
+            loss_seq.backward()
+            optimizer_seq.step()
+
+        # Evaluation on the validation set
+        model_seq.eval()
+        with torch.no_grad():
+            predictions_val_seq = model_seq(X_val_tensor)
+            mse_val_seq = mean_squared_error(y_val, predictions_val_seq.numpy())
+            r2_val_seq = r2_score(y_val, predictions_val_seq.numpy())
+            print(f"Epoch {epoch_seq + 1}/{epochs_seq}, MSE on Validation Set: {mse_val_seq}, R2 Score: {r2_val_seq}")
+
+    model_seq.eval()
+    with torch.no_grad():
+        predictions_test_seq = model_seq(X_test_tensor)
+        mse_test_seq = mean_squared_error(y_test, predictions_test_seq.numpy())
+        r2_test_seq = r2_score(y_test, predictions_test_seq.numpy())
+        print(f"MSE on Test Set: {mse_test_seq}, R2 Score: {r2_test_seq}")
+        return mse_test_seq, r2_test_seq
+
+
+def TrainingModel(model_seq, train_loader, optimizer_seq, criterion_seq, X_val_tensor, y_val, args):
+
+    print("Training...")
+    # Training loop
+    epochs_seq = 10
+    # if hasattr(args, 'epoch'):
+    #     epochs_seq = args.epoch
+
+    for epoch_seq in range(epochs_seq):
+        model_seq.train()
+        for inputs_seq, targets_seq in train_loader:
+            optimizer_seq.zero_grad()
+            outputs_seq = model_seq(inputs_seq)
+            loss_seq = criterion_seq(outputs_seq, targets_seq)
+            loss_seq.backward()
+            optimizer_seq.step()
+
+        # Evaluation on the validation set
+        model_seq.eval()
+        with torch.no_grad():
+            predictions_val_seq = model_seq(X_val_tensor)
+            mse_val_seq = mean_squared_error(y_val, predictions_val_seq.numpy())
+            r2_val_seq = r2_score(y_val, predictions_val_seq.numpy())
+            print(f"Epoch {epoch_seq + 1}/{epochs_seq}, MSE on Validation Set: {mse_val_seq}, R2 Score: {r2_val_seq}")
+
+    ## Save Model
+    torch.save(model_seq.state_dict(), args.modelSave)
+
+def Predicting(input_dim_seq, X_test_tensor, y_test, args):
+
+    print("Testing...")
+    model_seq = TransformerLinearRegression(input_dim=input_dim_seq)
+    model_seq.load_state_dict(torch.load(args.modelLoad))
+    model_seq.eval()
+    with torch.no_grad():
+        predictions_test_seq = model_seq(X_test_tensor)
+        mse_test_seq = mean_squared_error(y_test, predictions_test_seq.numpy())
+        r2_test_seq = r2_score(y_test, predictions_test_seq.numpy())
+        print(f"MSE on Test Set: {mse_test_seq}, R2 Score: {r2_test_seq}")
+
+    ## Write Results
+    with open(args.out + ".txt", 'w') as file:
+        file.write(f"MSE on Test Set: {mse_test_seq}, R2 Score: {r2_test_seq}")
+
+
+def DataPrepare(X_train, y_train, X_val, X_test, y_val, y_test, args):
     # Standardize the data
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train.reshape(-1, 1)).reshape(X_train.shape)
@@ -55,37 +131,19 @@ def CalcPRS(X_train, y_train, X_val, X_test, y_val, y_test):
     criterion_seq = nn.MSELoss()
     optimizer_seq = torch.optim.Adam(model_seq.parameters(), lr=0.001)
 
-    print("Training...")
-
-    # Training loop
-    epochs_seq = 10
-    for epoch_seq in range(epochs_seq):
-        model_seq.train()
-        for inputs_seq, targets_seq in train_loader:
-            optimizer_seq.zero_grad()
-            outputs_seq = model_seq(inputs_seq)
-            loss_seq = criterion_seq(outputs_seq, targets_seq)
-            loss_seq.backward()
-            optimizer_seq.step()
-
-        # Evaluation on the validation set
-        model_seq.eval()
-        with torch.no_grad():
-            predictions_val_seq = model_seq(X_val_tensor)
-            mse_val_seq = mean_squared_error(y_val, predictions_val_seq.numpy())
-            r2_val_seq = r2_score(y_val, predictions_val_seq.numpy())
-            print(f"Epoch {epoch_seq + 1}/{epochs_seq}, MSE on Validation Set: {mse_val_seq}, R2 Score: {r2_val_seq}")
-
-    print("Testing...")
-    model_seq.eval()
-    with torch.no_grad():
-        predictions_test_seq = model_seq(X_test_tensor)
-        mse_test_seq = mean_squared_error(y_test, predictions_test_seq.numpy())
-        r2_test_seq = r2_score(y_test, predictions_test_seq.numpy())
-        print(f"MSE on Test Set: {mse_test_seq}, R2 Score: {r2_test_seq}")
-        return mse_test_seq, r2_test_seq
-
-
+    if hasattr(args, 'modelSave') and not hasattr(args, 'modelLoad'):
+        print("To Save Model")
+        TrainingModel(model_seq, train_loader, optimizer_seq, criterion_seq, X_val_tensor, y_val, args)
+    if not hasattr(args, 'modelSave') and hasattr(args, 'modelLoad'):
+        print("To Load Model and Predict")
+        Predicting(input_dim_seq, X_test_tensor, y_test, args)
+    if hasattr(args, 'modelSave') and hasattr(args, 'modelLoad'):
+        print("To both save and load model")
+        TrainingModel(model_seq, train_loader, optimizer_seq, criterion_seq, X_val_tensor, y_val, args)
+        Predicting(input_dim_seq, X_test_tensor, y_test, args)
+    if not hasattr(args, 'modelSave') and not hasattr(args, 'modelLoad'):
+        print("Just run the full steps")
+        JustDoIt(model_seq, train_loader, optimizer_seq, criterion_seq, X_val_tensor, y_val, X_test_tensor, y_test, args)
 
 
 def main():
@@ -100,7 +158,7 @@ def main():
     X_train, X_temp, y_train, y_temp = train_test_split(X_seq, y_seq, test_size=0.4, random_state=42)
     X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
     # print(X_val)
-    CalcPRS(X_train, X_temp, y_train, y_temp, X_val, X_test, y_val, y_test)
+    # CalcPRS(X_train, X_temp, y_train, y_temp, X_val, X_test, y_val, y_test)
 
 if __name__ == '__main__':
     main()

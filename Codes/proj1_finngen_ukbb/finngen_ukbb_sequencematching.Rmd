@@ -20,6 +20,10 @@ library(stringi)
 # snps <- read_table2("R8_manifest.tsv", col_names = FALSE)
 icd10 <- read_table2("./icdtraits.details")
 finngen <- read_tsv("./R8_manifest.tsv")
+
+finngen_100 <- read_tsv("./list_100_ss_phenocode.txt", col_names = FALSE)
+finngen <- finngen_100
+colnames(finngen) <- "phenocode"
 ```
 
 
@@ -57,18 +61,31 @@ icd10_pheno$Index <- 1:nrow(icd10_pheno)
 
 result <- data.frame(matrix(0, nrow = nrow(finngen_pheno), ncol = 8))
 # result <- data.frame(matrix(0, nrow = 10, ncol = 8))
-
-
+result$Indexicd <- 0
+result$icd_name <- 0
 for (i in 1:nrow(finngen_pheno)) {
-# for (i in 1:10) {
     for (j in 2:9) {
+      cat(i,j,"\n")
+      if (is.na(finngen_pheno[i,j])) {
+        next
+      }
       for (k in 1:nrow(icd10_pheno)) {
       string1 <- finngen_pheno[i,j]
       string2 <- icd10_pheno$phenocode[k]
-      
       # is_substring <- stri_detect_fixed(string2, string1)
       tmp <- ifelse(stri_detect_fixed(string2, string1), 1, 0)
+      # cat("i =", i, ", j =", j, ", k =", k, "\n")
+      # print(tmp)
+      # print(string2)
+      # print(string1)
+      tmp_chr <- result[i,j-1]
       result[i,j-1] <- max(result[i,j-1], tmp)
+      if (tmp_chr != result[i,j-1]) { # Meaning it's changed
+        result$icd_name[i] <- finngen_100$X1[i]
+      }
+      if (tmp == 1)  {
+        result$Indexicd[i] <- k
+      }
       
       # result[,j-1] <- sapply(1:nrow(icd10_pheno), function(i) {
   # stri_detect(df$string2[i], df$string1[i])
@@ -76,7 +93,8 @@ for (i in 1:nrow(finngen_pheno)) {
       # if (grepl(string1, string2)) {
         # print(i)
       # }
-    }
+      }
+      # print("jjjjjjjjjjjjj")
   }
   print(i)
 }
@@ -87,14 +105,47 @@ result$Index <- 1:nrow(result)
 
 ## Delete any rows unmatched
 ```{r}
-result_filtered <- result %>% filter_at(vars(1:8), any_vars(. != 0))
-write.table(result_filtered,"finngen_subset_in_icd10.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+result_filtered <- result %>% filter_at(vars(1:10), any_vars(. != 0))
+
+# write.table(result_filtered,"finngen_subset_in_icd10.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+result_filtered_index <- result_filtered[,c("Indexicd", "Index","icd_name")]
+write.table(result_filtered_index,"finngen_100pheno_in_icd10.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+token <- merge(finngen_pheno, result_filtered, by = "Index", all.y = FALSE)
+token <- token[,names(finngen_pheno)]
+
+write.table(token,"finngen_100pheno_in_icd10_token.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
 
 ```
 
 
+## Get the codes
+And get a file containing one column of filenames
 
+```{r}
+list <- read_table("./finngen_100pheno_in_icd10.txt", col_names = FALSE)
 
+code_number <- paste("/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code", list$X1, sep = "")
+code_number <- paste(code_number, ".pheno", sep = "")
+write.table(code_number,"icd10_100pheno_ready_to_copy.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+write.table(list$X3,"icd10_100pheno_names.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+## Change the pheno list of 100 finngen into 42 icd10
+```{r}
+list_finngen <- read_table("./list_100_ss_phenocode.txt", col_names = FALSE)
+list_icd10 <- read_table("./finngen_100pheno_in_icd10.txt", col_names = FALSE)
+icd10 <- data.frame(list_icd10$X3)
+colnames(icd10) <- "pheno"
+colnames(list_finngen) <- "pheno"
+
+finngen_42 <- merge(list_finngen, icd10, by = "pheno", all.y = FALSE)
+order_index <- match(icd10$pheno, finngen_42$pheno)
+finngen_42 <- data.frame(finngen_42[order_index,])
+
+write.table(finngen_42,"finngen_42phenos.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
 
 
 ## Matching Longest Common Sequence
