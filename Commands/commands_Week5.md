@@ -363,7 +363,7 @@ ukbb_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finnge
 for j in {1..100}; do
     line=$(head -n $j $ukbb_filename | tail -n 1 | sed 's/\\"r"//g; s/\r$//')
     echo -e $line
-    cp $line  /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100ukbb/
+    cp $line  /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/
 done
 
 
@@ -392,13 +392,15 @@ while IFS=$'\t' read -r line; do
     col3=$(echo "$line" | awk '{print $3}')
     # 去掉行尾的 $'\r'
     col3=$(echo "$col3" | tr -d $'\r')
+    col4=$(echo "$line" | awk '{print $4}')
+    col4=$(echo "$col4" | tr -d $'\r')
     #echo "Column 1: $col1, Column 3: $col3"
     target=()
-    for p in "$col1"; do target+=("/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/code${p}.pheno"); done
+    for p in "$col4"; do target+=("/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/code${p}.pheno"); done
     targetname=()
     for p in "$col3"; do targetname+=("/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/finngen_R8_${p}.pheno"); done
     #echo $targetname
-    #mv $target $targetname
+    mv $target $targetname
     targetname1=()
     for p in "$col3"; do targetname1+=("finngen_R8_${p}.pheno"); done
     echo "$targetname" >> "/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/icd10_100pheno_list.txt"
@@ -644,13 +646,70 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/${linenamecleaned}.scores --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/AB1_BACT_INTEST_OTH.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${icdnamecleaned}  --extract ${dir_RA}/proj1_testprs_finngen_ukbb/ss_extract/$extractnamelist
+${dir_LDAK} --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/test/${linenamecleaned}.scores --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/AB1_BACT_INTEST_OTH.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${icdnamecleaned}  --extract ${dir_RA}/proj1_testprs_finngen_ukbb/ss_extract/finngen_R8_AB1_BACT_INTEST_OTH.extract.list
 
-" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/${linenamecleaned}.scores
+" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/test/${linenamecleaned}.scores
 
-cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/
+cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/test/
 sbatch ${linenamecleaned}.scores
 done
 
 ```
 
+gunzip -c finngen_R8_ASTHMA_ALLERG.gz | awk '(NR==FNR){a[$2]=$5$6;next}(FNR==1){print "Predictor A1 A2 Direction P n"}($5 in a && (a[$5]==$3$4 || a[$5]==$4$3)){print $5, $4, $3, $9, $7, 4106 + 193857}' /home/lezh/dsmwpred/data/ukbb/geno3.bim - > asthma.txt
+
+## Manual Test
+### Asthma
+code 4648
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+icd10="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/icd10_100pheno_list.txt"
+finngen_ss_link="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/list_100_ss_phenocode_withprefix.txt"
+finngen_ss_name="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/list_100_ss_phenocode.txt"
+finngen_42phenos="/faststorage/project/dsmwpred/zly/RA/data/FinnGen/finngen_42phenos.txt"
+#for j in {1..42}; do
+linename=$(head -n $j ${finngen_42phenos} | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+line=()
+for p in "$linenamecleaned"; do linecleanedstring+=("/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/finngen_R8_$linenamecleaned"); done
+
+linenameCleanedQuick=()
+for p in "$linenamecleaned"; do linenameCleanedQuick+=("$p.bld.ldak"); done
+linecleanedStringHG=()
+for p in "$linecleanedstring"; do linecleanedStringHG+=("$p.hg19"); done
+extractnamelist=()
+for p in "$linenamecleaned"; do   a=("finngen_R8_$p");  extractnamelist+=("$a.extract.list"); done
+icdname=$(head -n $j ${icd10} | tail -n 1)
+icdnamecleaned=$(echo -n "$icdname" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/finngen_R8_ASTHMA_ALLERG_manual.scores --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/ASTHMA_ALLERG.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code4648.pheno  --extract ${dir_RA}/proj1_testprs_finngen_ukbb/ss_extract/finngen_R8_ASTHMA_ALLERG.extract.list
+
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/finngen_R8_ASTHMA_ALLERG_manual.scores --bfile /home/lezh/dsmwpred/data/ukbb/geno2 --power 0 --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/ASTHMA_ALLERG.bld.ldak.bayesr.effects --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code4648.pheno --max-threads 4
+
+" > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/finngen_R8_ASTHMA_ALLERG_manual.scores
+
+cd ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/
+sbatch finngen_R8_ASTHMA_ALLERG_manual.scores
+#done
+
+```
+
+# Project 3
+## Munge
+```python
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+conda activate zly_python3.6.3
+python /faststorage/project/dsmwpred/zly/software/ldsc-master/munge_sumstats.py --sumstats /faststorage/project/dsmwpred/zly/RA/proj3_ss_to_ldak_format/ss_ldak/geno_LDAK_Trait_4_P1.summaries --out /faststorage/project/dsmwpred/zly/RA/proj3_ss_to_ldak_format/ss_out/output_test --merge-alleles ${dir_data}/geno.bed
+```

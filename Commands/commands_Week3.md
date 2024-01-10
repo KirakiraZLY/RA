@@ -102,7 +102,6 @@ echo "#"'!'"/bin/bash
 #SBATCH -t 10:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 wget -i ${dir_RA}/data/FinnGen/list_100_ss_links.txt -P ${dir_RA}/data/FinnGen/summarystatistics/
@@ -274,9 +273,9 @@ for j in {1..100}; do
     for p in $linenamecleaned; do 
     linenamecleanednotitle+=("$p.notitle.sh"); done
 
-    echo -e $j $linecleanedstringqc
+    echo -e $j $linecleanedstring
 
-    tail -n +2 $linecleanedstringqc > $linecleanedstringwithouttitle
+    #tail -n +2 $linecleanedstringqc > $linecleanedstringwithouttitle
 
 done
 

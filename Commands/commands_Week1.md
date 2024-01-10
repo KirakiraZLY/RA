@@ -60,6 +60,17 @@ ${dir_LDAK} --cut-genes ${dir_RA}/megaprs/highld_white --bfile ${dir_data}/geno 
 
 " > ${dir_RA}/scripts/megaprs/highld_white
 
+
+
+
+
+
+
+
+
+
+
+
 # I am doing blabla
 cd ${dir_RA}/scripts/megaprs/
 sbatch highld_white
