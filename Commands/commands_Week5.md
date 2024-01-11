@@ -646,6 +646,8 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
+conda activate zly2
+
 ${dir_LDAK} --calc-scores ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/test/${linenamecleaned}.scores --scorefile ${dir_RA}/proj1_testprs_finngen_ukbb/pheno100/quickprs/AB1_BACT_INTEST_OTH.bld.ldak.bayesr.effects --bfile ${dir_data}/geno2 --power 0 --pheno ${icdnamecleaned}  --extract ${dir_RA}/proj1_testprs_finngen_ukbb/ss_extract/finngen_R8_AB1_BACT_INTEST_OTH.extract.list
 
 " > ${dir_RA}/scripts/proj1_testprs_finngen_ukbb/pheno100/quickprs/scores/test/${linenamecleaned}.scores
