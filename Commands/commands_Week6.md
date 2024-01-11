@@ -665,8 +665,6 @@ Rscript /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ukbb_icd10_co
 cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/data/ldak_format/
 sbatch ukbb_combine
 
-done
-
 ```
 
 
