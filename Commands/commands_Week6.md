@@ -877,6 +877,10 @@ for i in {1..551}; do
 
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo ${linenamecleaned}
+done
+
 awk '{print $5}' "/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile" > "/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/combine/column_${linenamecleaned}.txt"
 
 done
