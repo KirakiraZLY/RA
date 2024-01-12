@@ -715,7 +715,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --mega-prs /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/cors_geno3 --high-LD /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+${dir_LDAK} --mega-prs /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/cors_geno3 --high-LD /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
 
 " > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.sh
 
@@ -740,25 +740,34 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 for j in {1..551}; do
-
-line=$(head -n $j $ss_filename | tail -n 1)
+echo $j
 linename=$(head -n $j $ss_name_filename | tail -n 1)
-linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
-#SBATCH -t 8:0:0
+#SBATCH --mem 16G
+#SBATCH -t 10:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --calc-scores /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleanedscore} --power 0 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --scorefile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new.effects  
+${dir_LDAK} --calc-scores /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --scorefile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new.effects  
 
 " > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.sh
 
 # I am doing blabla
+
 cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/
+
+done
+
+```
+
+```python
+
+for j in {1..551}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 sbatch finngen_R10_${linenamecleaned}.sh
 
 done
@@ -787,7 +796,7 @@ linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 64G
-#SBATCH -t 8:0:0
+#SBATCH -t 16:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -810,6 +819,42 @@ done
 ```
 
 
+### Step 4, my jackknife
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+for j in {1..551}; do
+echo $j
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/jackknife_onecolumn_and_theothers.R --scoreFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife  --phenoFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/all948/ukbb_phenotype_948_all.pheno
+
+" > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
+
+# I am doing blabla
+
+cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/
+sbatch finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
+
+done
+
+
+```
+
 ### Combine all traits of UKBB into one table
 /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/all948/icd10_alltraits_test.txt
 ```python
@@ -820,3 +865,22 @@ Rscript /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ukbb_icd10_co
 
 ```
 
+### Combine all PRS of MegaPRS into one table
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+for i in {1..551}; do
+
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+awk '{print $5}' "/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile" > "/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/combine/column_${linenamecleaned}.txt"
+
+done
+paste /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/combine/column_*.txt > megaprs_new_pred_merged.txt
+
+rm /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/combine/column_*.txt
+```
