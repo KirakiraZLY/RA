@@ -23,6 +23,26 @@ zcat 33kg_geno.gz | awk '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's
 
 ```
 
+### TEST: extract $12 for ethnic group from the chr21 text
+```python
+zcat 33kg_chr21_geno.gz | awk '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g' | head -n 6 > 33kg_chr21_geno_fin_6snps.txt
+
+```
+
+### Print first 6 columns
+```python
+head -n 6 33kg_geno_fin.txt > 33kg_geno_fin_6columns.txt
+
+```
+
+## get bim file of the full one
+```python
+zcat 33kg_index.gz | awk '{print $2, $1, $6, $3, $5, $4}'> 33kg_geno_fin.bim
+
+```
+
+
+
 # FinnGen UKBB
 ## To get correlation > 0.05
 
