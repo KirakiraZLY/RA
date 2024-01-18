@@ -18,7 +18,10 @@ wget --header="Host: drive.usercontent.google.com" --header="User-Agent: Mozilla
 
 
 ## extract $12 for ethnic group from the full text
-zcat 33kg_geno.gz | awk -F'\t' '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g'> 33kg_geno_fin
+```python
+zcat 33kg_geno.gz | awk -F'\t' '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g'> 33kg_geno_fin.txt
+
+```
 
 # FinnGen UKBB
 ## To get correlation > 0.05
