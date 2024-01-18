@@ -1091,7 +1091,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/trait_03/megaprs_new/trait_03_score --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/trait_03/megaprs_new/trait_03_megabayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/megaprs_new_trait_1/trait_1.pheno.test  --mpheno 1 
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/trait_03/megaprs_new/trait_03_score --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/trait_03/megaprs_new/trait_03_megabayesr.effects --bfile ${dir_RA}/data/geno_test --power 0 --pheno /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/simulateddata_prs/trait_03/trait_03.pheno.test --mpheno 1
 
 ```
 
