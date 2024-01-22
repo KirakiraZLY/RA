@@ -42,7 +42,7 @@ df <- read_table("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1
 df_sampled <- df %>% sample_frac(0.001)
 
 print("Plotting")
-p <- ggplot(df, aes(x = SNP_ID, y = MAF)) +
+p <- ggplot(df, aes(x = SNP, y = MAF)) +
   geom_point() +
   labs(title = "Minor Allele Frequency (MAF) for SNPs",
        x = "SNP ID",
