@@ -37,24 +37,9 @@ head -n 6 33kg_geno_fin.txt > 33kg_geno_fin_6columns.sp
 
 ```
 
-### gzip .sp file
-
+## extract $12 for ethnic group from the full text
 ```python
-
-echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
-#SBATCH -t 30:0:0
-#SBATCH -c 8
-#SBATCH -A dsmwpred
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-gzip /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin.sp
-
-" > /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_gzip.sh
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/data/33KG/
-sbatch 33kg_geno_fin_gzip.sh
+zcat 33kg_geno.gz | awk '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g'> 33kg_geno_fin.sp
 
 ```
 
@@ -219,14 +204,58 @@ Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/bim_get_rsid.R
 
 ```
 
-### Make bed QC
+
+### extract $12 for ethnic group from the full text
 ```python
-/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --geno 0.1 --mind 0.1 --maf 0.05 --mac 100 --allow-no-sex --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc
+zcat /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno.gz | awk '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g'> /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1.sp
 
 ```
 
-### QC
+## gzip
+```python
 
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 30:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+gzip /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1.sp
+
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_1_gzip.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch 33kg_geno_fin_1_gzip.sh
+
+```
+
+### Make bed with --sp
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 30:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux  --make-bed /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --sp-gz /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1  --threshold 1 --gen-skip 0 --gen-headers 0 --gen-probs 1
+
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_1_makebed.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch 33kg_geno_fin_1_makebed.sh
+
+```
+
+
+
+### Make bed QC
 ```python
 /faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --geno 0.1 --mind 0.1 --maf 0.05 --mac 100 --allow-no-sex --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc
 
@@ -237,11 +266,11 @@ Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/bim_get_rsid.R
 
 ### Step 1 有了不用跑，直接调用
 ```python
-shuf -n 5000 /home/lezh/dsmwpred/data/ukbb/geno3.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/rand_geno3.5000
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1.5000
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/cors_geno3 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/rand_geno3.5000 --max-threads 4
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1.5000 --max-threads 4
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/highld_geno3 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --genefile /home/lezh/snpher/faststorage/highld.txt
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --genefile /home/lezh/snpher/faststorage/highld.txt
 
 
 ```
@@ -254,22 +283,10 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..551}; do
-
-line=$(head -n $j $ss_filename | tail -n 1)
+#for j in {1..551}; do
+for j in {1..20}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
-linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
-
-linenamecleanedstringout=()
-for p in $linenamecleaned; do 
-linenamecleanedstringout+=("$p.ldak"); 
-done
-
-linecleanedsh=()
-for p in $linenamecleaned; do 
-linecleanedsh+=("$p.sh"); 
-done
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 64G
@@ -278,12 +295,12 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --mega-prs /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/cors_geno3 --high-LD /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
 
-" > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.sh
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.sh
 
 # I am doing blabla
-cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new
 sbatch finngen_R10_${linenamecleaned}.sh
 
 done
