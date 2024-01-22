@@ -35,15 +35,9 @@ R
 ```
 
 ```python
-# 安装和加载 ggplot2 包（如果尚未安装）
-# install.packages("ggplot2")
 library(tidyverse)
-
-# 假设你有一个包含 SNP ID 和对应的 MAF 的数据框 df
 df <- read_table("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf.frq")
 df_sampled <- df %>% sample_frac(0.01)
-
-# 使用 ggplot2 创建条形图
 p <- ggplot(df_sampled, aes(x = SNP, y = MAF, fill = SNP)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Minor Allele Frequency (MAF) for SNPs",
