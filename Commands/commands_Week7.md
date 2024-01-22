@@ -221,7 +221,7 @@ Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/bim_get_rsid.R
 
 ### Make bed QC
 ```python
-/faststorage/project/dsmwpred/zly/software/plink2 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --geno 0.1 --mind 0.1 --maf 0.05 --mac 100 --allow-no-sex --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --geno 0.1 --mind 0.1 --maf 0.05 --mac 100 --allow-no-sex --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc
 
 ```
 
