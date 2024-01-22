@@ -37,7 +37,7 @@ R
 ```python
 library(tidyverse)
 df <- read_table("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf.frq")
-df_sampled <- df %>% sample_frac(0.01)
+df_sampled <- df %>% sample_frac(0.001)
 p <- ggplot(df_sampled, aes(x = SNP, y = MAF, fill = SNP)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Minor Allele Frequency (MAF) for SNPs",
