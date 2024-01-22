@@ -50,5 +50,5 @@ p <- ggplot(df_sampled, aes(x = SNP, y = MAF)) +
   theme_minimal()
 
 print("Data Saving")
-ggsave("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf_plot.png", plot = p, width = 10, height = 6)
+ggsave("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf_plot.png", plot = p)
 ```
