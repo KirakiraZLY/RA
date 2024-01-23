@@ -6,6 +6,7 @@
 
 # 33KG with 1000 Genome
 ## MAF comparison
+### 33KG MAF
 ```python
 
 echo "#"'!'"/bin/bash
@@ -27,6 +28,28 @@ sbatch 33kg_geno_fin_1_maf.sh
 ```
 
 
+### 1000G MAF
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 30:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/1KG/1000G.99FIN.rs --freq --out /faststorage/project/dsmwpred/zly/RA/data/33KG/1000g99fin_maf
+
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/1000g99fin_maf.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch 1000g99fin_maf.sh
+
+```
+
+
 ## ggplot
 
 ```python
@@ -38,11 +61,11 @@ R
 library(tidyverse)
 
 print("Data Loading")
-df <- read_table("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf.frq")
-df_sampled <- df %>% sample_frac(0.001)
+df <- read_table("/faststorage/project/dsmwpred/zly/RA/data/33KG/maf_frq/33kg_geno_fin_1_maf.frq")
+df_sampled <- df[sample(nrow(df), 10000, replace = FALSE), ]
 
 print("Plotting")
-p <- ggplot(df, aes(x = SNP, y = MAF)) +
+p <- ggplot(df_sampled, aes(x = SNP, y = MAF)) +
   geom_point() +
   labs(title = "Minor Allele Frequency (MAF) for SNPs",
        x = "SNP ID",
@@ -50,7 +73,7 @@ p <- ggplot(df, aes(x = SNP, y = MAF)) +
   theme_minimal()
 
 print("Data Saving")
-ggsave("/faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf_plot.png", plot = p)
+ggsave("/faststorage/project/dsmwpred/zly/RA/data/33KG/maf_frq/33kg_geno_fin_1_maf_plot.png", plot = p)
 ```
 
 ### Run MAF.R
@@ -64,13 +87,13 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/MAF.R
+Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/maf_frq/MAF.R
 
 
-" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_1_maf_plot.sh
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/maf_plot.sh
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
-sbatch 33kg_geno_fin_1_maf_plot.sh
+sbatch maf_plot.sh
 
 ```
