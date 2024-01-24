@@ -97,3 +97,181 @@ cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
 sbatch maf_plot.sh
 
 ```
+
+### Run MAF_compar.R
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 2:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/maf_frq/MAF_compar.R
+
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/maf_plot.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch maf_plot.sh
+
+```
+
+### update 33kg_geno_fin_1_qc that deletes inconsistent alleles
+```python
+
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --exclude /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_snps_to_delete.txt --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc 
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/plink_delete_inconsistent.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch plink_delete_inconsistent.sh
+
+
+```
+
+
+# fg ukbb
+## MegaPRS_new
+### Step 1 有了不用跑，直接调用
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000 --max-threads 4
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --genefile /home/lezh/snpher/faststorage/highld.txt
+
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/step1.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/
+sbatch step1.sh
+
+
+```
+
+
+### Step 2 Make Model
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+#for j in {1..551}; do
+for j in {1..20}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new
+sbatch finngen_R10_${linenamecleaned}.sh
+
+done
+
+
+```
+
+
+### Step 3 Predicting, without checking
+/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+for j in {1..551}; do
+echo $j
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 10:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.megaprs.new.effects  
+
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.prediction.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/
+sbatch finngen_R10_${linenamecleaned}.prediction.sh
+done
+
+```
+
+
+
+
+### Step 4, my jackknife
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+for j in {1..551}; do
+echo $j
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/jackknife_onecolumn_and_theothers.R --scoreFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife  --phenoFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/all948/ukbb_phenotype_948_all.pheno
+
+" > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
+
+# I am doing blabla
+
+cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/jackknife/
+sbatch finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
+
+done
+

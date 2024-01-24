@@ -207,7 +207,23 @@ Rscript /faststorage/project/dsmwpred/zly/RA/data/33KG/bim_get_rsid.R
 
 ### extract $12 for ethnic group from the full text
 ```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 30:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 zcat /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno.gz | awk '{print $12}' | sed 's/0/0 /g' | sed 's/1/1 /g' | sed 's/2/2 /g'> /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1.sp
+
+gzip /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1.sp
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_1_gzip.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch 33kg_geno_fin_1_gzip.sh
 
 ```
 
