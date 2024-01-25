@@ -554,6 +554,49 @@ done
 
 
 ## Convert
+
+### Combine addn + ldak format
+```python
+
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+for j in {1..2409}; do
+#for j in {1..2}; do
+
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format_combine.R --inputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_${linenamecleaned}  --fileName  ${linenamecleaned}  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+
+echo $j
+
+
+" > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/data/ldak_format/${linenamecleaned}.ldak.sh
+
+# I am doing blabla
+cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/data/ldak_format
+sbatch ${linenamecleaned}.ldak.sh
+
+done
+
+
+```
+
+
 1. ss -> addn
 ```python
 dir="/home/lezh/dsmwpred/zly"
@@ -561,11 +604,9 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..551}; do
+for j in {1..2409}; do
 
-line=$(head -n $j $ss_filename | tail -n 1)
 linename=$(head -n $j $ss_name_filename | tail -n 1)
-linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
 linecleanedstringgz=()
@@ -611,12 +652,10 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-for j in {1..551}; do
+for j in {1..2409}; do
 
 
-line=$(head -n $j $ss_filename | tail -n 1)
 linename=$(head -n $j $ss_name_filename | tail -n 1)
-linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
 echo "#"'!'"/bin/bash
@@ -628,7 +667,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
 
-Rscript /home/lezh/dsmwpred/zly/RA/proj3_ss_to_ldak_format/ss_to_ldak_format.R --inputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.addn  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak  --bfile /home/lezh/dsmwpred/data/ukbb/geno3
+Rscript /home/lezh/dsmwpred/zly/RA/proj3_ss_to_ldak_format/ss_to_ldak_format.R --inputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.addn  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
 
 echo $j
 
@@ -643,6 +682,8 @@ done
 
 
 ```
+
+
 
 ## Combine all traits of UKBB into one table
 For jackknife use
