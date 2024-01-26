@@ -134,7 +134,7 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 
-/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --extract /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_snps_to_delete.txt --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --extract /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_snps_to_delete.txt  --geno 0.1 --mind 0.1 --maf 0.05 --mac 100  --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 
 
 " > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/plink_delete_inconsistent.sh
 
@@ -230,13 +230,13 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4
 
-" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.prediction.sh
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.prediction.sh
 
 # I am doing blabla
 
-cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/
 sbatch finngen_R10_${linenamecleaned}.prediction.sh
 done
 
