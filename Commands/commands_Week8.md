@@ -121,6 +121,8 @@ sbatch maf_plot.sh
 ```
 
 ### update 33kg_geno_fin_1_qc that deletes inconsistent alleles
+Exclude inconsistent alleles and inner join with geno3
+
 ```python
 
 
@@ -132,7 +134,7 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 
-/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --exclude /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_snps_to_delete.txt --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc 
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --extract /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_snps_to_delete.txt --make-bed --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 
 
 " > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/plink_delete_inconsistent.sh
 
@@ -156,11 +158,11 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000 --max-threads 4
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000 --max-threads 4
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --genefile /home/lezh/snpher/faststorage/highld.txt
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 --genefile /home/lezh/snpher/faststorage/highld.txt --max-threads 4 
 
 " > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/step1.sh
 
@@ -180,10 +182,11 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..551}; do
+for j in {1..2409}; do
 #for j in {1..20}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+echo $j ${linenamecleaned}
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 64G
@@ -192,12 +195,12 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/highld_33kg_geno_fin_1_qc/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak 
 
-" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.sh
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/finngen_R10_${linenamecleaned}.sh
 
 # I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/
 sbatch finngen_R10_${linenamecleaned}.sh
 
 done
@@ -215,7 +218,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..551}; do
+for j in {1..2409}; do
 echo $j
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
@@ -227,7 +230,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.megaprs.new.effects  
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4
 
 " > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/finngen_R10_${linenamecleaned}.prediction.sh
 
@@ -249,7 +252,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..281}; do
+for j in {1..2409}; do
 
 #for j in {1..1}; do
 echo $j
