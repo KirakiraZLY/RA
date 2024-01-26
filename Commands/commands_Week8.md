@@ -252,7 +252,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..2409}; do
+for j in {1..281}; do
 
 #for j in {1..1}; do
 echo $j
@@ -262,9 +262,10 @@ my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly
 linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 
 
-awk 'NR==FNR {a[NR]=$3; next} FNR>1 {if ((FNR-1) in a) $3=a[FNR-1]} 1' /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile.combined
+awk 'NR==FNR {a[NR]=$3; next} FNR>1 {if ((FNR-1) in a) $3=a[FNR-1]} 1' /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/combine/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile.combined
 
 done
+
 
 ```
 
@@ -277,7 +278,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..2409}; do
+for j in {1..281}; do
 #for j in {1..5}; do
 echo $j
 my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
@@ -292,7 +293,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile.combined --num-blocks 200 --AUC YES --prevalence 0.02
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/prediction/combine/finngen_R10_${linenamecleaned}.megaprs.new.pred.profile.combined --num-blocks 200 --AUC YES --prevalence 0.02
 
 " > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/megaprs_new/jackknife/finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
 
