@@ -158,7 +158,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-shuf -n 500 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000
 
 /home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/cors_33kg_geno_fin_1_qc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_qc_geno3 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/rand_33kg_geno_fin_1_qc.5000 --max-threads 4
 
