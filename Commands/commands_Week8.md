@@ -244,7 +244,7 @@ done
 
 
 
-### Combine profile and phenotype
+### Step 3.5 Combine profile and phenotype
 ```python
 
 dir="/home/lezh/dsmwpred/zly"
@@ -277,7 +277,7 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..281}; do
+for j in {1..2409}; do
 #for j in {1..5}; do
 echo $j
 my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
