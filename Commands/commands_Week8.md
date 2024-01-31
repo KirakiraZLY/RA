@@ -315,3 +315,5 @@ done
 /faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/data/ukbb/geno3 --extract /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset.rsid  --make-bed --out /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000
 
 ```
+
+## 
