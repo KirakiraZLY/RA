@@ -1,0 +1,57 @@
+---
+title: "Type_1_error"
+author: "zly"
+date: "2023-02-28"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(tidyr)
+library(fpp2)
+# library(caret)
+```
+
+
+## Train and test, fam
+```{r}
+fam <- read_table(file = "./geno2.fam", col_names = FALSE)
+index <- sample(1:nrow(fam), 0.9 * nrow(fam))
+train_set <- fam[index, ]
+test_set <- fam[-index, ]
+
+write.table(train_set,"geno2_train.fam",row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(test_set,"geno2_test.fam",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+
+
+```{r}
+assoc_data <- read_table2(file = "Trait_1.pheno", col_names = FALSE)
+assoc_data <- assoc_data[-nrow(assoc_data),]
+trainIndex <- createDataPartition(assoc_data$X1, p = 0.9, list = FALSE, times = 1)
+train <- assoc_data[trainIndex, ]
+test <- assoc_data[-trainIndex, ] 
+
+write.table(train,"Trait_1.pheno.train",row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(test,"Trait_1.pheno.test",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+
+
+
+## Using .fam
+```{r}
+pheno <- read_table("trait_03.pheno", col_names = FALSE)
+train_fam <- read_table("geno_train.fam", col_names = FALSE)
+test_fam <- read_table("geno_test.fam", col_names = FALSE)
+
+pheno_train <- subset(pheno, X1 %in% train_fam$X1)
+pheno_test <- subset(pheno, X1 %in% test_fam$X1)
+
+write.table(pheno_train,"trait_03.pheno.train",row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.table(pheno_test,"trait_03.pheno.test",row.names = FALSE, col.names = FALSE, quote = FALSE)
+```
+

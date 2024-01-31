@@ -1,0 +1,87 @@
+---
+title: "PRS_Regenie_Urate"
+author: "zly"
+date: "2023-03-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(tidyr)
+library(fpp2)
+```
+
+## Correlation
+
+```{r}
+
+prs <- read_table("./geno_LDAK_classicalprs_Trait_1_P1.bestscore", col_names = FALSE)
+pheno <- read_table("./Trait_1.pheno.test", col_names = FALSE)
+
+score <- cor(prs$X3, pheno$X3)
+
+out <- data.frame(Profile = "bestScore", Correlation = score)
+write.table(out, "bestscore.cor", col.names = TRUE, row.names = FALSE, quote = FALSE)
+```
+
+
+
+
+## PRS score comparison
+
+```{r}
+
+df <- data.frame(Score = c(0.554721, 0.526273, 0.798612, 0.752836
+), Software = c("ClassicalPRS", "QuickPRS", "MegaPRS_old", "MegaPRS_new"))
+df$Software <- factor(df$Software, levels = c("QuickPRS", "ClassicalPRS", "MegaPRS_new", "MegaPRS_old"))
+
+ggplot(df, aes(x = Software, y = Score, fill = Software)) +
+  geom_bar(stat = "identity", color = "black", width = 0.7) +
+  labs(title = "PRS Score on Simulated Trait") +
+  ylab("Correlation") +
+  ylim(0,1) +
+  geom_text(aes(label = Score), vjust = -0.5, size = 4) +
+  theme_minimal()
+
+```
+
+## PRS score comparison, 0.3 PHENO
+
+```{r}
+
+df <- data.frame(Score = c(0.343109, 0.347875), Software = c("MegaPRS_old", "MegaPRS_new"))
+df$Software <- factor(df$Software, levels = c( "MegaPRS_old", "MegaPRS_new"))
+
+ggplot(df, aes(x = Software, y = Score, fill = Software)) +
+  geom_bar(stat = "identity", color = "black", width = 0.7) +
+  labs(title = "PRS Score on Simulated Trait") +
+  ylab("Correlation") +
+  ylim(0,1) +
+  geom_text(aes(label = Score), vjust = -0.5, size = 4) +
+  theme_minimal()
+
+```
+
+
+
+## Height
+```{r}
+df <- data.frame(Score = c(0.518388, 0.591267, 0.590507), Software = c( "QuickPRS", "MegaPRS_old", "MegaPRS_new"))
+df$Software <- factor(df$Software, levels = c("QuickPRS",  "MegaPRS_new", "MegaPRS_old"))
+
+
+ggplot(df, aes(x = Software, y = Score, fill = Software)) +
+  geom_bar(stat = "identity", color = "black", width = 0.7) +
+  labs(title = "PRS Score on Height") +
+  ylab("Correlation") +
+  ylim(0,1) +
+  geom_text(aes(label = Score), vjust = -0.5, size = 4) +
+  theme_minimal()
+
+
+```
+
+
+

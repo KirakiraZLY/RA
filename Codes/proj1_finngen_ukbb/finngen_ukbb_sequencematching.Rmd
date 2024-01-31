@@ -19,8 +19,8 @@ library(stringi)
 ```{r}
 # snps <- read_table2("R8_manifest.tsv", col_names = FALSE)
 icd10 <- read_table2("./icdtraits.details")
-finngen <- read_tsv("./R8_manifest.tsv")
-
+finngen_total <- read_tsv("./R8_manifest.tsv")
+finngen_total$N <- finngen_total$num_cases + finngen_total$num_controls
 finngen_100 <- read_tsv("./list_100_ss_phenocode.txt", col_names = FALSE)
 finngen <- finngen_100
 colnames(finngen) <- "phenocode"
@@ -53,9 +53,10 @@ icd10_pheno$phenocode <- gsub("_", "", icd10_pheno$phenocode)
 finngen_pheno <- separate(finngen_pheno, phenocode, into = paste0("word_", 1:8), sep = "_", remove = FALSE)
 finngen_pheno$Index <- 1:nrow(finngen_pheno)
 icd10_pheno$Index <- 1:nrow(icd10_pheno)
+icd10_pheno$phen <- icd10$Phen
 ```
 
-## complete common substring?
+## Method 1 complete common substring?
 ```{r}
 
 
@@ -85,6 +86,7 @@ for (i in 1:nrow(finngen_pheno)) {
       }
       if (tmp == 1)  {
         result$Indexicd[i] <- k
+        # result$phen <- icd10_pheno$phen[k]
       }
       
       # result[,j-1] <- sapply(1:nrow(icd10_pheno), function(i) {
@@ -100,8 +102,70 @@ for (i in 1:nrow(finngen_pheno)) {
 }
 
 result$Index <- 1:nrow(result)
+# result <- merge(result, icd10_pheno[, c("Index", "phen")], by = "Index", all.x = TRUE)
+```
+
+## Method 2 Complete word without stop words
+```{r}
+library(tm)
+stop_words <- c("i", "is", "a", "the", "and", "not", "it", "was", "in", "to", "of", "for", "disease", "diseases", "other")
+
+
+
+
+icd10_pheno <- data.frame(icd10$Description)
+colnames(icd10_pheno) <- c("phenocode")
+# icd10_pheno <- separate(icd10_pheno, Description, into = paste0("word_", 1:8), sep = "_", remove = FALSE)
+finngen_pheno <- data.frame(finngen$phenocode)
+colnames(finngen_pheno) <- c("phenocode")
+# finngen_pheno <- separate(finngen_pheno, phenocode, into = paste0("word_", 1:6), sep = "_", remove = FALSE)
+
+finngen_pheno <- finngen_pheno %>%
+  mutate_all(tolower)
+icd10_pheno <- icd10_pheno %>%
+  mutate_all(tolower)
+finngen_pheno$Index <- 1:nrow(finngen_pheno)
+
+finngen_pheno$phenocode <- sub(".*?_", "", finngen_pheno$phenocode) ## delete all the chrs before the first "_"
+icd10_pheno$phenocode <- sub(".*?_", "", icd10_pheno$phenocode) ## delete all the chrs before the first "_"
+
+finngen_pheno$phenocode <- gsub("_", " ", finngen_pheno$phenocode)
+finngen_pheno$phenocode <- removeWords(tolower(finngen_pheno$phenocode), stop_words)
+
+icd10_pheno$phenocode <- gsub("_", " ", icd10_pheno$phenocode)
+icd10_pheno$phenocode <- removeWords(tolower(icd10_pheno$phenocode), stop_words)
+
+
+finngen_pheno <- separate(finngen_pheno, phenocode, into = paste0("word_", 1:8), sep = " ", remove = FALSE)
+icd10_pheno <- separate(icd10_pheno, phenocode, into = paste0("word_", 1:12), sep = " ", remove = FALSE)
+finngen_pheno$Index <- 1:nrow(finngen_pheno)
+icd10_pheno$Index <- 1:nrow(icd10_pheno)
+icd10_pheno$phen <- icd10$Phen
+```
+
+
+```{r}
+### Complete word searching
+# 初始化新列用于记录相同单词的行号和相同的词
+finngen_pheno$CommonInfo <- NA
+icd10_pheno$CommonInfo <- NA
+
+# 遍历df1的每一行
+for (i in 1:nrow(icd10_pheno)) {
+  print(i)
+  # 获取df2中有相同单词的行号
+  common_rows <- which(apply(finngen_pheno[, -1], 1, function(x) any(x %in% icd10_pheno[i, -1])))
+  hh
+  # 获取相同的单词
+  common_words <- unlist(finngen_pheno[common_rows, -1])
+  
+  # 记录相同单词的行号和相同的词
+  icd10_pheno$CommonInfo[i] <- ifelse(length(common_rows) > 0, paste(toString(common_rows), toString(common_words)), NA)
+  icd10_pheno$CommonInfo[common_rows] <- ifelse(length(common_rows) > 0, paste(toString(i), toString(icd10_pheno[i, -1])), NA)
+}
 
 ```
+
 
 ## Delete any rows unmatched
 ```{r}
@@ -109,6 +173,10 @@ result_filtered <- result %>% filter_at(vars(1:10), any_vars(. != 0))
 
 # write.table(result_filtered,"finngen_subset_in_icd10.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
 result_filtered_index <- result_filtered[,c("Indexicd", "Index","icd_name")]
+icd10_2col <- icd10[,c("Index", "Phen")]
+colnames(icd10_2col) <- c("Indexicd", "phen")
+                    
+result_filtered_index <- merge(result_filtered_index, icd10_2col, by = "Indexicd", all.x = TRUE)
 write.table(result_filtered_index,"finngen_100pheno_in_icd10.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
 
 token <- merge(finngen_pheno, result_filtered, by = "Index", all.y = FALSE)
@@ -124,8 +192,9 @@ And get a file containing one column of filenames
 
 ```{r}
 list <- read_table("./finngen_100pheno_in_icd10.txt", col_names = FALSE)
+icd10 <- read_table2("./icdtraits.details")
 
-code_number <- paste("/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code", list$X1, sep = "")
+code_number <- paste("/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code", icd10[c(list$X1),]$Phen, sep = "")
 code_number <- paste(code_number, ".pheno", sep = "")
 write.table(code_number,"icd10_100pheno_ready_to_copy.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
 
@@ -146,6 +215,21 @@ finngen_42 <- data.frame(finngen_42[order_index,])
 
 write.table(finngen_42,"finngen_42phenos.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
+
+
+## To get all the 948 ukbb phenotypes
+```{r}
+ukbb_list <- read_table("./icdtraits.details")
+
+list <- data.frame(ukbb_list$Phen)
+colnames(list) <- "Phen"
+code_number <- paste("/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code", list$Phen, sep = "")
+code_number <- paste(code_number, ".pheno", sep = "")
+write.table(code_number,"icd10_alltraits_to_copy.txt",row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+```
+
+
 
 
 ## Matching Longest Common Sequence
