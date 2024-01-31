@@ -1,0 +1,14 @@
+library(tidyverse)
+library(dplyr)
+
+ldak <- read.table("/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_Z21_TOBAC_USE.ldak", header = TRUE)
+
+random_sample <- ldak[sample(1000, 2, replace = FALSE),]
+
+
+
+write.table(random_sample, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset", row.names = FALSE, col.names = TRUE, quote = FALSE)
+
+write.table(random_sample$Predictor, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset.rsid", row.names = FALSE, col.names = TRUE, quote = FALSE)
+
+print("========== Mission Completed ==========")
