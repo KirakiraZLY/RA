@@ -316,4 +316,60 @@ done
 
 ```
 
-## 
+
+## Mega PRS New
+
+### Step 1 有了不用跑，直接调用
+```python
+shuf -n 5000 /home/lezh/dsmwpred/data/ukbb/geno3.fam > /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/rand_geno3.5000
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/cors_geno3 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --keep /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/rand_geno3.5000 --max-threads 4
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/highld_geno3 --bfile /home/lezh/dsmwpred/data/ukbb/geno3 --genefile /home/lezh/snpher/faststorage/highld.txt
+
+
+```
+
+### Step 2 Make Model
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+#for j in {1..551}; do
+for j in {1..1}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+linenamecleanedstringout=()
+for p in $linenamecleaned; do 
+linenamecleanedstringout+=("$p.ldak"); 
+done
+
+linecleanedsh=()
+for p in $linenamecleaned; do 
+linecleanedsh+=("$p.sh"); 
+done
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --mega-prs /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/cors_geno3 --high-LD /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pheno100/megaprs_new/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak
+
+" > /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/finngen_R10_${linenamecleaned}.sh
+
+# I am doing blabla
+cd /home/lezh/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/megaprs_new/finngen_ukbb/
+sbatch finngen_R10_${linenamecleaned}.sh
+
+done
+
+
+```
+
