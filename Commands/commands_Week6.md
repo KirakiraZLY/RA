@@ -732,11 +732,9 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
-for j in {1..551}; do
-
-line=$(head -n $j $ss_filename | tail -n 1)
+#for j in {1..551}; do
+for j in {1..1}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
-linecleanedstring=$(echo -n "$line" | tr -d '\r\n')
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
 linenamecleanedstringout=()
