@@ -347,6 +347,13 @@ done
 
 # Mega PRS New on FinnGen and UKBB, with geno3 as Reference Panel
 
+### Make bed geno3
+```python
+
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/data/ukbb/geno3 --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_bim_to_remain.txt  --make-bed --out /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3
+
+```
+
 ### Step 1 有了不用跑，直接调用
 ```python
 shuf -n 5000 /home/lezh/dsmwpred/data/ukbb/geno3.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/rand_geno3.5000
