@@ -41,67 +41,100 @@ df_other$or <- exp(beta)
 # Column names could be
 # Ref == A2, Alter = A1
 names_to_replace <- c("Predictor",
-                      
                       "rsids",
                       "SNP", 
-                      
                       "#chrom",
                       "chrom",
-                      
                       "pos",
                       "BP",
                       "Basepair", 
                       "GENPOS", 
-                      
                       "ref",
-                      
                       "alt",
-                      
                       "zscore",
-                      
                       "Direction",
-                      
                       "Stat",
-                      
                       "pval",
-                      
                       "beta",
-                      
                       "sebeta",
+                      "or",
                       
-                      "or"
+                      ## Bolt
+                      "SNP",
+                      "CHR",
+                      "BP",
+                      "GENPOS",
+                      "ALLELE1",
+                      "ALLELE0",
+                      "A1FREQ",
+                      "F_MISS",
+                      "BETA",
+                      "SE",
+                      "P_BOLT_LMM_INF",
+                      "P_BOLT_LMM",
+                      
+                      ## LDAK
+                      "Chromosome",
+                      "Predictor",
+                      "Basepair",
+                      "A1",
+                      "A2",
+                      "Wald_Stat",
+                      "Wald_P",
+                      "Effect",
+                      "SD",
+                      "Effect_Liability",
+                      "SD_Liability",
+                      "A1_Mean",
+                      "MAF"
+
 )
 
 replacement_rules <- c("Predictor" = "Predictor",
-                       
                        "rsids" = "rsids",
-                       "SNP" = "rsids",
-                       
                        "#chrom" = "Chr",
                        "chrom" = "Chr",
-                       
                        "pos" = "Pos",
-                       "BP" = "Pos",
-                       "Basepair" = "Pos", 
-                       "GENPOS" = "Pos", 
-                       
+                       "Basepair" = "Pos",
                        "alt" = "A1",
-                       
                        "ref" = "A2",
-                       
                        "zscore" = "Z",
-                       
                        "Direction" = "Direction",
-                       
                        "Stat" = "Stat",
-                       
                        "pval" = "P",
-                       
                        "beta" = "Beta",
-                       
                        "sebeta" = "SEbeta",
+                       "or" = "OR",
                        
-                       "or" = "OR"
+                       ## Bolt-inf
+                       "SNP" = "rsids",
+                       "CHR" = "Chr",
+                       "BP" = "Pos",
+                       "GENPOS" = "Other",
+                       "ALLELE1" = "A1",
+                       "ALLELE0" = "A2",
+                       "A1FREQ" = "Other",
+                       "F_MISS" = "Other",
+                       "BETA" = "Beta",
+                       "SE" = "SEbeta",
+                       "P_BOLT_LMM_INF" = "P",
+                       "P_BOLT_LMM" = "P",
+                       
+                       ## LDAK
+                       "Chromosome" = "Chr",
+                       "Predictor" = "Predictor",
+                       "Basepair" = "Pos",
+                       "A1" = "A1",
+                       "A2" = "A2",
+                       "Wald_Stat" = "Stat",
+                       "Wald_P" = "P",
+                       "Effect" = "Beta",
+                       "SD",
+                       "Effect_Liability",
+                       "SD_Liability",
+                       "A1_Mean",
+                       "MAF"
+                       
 )
 
 df_other_alt <- df_other %>%
