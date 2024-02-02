@@ -38,7 +38,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/1KG/1000G.99FIN.rs --freq --out /faststorage/project/dsmwpred/zly/RA/data/33KG/1000g99fin_maf
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/1KG/1000G.99FIN.rs --freq --out /faststorage/project/dsmwpred/zly/RA/data/33KG/maf_frq/1000g99fin_maf_1
 
 
 " > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/1000g99fin_maf.sh
@@ -316,6 +316,7 @@ done
 
 ```
 
+<<<<<<< Updated upstream
 
 
 
@@ -378,6 +379,11 @@ linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 echo $j ${linenamecleaned}
 
+=======
+## Step 1 Calculating Cor matrix and LD matrix
+```python
+
+>>>>>>> Stashed changes
 echo "#"'!'"/bin/bash
 #SBATCH --mem 64G
 #SBATCH -t 8:0:0
@@ -385,6 +391,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
+<<<<<<< Updated upstream
 ${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/cors_geno3 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak 
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/scripts/megaprs_new/model/finngen_R10_${linenamecleaned}.sh
@@ -495,3 +502,20 @@ sbatch finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
 done
 
 ```
+=======
+
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.fam > /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.5000
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/cors_geno3_1000 --bfile /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000  --keep /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.5000 --max-threads 4
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/highld_geno3_1000 --bfile /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000 --genefile /home/lezh/snpher/faststorage/highld.txt --max-threads 4 
+
+" > /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/step1.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/
+sbatch step1.sh
+
+
+```
+>>>>>>> Stashed changes

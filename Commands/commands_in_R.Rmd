@@ -1,14 +1,31 @@
+
+```{R}
 library(tidyverse)
 library(dplyr)
 
+
+bim <- read.table("/faststorage/project/dsmwpred/data/ukbb/geno3.bim", header = FALSE)
+
 ldak <- read.table("/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_Z21_TOBAC_USE.ldak", header = TRUE)
 
-random_sample <- ldak[sample(1000, 2, replace = FALSE),]
+bim <- bim[bim$V2 %in% ldak$Predictor,]
+
+random_sample <- bim[sample(1000, replace = FALSE),]
+
+ldak <- ldak[ldak$Predictor %in% random_sample$V2,]
 
 
+write.table(ldak, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
-write.table(random_sample, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset", row.names = FALSE, col.names = TRUE, quote = FALSE)
-
-write.table(random_sample$Predictor, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset.rsid", row.names = FALSE, col.names = TRUE, quote = FALSE)
+write.table(random_sample$V2, "/faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/finngen_R10_Z21_TOBAC_USE.ldak.1ksubset.rsid", row.names = FALSE, col.names = FALSE, quote = FALSE)
 
 print("========== Mission Completed ==========")
+```
+
+
+
+
+
+```{R}
+
+```
