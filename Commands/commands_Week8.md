@@ -502,20 +502,3 @@ sbatch finngen_R10_${linenamecleaned}.megaprs.new.jackknife.sh
 done
 
 ```
-=======
-
-shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.fam > /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.5000
-
-/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/cors_geno3_1000 --bfile /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000  --keep /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000.5000 --max-threads 4
-
-/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/highld_geno3_1000 --bfile /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/geno3_1000 --genefile /home/lezh/snpher/faststorage/highld.txt --max-threads 4 
-
-" > /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/step1.sh
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/MegaPRS_demo/ss/
-sbatch step1.sh
-
-
-```
->>>>>>> Stashed changes
