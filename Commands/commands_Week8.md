@@ -16,14 +16,14 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1 --freq --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_1_maf
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin --freq --out /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno_fin_maf
 
 
-" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_1_maf.sh
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/33kg_geno_fin_maf.sh
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
-sbatch 33kg_geno_fin_1_maf.sh
+sbatch 33kg_geno_fin_maf.sh
 
 ```
 
