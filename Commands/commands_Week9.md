@@ -167,4 +167,5 @@ done
 ```python
 conda activate zly2
 Rscript /home/lezh/dsmwpred/zly/RA/proj3_ss_to_ldak_format/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/MasterThesis/type_1_error/Multi_Traits/Trait_1_to_12/Result_Trait1/Result_Bolt_Trait1_P3.Bolt  --outputFile /faststorage/project/dsmwpred/zly/RA/proj3_ss_to_ldak_format/output_test/Result_Bolt_Trait1_P3.Bolt.ldak.ss  --bfile /home/lezh/dsmwpred/data/ukbb/geno3  --N 300000
+
 ```
