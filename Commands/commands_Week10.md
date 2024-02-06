@@ -3,6 +3,33 @@
 
 2/5/2024
 
+# Remake 33KG Fin
+
+gunzip -c /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno.gz | head -n 1 | awk '{for(j=1;j<=29;j++){gsub(/./,j" ",$j);print $j}{printf "\n"}}' | awk '{for(j=1;j<=NF;j++){print NR"_"j, NR"_"j}}' > /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg.fam
+
+awk < /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_index '{if($1=="."){$1=$2":"$3"_"$4"_"$5};print $2, $1, 0, $3, $4, $5}' > /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg.bim
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -c 1
+#SBATCH -t 124:0:0
+
+gunzip -c /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno.gz |awk '{for(j=1;j<=29;j++){printf \"%s\", \$j}{printf \"\n\"}}' | sed s/\.\/\"& \"/g | gzip > /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg.sp.gz
+
+/home/doug/ldak5.2.linux --sp-gz /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg --make-bed /faststorage/project/dsmwpred/zly/RA/data/33KG/hrc --threshold 1 --exclude-same YES
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/make.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch make.sh
+
+
+
+#find a few snps and check maf - note that finnish pop have names starting with 12_
+#get finnish individuals
+grep ^"12_" /faststorage/project/dsmwpred/zly/RA/data/33KG/hrc.fam > /faststorage/project/dsmwpred/zly/RA/data/33KG/fin.keep
+
+
 
 # Megaprs New Elastic
 
