@@ -7,6 +7,7 @@ args <- commandArgs(trailingOnly = TRUE)
 inputFile <- NULL
 outputFile <- NULL
 bimFile <- NULL
+N <- NULL
 # arg_out <- NULL
 
 for (i in seq_along(args)) {
@@ -16,9 +17,12 @@ for (i in seq_along(args)) {
     outputFile <- args[i + 1]
   } else if (args[i] == "--bfile" && i < length(args)) {
     bimFile <- args[i + 1]
+  } else if (args[i] == "--N" && i < length(args)) {
+    N <- args[i + 1]
   }
 }
 
+cat("================= Input =================", "\n")
 
 # inputFile <- "./finngen_R10_I9_IHD.addn"
 # 
@@ -29,14 +33,25 @@ for (i in seq_along(args)) {
 bimFile <- paste(bimFile, ".bim", sep = "")
 
 # Input File
-df_other1 <- read_table(inputFile, col_names = TRUE)
-n <- df_other1[1,]$n
-# df_ldak1 <- na.omit(df_ldak1)
-df_other1 <- na.omit(df_other1)
+df_other1 <- read_table2(file = inputFile, col_names = TRUE)
+# print(head(df_other1))
+if(!is.null(N)){
+	n <- N
+} else if ("n" %in% colnames(df_other1)) { 
+	n <- df_other1[1,]$n
+} else {
+	stop("Check n existing in inputFile, or input --N")
+}
+# print(head(df_other1))
+# df_other1 <- na.omit(df_other1)
+# print(head(df_other1))
 df_other <- df_other1
 
-beta <- as.numeric(df_other$beta)
-df_other$or <- exp(beta)
+print("###############################################################")
+print(df_other)
+
+#beta <- as.numeric(df_other$beta)
+#df_other$or <- exp(beta)
 
 # Column names could be
 # Ref == A2, Alter = A1
@@ -110,14 +125,14 @@ replacement_rules <- c("Predictor" = "Predictor",
                        "SNP" = "rsids",
                        "CHR" = "Chr",
                        "BP" = "Pos",
-                       "GENPOS" = "Other",
+                       "GENPOS" = "GENPOS",
                        "ALLELE1" = "A1",
                        "ALLELE0" = "A2",
-                       "A1FREQ" = "Other",
-                       "F_MISS" = "Other",
+                       "A1FREQ" = "A1FREQ",
+                       "F_MISS" = "F_MISS",
                        "BETA" = "Beta",
                        "SE" = "SEbeta",
-                       "P_BOLT_LMM_INF" = "P",
+                       "P_BOLT_LMM_INF" = "P_BOLT_LMM_INF",
                        "P_BOLT_LMM" = "P",
                        
                        ## LDAK
@@ -129,28 +144,49 @@ replacement_rules <- c("Predictor" = "Predictor",
                        "Wald_Stat" = "Stat",
                        "Wald_P" = "P",
                        "Effect" = "Beta",
-                       "SD",
-                       "Effect_Liability",
-                       "SD_Liability",
-                       "A1_Mean",
-                       "MAF"
+                       "SD" = "SD",
+                       "Effect_Liability" = "Effect_Liability",
+                       "SD_Liability" = "SD_Liability",
+                       "A1_Mean" = "A1_Mean",
+                       "MAF" = "MAF"
                        
 )
+
+cat("================= Initializing =================", "\n")
 
 df_other_alt <- df_other %>%
   rename_all(~ ifelse(. %in% names_to_replace, replacement_rules[.], .))
 # df_other_alt <- mutate_at(df_other_alt, vars(c("Z", "Stat", "P", "Beta", "SEbeta", "OR")), as.numeric)
 
-# ## I use rsids instead of predictor, for geno3 format
-# case_predictor <- c("rsids", "Chr", "Pos")
-# if (sum(colnames(df_other_alt) %in% case_predictor) == 3) {
-#   df_other_alt$Predictor <- paste(df_other_alt$Chr, ":", df_other_alt$Pos, sep = "")
-#   df_other_alt$Predictor <- gsub(" ", "", df_other_alt$Predictor)
-# }
 
-df_other_alt$Predictor <- df_other$rsids
+print(colnames(df_other))
+print(colnames(df_other_alt))
+
+## I use rsids instead of predictor, for geno3 format
+case_predictor <- c("rsids", "Chr", "Pos")
+cat("IF::::::::::::::::::::::::: ", all(case_predictor %in% colnames(df_other_alt)), "\n")
+
+###################################### Using Chr:Pos
+if (all(case_predictor %in% colnames(df_other_alt))) {
+  df_other_alt$Predictor <- paste(df_other_alt$Chr, ":", df_other_alt$Pos, sep = "")
+  df_other_alt$Predictor <- gsub(" ", "", df_other_alt$Predictor)
+  print("IF1")
+} else if (any(grepl("rsids", colnames(df_other_alt)) & !grepl("Predictor", colnames(df_other_alt)))){ #########################################################################################################################################
+	df_other_alt$Predictor <- df_other_alt$rsids
+	print("IF2")
+} else if(any(grepl("Predictor", colnames(df_other_alt)))) {
+	df_other_alt$Predictor <- df_other_alt$Predictor
+	print("IF3")
+}
+
+#################################### Or using Predictor
+# df_other_alt$Predictor <- df_other_alt$rsids
 df_other_alt$n <- n
 
+print(head(df_other_alt$Predictor))
+
+
+cat("================= Z score =================", "\n")
 
 case1 <- c("Z")
 case2 <- c("Beta", "P")
@@ -196,6 +232,8 @@ if (sum(colnames(df_other_alt) %in% case1) == 1) {
   print("Case 5")
 }
 
+cat("================= Combining =================", "\n")
+
 ## Delete len(A1) > 1 and len(A2) > 1
 # df_other_alt$Predictor <- df_other_alt$rsids
 df_other_alt <- df_other_alt[nchar(df_other_alt$A1) <= 1, ]
@@ -203,9 +241,13 @@ df_other_alt <- df_other_alt[nchar(df_other_alt$A2) <= 1, ]
 ## Delete duplicate rsid
 df_other_alt <- df_other_alt[!duplicated(df_other_alt$Predictor), ]
 
+print(head(df_other_alt$Predictor))
+
+cat("================= Combine with bim file =================", "\n")
 
 # Output File
 df_other_alt <- df_other_alt[, c("Predictor", "A1", "A2", "n","Z")]
+
 
 # Read bim
 bim <- read.table(bimFile)
@@ -222,5 +264,6 @@ df_other_alt <- df_other_alt %>%
 colnames(df_other_alt) <- c("Predictor", "A1", "A2", "n","Z")
 
 write.table(df_other_alt, outputFile, row.names = FALSE, col.names = TRUE, quote = FALSE)
+print(head(df_other_alt$Predictor))
 
 print("============== Mission Completed ==============")

@@ -166,6 +166,14 @@ done
 
 ```
 
+### Output with sorting
+```python
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/jackknife"
+for file in "$folder_path"/*; do
+    awk 'NR==2{print $3}' "$file"
+done | sort -n
+```
+
 
 
 # Formatting
