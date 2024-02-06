@@ -274,4 +274,4 @@ dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/jackknife/finngen_R10_HEIGHT_IRN.height_test.megaprs.new.score --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/model/finngen_R10_HEIGHT_IRN.megaprs.new.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_data}/height.test
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/jackknife/finngen_R10_HEIGHT_IRN.height_test.megaprs.new.score --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/model/finngen_R10_HEIGHT_IRN.megaprs.new.effects --bfile ${dir_data}/geno3 --power 0 --pheno ${dir_data}/height.test
