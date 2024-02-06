@@ -77,7 +77,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 #SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-${dir_LDAK} --calc-scores ${dir_RA}/megaprs_new/prediction/geno_test_scores_megaprs_new --scorefile ${dir_RA}/megaprs_new/geno_train_megabayesr.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_data}/height.test
+${dir_LDAK} --calc-scores ${dir_RA}/proj0_megaprs_test/megaprs_new/prediction/geno_test_scores_megaprs_new --scorefile ${dir_RA}/proj0_megaprs_test/megaprs_new/geno_train_megabayesr.effects --bfile ${dir_data}/geno --power 0 --pheno ${dir_data}/height.test
 
 " > ${dir_RA}/scripts/megaprs_new/prediction/geno_test_scores_megaprs_new
 
