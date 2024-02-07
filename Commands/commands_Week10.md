@@ -11,7 +11,7 @@ awk < /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_index '{if($1=="."){$1
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 8G
-#SBATCH -c 1
+#SBATCH -c 4
 #SBATCH -t 124:0:0
 
 gunzip -c /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg_geno.gz |awk '{for(j=1;j<=29;j++){printf \"%s\", \$j}{printf \"\n\"}}' | sed s/\.\/\"& \"/g | gzip > /faststorage/project/dsmwpred/zly/RA/data/33KG/33kg.sp.gz
