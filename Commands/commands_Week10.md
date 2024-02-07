@@ -345,7 +345,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno
 
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/scripts/megaprs_new/prediction/score/finngen_R10_${linenamecleaned}.prediction.score.sh
