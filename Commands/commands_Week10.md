@@ -277,8 +277,10 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/jackknife/finngen_R10_HEIGHT_IRN.height_test.megaprs.new.score --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/model/finngen_R10_HEIGHT_IRN.megaprs.new.effects --bfile ${dir_data}/geno3 --power 0 --pheno ${dir_data}/height.test
 
 
-# MegaPRS New
-## Step 3 Calc Score
+
+# All pheno
+## MegaPRS New
+### Step 3 Calc Score
 ```python
 
 dir="/home/lezh/dsmwpred/zly"
@@ -321,8 +323,8 @@ done
 
 
 
-# MegaPRS New Elastic
-## Step 3 Calc Score
+## MegaPRS New Elastic
+### Step 3 Calc Score
 ```python
 
 dir="/home/lezh/dsmwpred/zly"
@@ -362,3 +364,17 @@ done
 
 
 ```
+
+# One Pheno
+## BACT_INTEST_INFECTION_NOS and code309
+### Mega BayesR
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/model/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/cors_geno3 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_BACT_INTEST_INFECTION_NOS.ldak --model elastic --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_BACT_INTEST_INFECTION_NOS.ldak 
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/score/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new.pred.singletest --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/model/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new.effects  --max-threads 4 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code309.pheno
