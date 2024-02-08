@@ -405,6 +405,39 @@ done
 
 ```
 
+
+# Output with sorting
+## Absolute
+
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
+for file in "$folder_path"/*.cors; do
+    [ -e "$file" ] || continue
+    awk 'NR==2{print $2}' "$file" | awk '{print $1 < 0 ? -$1 : $1}'
+done | sort -n
+
+## Value
+
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
+for file in "$folder_path"/*.cors; do
+    [ -e "$file" ] || continue
+    awk 'NR==2{print $2}' "$file"
+done | sort -n
+
+## Search the highest
+
+#folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/score"
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
+search_value="0.15"
+for file in "$folder_path"/*.cors; do
+    [ -e "$file" ] || continue
+    value=$(awk 'NR==2{print $2}' "$file")
+    if [[ "$value" > "$search_value" ]]; then
+        echo "$file"
+    fi
+done
+
+
+
 # One Pheno
 ## BACT_INTEST_INFECTION_NOS and code309
 ### Mega BayesR
@@ -418,3 +451,11 @@ ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/fin
 ${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/model/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/cors_geno3 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/highld_geno3/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_BACT_INTEST_INFECTION_NOS.ldak --model elastic --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_BACT_INTEST_INFECTION_NOS.ldak 
 
 ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/score/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new.pred.singletest --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/model/finngen_R10_BACT_INTEST_INFECTION_NOS.megaprs.new.effects  --max-threads 4 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code309.pheno
+
+
+
+
+
+
+# Make Fin population out from 33KG
+
