@@ -32,8 +32,6 @@ grep ^"12_" /faststorage/project/dsmwpred/zly/RA/data/33KG/hrc.fam > /faststorag
 
 
 # Megaprs New Elastic
-
-
 ### Step 2 Make Model
 ```python
 
@@ -458,4 +456,115 @@ ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_fin
 
 
 # Make Fin population out from 33KG
+### Make bed
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 64:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/plink --bfile /faststorage/project/dsmwpred/doug/leyi/hrc --allow-no-sex --make-bed  --keep /faststorage/project/dsmwpred/doug/leyi/fin.keep  --extract /faststorage/project/dsmwpred/doug/leyi/int.snps  --out /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin
+
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/hrc_geno_fin.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch hrc_geno_fin.sh
+
+```
+
+
+# Mega PRS New on FinnGen and UKBB, with hrc_geno_fin as Reference Panel
+
+
+### Step 1 有了不用跑，直接调用
+```python
+shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/rand_fin.5000
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/cors_fin --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/rand_fin.5000 --max-threads 4
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/highld_hrc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin --genefile /home/lezh/snpher/faststorage/highld.txt
+
+
+```
+### Step 2 Make Model
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+for j in {1..2409}; do
+#for j in {1..20}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+echo $j ${linenamecleaned}
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/bayesr/model/finngen_R10_${linenamecleaned}.megaprs.new --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/cors_fin --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/highld_hrc/genes.predictors.used --summary /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak --model bayesr --power -.25 --max-threads 4  --extract /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_${linenamecleaned}.ldak 
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/bayesr/model/finngen_R10_${linenamecleaned}.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/bayesr/model
+sbatch finngen_R10_${linenamecleaned}.sh
+done
+
+
+```
+
+
+
+### Step 3 Calc Score
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+
+for ((j=1; j<=${total_lines}; j++)); do
+#for j in {1..1}; do
+echo $j
+
+my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+#echo ${my_variable}
+#done
+linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 10:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/bayesr/score/finngen_R10_${linenamecleaned}.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/bayesr/model/finngen_R10_${linenamecleaned}.megaprs.new.effects  --max-threads 4 --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno
+
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/bayesr/score/finngen_R10_${linenamecleaned}.prediction.score.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/bayesr/score
+sbatch finngen_R10_${linenamecleaned}.prediction.score.sh
+done
+
+
+```
+
 
