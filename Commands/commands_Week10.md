@@ -483,11 +483,26 @@ sbatch hrc_geno_fin.sh
 
 ### Step 1 有了不用跑，直接调用
 ```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin.fam > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/rand_fin.5000
 
 /home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/cors_fin --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/rand_fin.5000 --max-threads 4
 
 /home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/highld_hrc --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin --genefile /home/lezh/snpher/faststorage/highld.txt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/step1.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/
+sbatch step1.sh
+done
 
 
 ```
