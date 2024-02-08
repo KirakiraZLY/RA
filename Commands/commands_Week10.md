@@ -502,7 +502,6 @@ shuf -n 5000 /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin.fam
 # I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/scripts/
 sbatch step1.sh
-done
 
 
 ```
