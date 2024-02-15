@@ -408,7 +408,7 @@ done
 ## Absolute
 
 ```python
-folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_fin_as_reference_panel/megaprs_new/jackknife"
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/jackknife"
 output_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/score_results/geno3_bayesr_absolute_result.txt"
 for file in "$folder_path"/*.cors; do
     [ -e "$file" ] || continue
