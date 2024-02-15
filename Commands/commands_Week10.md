@@ -407,22 +407,27 @@ done
 # Output with sorting
 ## Absolute
 
-folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
+```python
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/elastic/score"
 for file in "$folder_path"/*.cors; do
     [ -e "$file" ] || continue
     awk 'NR==2{print $2}' "$file" | awk '{print $1 < 0 ? -$1 : $1}'
 done | sort -n
 
-## Value
+```
 
+## Value
+```python
 folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
 for file in "$folder_path"/*.cors; do
     [ -e "$file" ] || continue
     awk 'NR==2{print $2}' "$file"
 done | sort -n
 
-## Search the highest
+```
 
+## Search the highest
+```python
 #folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/score"
 folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
 search_value="0.15"
@@ -434,6 +439,7 @@ for file in "$folder_path"/*.cors; do
     fi
 done
 
+```
 
 
 # One Pheno
