@@ -409,10 +409,11 @@ done
 
 ```python
 folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/hrc_fin_as_reference_panel/elastic/score"
+output_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/score_results/hrc_elastic_absolute_result.txt"
 for file in "$folder_path"/*.cors; do
     [ -e "$file" ] || continue
     awk 'NR==2{print $2}' "$file" | awk '{print $1 < 0 ? -$1 : $1}'
-done | sort -n
+done | sort -n > ${output_path}
 
 ```
 
