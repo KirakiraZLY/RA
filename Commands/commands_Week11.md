@@ -84,9 +84,22 @@ for j in {1..2409}; do
 #for j in {1..1}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
-echo $j ${linenamecleaned}
 
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+echo $j ${linenamecleaned}
 awk 'NR>1 && $5 ~ /^rs/ {print "chr"$1, ($2-1), $2, $5}'  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.notitle > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_bed/finngen_R10_${linenamecleaned}.bed
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/bed/finn_gen_bed_${j}.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/bed/
+sbatch finn_gen_bed_${j}.sh
 
 done
 
@@ -104,11 +117,25 @@ for j in {1..2409}; do
 #for j in {1..1}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 echo $j ${linenamecleaned}
 
 /home/lezh/dsmwpred/zly/RA/data/liftover/liftOver /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_bed/finngen_R10_${linenamecleaned}.bed  /home/lezh/dsmwpred/zly/RA/data/liftover/hg38ToHg19.over.chain.gz /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_liftover/lifted/finngen_R10_${linenamecleaned}.lifted /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_liftover/unlifted/finngen_R10_${linenamecleaned}.unlifted
 
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/liftover/finn_gen_liftover_${j}.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/liftover/
+sbatch finn_gen_liftover_${j}.sh
+
 done
+
 
 ```
 
