@@ -21,6 +21,8 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode_withprefix.txt"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list_100_ss_phenocode.txt"
 
+for j in {1..2409}; do
+
 echo "#"'!'"/bin/bash
 #SBATCH --mem 32G
 #SBATCH -t 20:0:0
@@ -29,13 +31,14 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finn_gen_qc.R
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finn_gen_qc.R $j
 
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/finn_gen_qc.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/qc/finn_gen_qc_${j}.sh
 
-cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/
-sbatch finn_gen_qc.sh
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/qc
+sbatch finn_gen_qc_${j}.sh
+done
 
 ```
 ### Liftover, Deleting the title of SS files (SKIP)
