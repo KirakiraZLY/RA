@@ -122,7 +122,7 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript ${dir_RA}/data/FinnGen/finn_gen_liftover_hg19.R $j
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finn_gen_liftover_hg19.R $j
 
 echo -e $j "done"
 
