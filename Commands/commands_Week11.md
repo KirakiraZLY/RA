@@ -38,7 +38,7 @@ cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_
 sbatch finn_gen_qc.sh
 
 ```
-## Liftover, Deleting the title of SS files (SKIP)
+### Liftover, Deleting the title of SS files (SKIP)
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -96,6 +96,51 @@ echo $j ${linenamecleaned}
 done
 
 ```
+
+
+### Changing FinnGen SS into hg19
+with the suffix .hg19
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+#for j in {1..2409}; do
+for j in {1..1}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+echo $j ${linenamecleaned}
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 1:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript ${dir_RA}/data/FinnGen/finn_gen_liftover_hg19.R $j
+
+echo -e $j "done"
+
+" > ${dir_RA}/scripts/data/FinnGen/hg19/finn_gen_liftover_hg19_sh_$j
+
+cd ${dir_RA}/scripts/data/FinnGen/hg19/
+sbatch finn_gen_liftover_hg19_sh_$j
+done
+
+
+```
+
+
+
+
+
+
+
 
 ## Make Bed
 ```python
