@@ -115,7 +115,7 @@ linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 echo $j ${linenamecleaned}
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 64G
 #SBATCH -t 1:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
