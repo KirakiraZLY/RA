@@ -54,7 +54,19 @@ linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 echo $j ${linenamecleaned}
 
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 tail -n +2 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.qc > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.notitle
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/qc/finn_gen_notitle_${j}.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/qc
+sbatch finn_gen_notitle_${j}.sh
 
 done
 
