@@ -38,6 +38,25 @@ cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_
 sbatch finn_gen_qc.sh
 
 ```
+## Liftover, Deleting the title of SS files (SKIP)
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+for j in {1..2409}; do
+#for j in {1..20}; do
+linename=$(head -n $j $ss_name_filename | tail -n 1)
+linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
+echo $j ${linenamecleaned}
+
+tail -n +2 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.qc > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.notitle
+
+done
+
+```
+
 
 ### Liftover
 ```python
