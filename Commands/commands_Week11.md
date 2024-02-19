@@ -29,7 +29,7 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript ${dir_RA}/data/FinnGen/finn_gen_qc.R
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finn_gen_qc.R
 
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/finn_gen_qc.sh
