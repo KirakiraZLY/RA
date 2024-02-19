@@ -23,7 +23,7 @@ ss_name_filename="/home/lezh/dsmwpred/zly/RA/data/FinnGen/summarystatistics/list
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 32G
-#SBATCH -t 10:0:0
+#SBATCH -t 20:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
