@@ -126,10 +126,10 @@ Rscript ${dir_RA}/data/FinnGen/finn_gen_liftover_hg19.R $j
 
 echo -e $j "done"
 
-" > ${dir_RA}/scripts/data/FinnGen/hg19/finn_gen_liftover_hg19_sh_$j
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/hg19/finn_gen_${linenamecleaned}_liftover_hg19.sh
 
-cd ${dir_RA}/scripts/data/FinnGen/hg19/
-sbatch finn_gen_liftover_hg19_sh_$j
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/hg19/
+sbatch finn_gen_${linenamecleaned}_liftover_hg19.sh
 done
 
 
