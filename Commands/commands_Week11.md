@@ -227,3 +227,31 @@ sbatch LDpred2_test.sh
 
 
 ```
+
+
+
+
+## Test on height ukbb
+### Making Summary Statistics
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 8G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+${dir_LDAK} --linear /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/gwas_ss/height_train --bfile ${dir_data}/geno3 --pheno ${dir_data}/height.train
+${dir_LDAK} --linear /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/gwas_ss/height_test --bfile ${dir_data}/geno3 --pheno ${dir_data}/height.test
+
+" > /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/gwas_ss/height_train_test
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/gwas_ss/
+
+sbatch height_train_test
+``` 
