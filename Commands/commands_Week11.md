@@ -82,29 +82,19 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 for j in {1..2409}; do
 #for j in {1..1}; do
+
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 
-
-echo "#"'!'"/bin/bash
-#SBATCH --mem 32G
-#SBATCH -t 20:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
 echo $j ${linenamecleaned}
+
 awk 'NR>1 && $5 ~ /^rs/ {print "chr"$1, ($2-1), $2, $5}'  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_qc/finngen_R10_${linenamecleaned}.notitle > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss_bed/finngen_R10_${linenamecleaned}.bed
-
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/bed/finn_gen_bed_${j}.sh
-
-cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/scripts/bed/
-sbatch finn_gen_bed_${j}.sh
 
 done
 
-
 ```
+
+
 
 ### Liftover
 ```python
@@ -254,4 +244,36 @@ ${dir_LDAK} --linear /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_
 cd /faststorage/project/dsmwpred/zly/RA/scripts/proj1_testprs_finngen_ukbb/gwas_ss/
 
 sbatch height_train_test
+
 ``` 
+
+
+
+
+# Run Lassosum
+## Run The Rscript
+
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum.R
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum_height_test.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/
+
+sbatch lassosum_height_test.sh
+
+``` 
+
