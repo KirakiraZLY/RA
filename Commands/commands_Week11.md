@@ -333,7 +333,7 @@ sbatch step2_height_train.sh
 ```
 
 
-### Step 3 Predicting, without checking
+### Step 3 Predicting, with checking
 /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/
 ```python
 
@@ -350,7 +350,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/megaprs_height/height_train.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/megaprs_height/height_train.megaprs.new.effects  --max-threads 4
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/megaprs_height/height_train.megaprs.new.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/megaprs_height/height_train.megaprs.new.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/ldpred2/preparation/height.test
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/megaprs_height/script/step3_height_train.sh
 
