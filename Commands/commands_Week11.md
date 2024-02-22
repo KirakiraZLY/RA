@@ -429,6 +429,13 @@ sbatch step3_height_train_elastic.sh
 
 # MegaPRS on FINNGEN height
 
+## Make finngen_R10_HEIGHT_IRN.ldak
+```python
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_HEIGHT_IRN  --fileName  HEIGHT_IRN  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_HEIGHT_IRN.ldak  --N 292707  --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+```
+
 ## By Elastic Net
 
 ### Step 2 Make Model
