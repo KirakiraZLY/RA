@@ -140,8 +140,8 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-#for j in {1..2409}; do
-for j in {1..1}; do
+for j in {1..2409}; do
+#for j in {1..1}; do
 linename=$(head -n $j $ss_name_filename | tail -n 1)
 linenamecleaned=$(echo -n "$linename" | tr -d '\r\n')
 echo $j ${linenamecleaned}
@@ -429,7 +429,7 @@ sbatch step3_height_train_elastic.sh
 
 # MegaPRS on FINNGEN height
 
-## Make finngen_R10_HEIGHT_IRN.ldak
+## Make finngen_R10_HEIGHT_IRN.ldak by /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R
 ```python
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_HEIGHT_IRN  --fileName  HEIGHT_IRN  --outputFile /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ldak_format/finngen_R10_HEIGHT_IRN.ldak  --N 292707  --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
