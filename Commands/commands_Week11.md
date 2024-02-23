@@ -41,7 +41,7 @@ sbatch finn_gen_qc_${j}.sh
 done
 
 ```
-### Liftover, Deleting the title of SS files (SKIP)
+### Notitle, Deleting the title of SS files (SKIP)
 ```python
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
