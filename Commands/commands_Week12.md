@@ -97,7 +97,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
   --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin \
   --double-id --allow-extra-chr \
   --set-missing-var-ids @:# \
-  --pca \
+  --pca 6 \
   --out /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin   
 
 " > /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/fin_pca.sh
