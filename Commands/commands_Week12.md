@@ -39,4 +39,46 @@ sbatch hrc_geno_jap.sh
 # MVP
 
 ## download
-wget -b -r https://ftp.ncbi.nlm.nih.gov/dbgap/studies/phs001672/analyses/
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+wget -i /faststorage/project/dsmwpred/zly/RA/data/mvp/links.txt
+
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/hrc_geno_jap.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/scripts/
+sbatch hrc_geno_jap.sh
+
+```
+
+
+# LDpred2 on FinnGen 2409 SS
+
+## Make Bed
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 128G
+#SBATCH -t 100:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/LDpred2_readbed.R
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/readbed_fin.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2
+sbatch readbed_fin.sh
+
+
+```
