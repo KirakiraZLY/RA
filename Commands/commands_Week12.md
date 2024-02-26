@@ -86,6 +86,12 @@ sbatch readbed_fin.sh
 ## PCA on finngen
 
 ```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 30:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 /faststorage/project/dsmwpred/zly/software/plink \
   --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin \
@@ -94,4 +100,9 @@ sbatch readbed_fin.sh
   --pca --make-bed \
   --out /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin   
 
+" > /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/fin_pca.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/
+sbatch fin_pca.sh
 ```
