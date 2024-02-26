@@ -82,3 +82,16 @@ sbatch readbed_fin.sh
 
 
 ```
+
+## PCA on finngen
+
+```python
+
+/faststorage/project/dsmwpred/zly/software/plink \
+  --bfile /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin \
+  --double-id --allow-extra-chr \
+  --set-missing-var-ids @:# \
+  --pca --make-bed \
+  --out /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/hrc_geno_fin   
+
+```
