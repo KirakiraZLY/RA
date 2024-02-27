@@ -210,7 +210,7 @@ done
 
 # Lassosum on FinnGen 2409
 
-## Try with height
+## Try with the first 30
 ```python
 
 dir="/home/lezh/dsmwpred/zly"
