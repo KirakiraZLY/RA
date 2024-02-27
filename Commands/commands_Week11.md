@@ -266,14 +266,14 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum.R
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum_fin_height.R
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum_height_test.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/lassosum_height_fin.sh
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/lassosum/
 
-sbatch lassosum_height_test.sh
+sbatch lassosum_height_fin.sh
 
 ``` 
 

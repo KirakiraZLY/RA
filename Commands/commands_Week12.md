@@ -58,6 +58,38 @@ sbatch hrc_geno_jap.sh
 
 ```
 
+## get summary statistics names
+
+grep -oP '(?i)pha.*'  /faststorage/project/dsmwpred/zly/RA/data/mvp/links.txt > /faststorage/project/dsmwpred/zly/RA/data/mvp/mvp_names.txt
+
+
+## delete first 20 lines
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/faststorage/project/dsmwpred/zly/RA/data/mvp/mvp_names.txt"
+
+total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/data/mvp/mvp_names.txt)
+
+for ((j=1; j<=${total_lines}; j++)); do
+#for j in {1..30}; do
+
+
+my_variable=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/data/mvp/mvp_names.txt)
+echo $j ${my_variable} 
+
+tail -n +22 /faststorage/project/dsmwpred/zly/RA/data/mvp/phs001672.${my_variable} > /faststorage/project/dsmwpred/zly/RA/data/mvp/phs001672.${my_variable}.summary
+
+done
+
+
+```
+
+
+
 
 # LDpred2 on FinnGen 2409 SS
 
@@ -210,7 +242,7 @@ done
 
 # Lassosum on FinnGen 2409
 
-## Try with the first 30
+## RUN
 ```python
 
 dir="/home/lezh/dsmwpred/zly"
@@ -245,5 +277,16 @@ cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/
 sbatch finngen_R10_${linenamecleaned}.lassosum.sh
 
 done
+
+```
+
+## Results
+```
+#!/bin/bash
+
+for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/result/*.r2; do
+    data=$(awk 'NR==2 {print $1}' "$file")
+    echo "${data} ${file}"
+done | sort -n > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/r2_results.txt
 
 ```
