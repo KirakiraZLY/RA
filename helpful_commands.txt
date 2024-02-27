@@ -1,0 +1,154 @@
+
+ssh lezh@login.genome.au.dk
+
+srun --mem-per-cpu 16G --account lezh --pty /bin/bash
+srun --mem-per-cpu 8G -c 8 --account lezh --pty /bin/bash
+
+srun -p normal -t 00-08:00:00 --pty -c 4 --mem=32g bash # get compute node
+srun -t 00-08:00:00 --pty -c 36 --mem=64g --constraint "s05|s22" bash # get compute node
+srun -t 00-08:00:00 --pty -c 4 --mem=32g --constraint "s05" bash # get compute node
+srun -t 00-08:00:00 --pty -c 16 --mem=64g bash # get compute node
+
+srun --mem=32g -c 16 -p normal -t 00-02:00:00 --account lezh --pty bash # get compute node
+
+conda activate r4
+
+space user
+space overview
+space project --project lezh
+priority -a |grep "lezh"
+
+srun --mem-per-cpu 16G -c 16 --account lezh --pty /bin/bash
+srun --mem-per-cpu 16G -c 01 --constraint "s04|s05" --account lezh --pty /bin/bash
+srun --mem-per-cpu 16G -c 09 --constraint "s04|s05" --account lezh --pty /bin/bash
+srun --mem-per-cpu 08G -c 16 --constraint "s04|s05" --account lezh --pty /bin/bash
+srun --mem-per-cpu 08G -c 8 --constraint "s04|s05" --account lezh --pty /bin/bash
+srun --mem-per-cpu 08G -c 4 --constraint "s04|s05" --account lezh --pty /bin/bash
+srun --mem-per-cpu 08G -c 1 --constraint "s04|s05" --account lezh --pty /bin/bash
+
+scancel -u lezh
+
+
+squeue --user=lezh
+squeue --user=lezh |grep " R " | wc -l
+squeue --user=lezh |grep " PD " | wc -l
+
+sinfo -a --long
+sinfo -a --long --Node
+
+squeue --format="%.8A %.4C %.10m %.10M %.10N %.10T %j" -u lezh
+squeue --format="%.8A %.4C %.10m %.10M %.10N %.10T %j" -u lezh |grep "RUNNING" | wc -l
+squeue --format="%.8A %.4C %.10m %.10M %.10N %.10T %j" -u lezh |grep "PENDING" | wc -l
+
+sacct --format="JobID%20,State%20,Timelimit,Elapsed,ReqCPUS,ReqMem,AllocTres,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask,MaxVMSize,NodeList,NTasks,JobName%100" -j 62491456
+sacct -o jobname%100 -j 62491456 |awk 'FNR == 3 {print $1}'
+sacct -o JobID%100,State -j 62491456 | grep ".batch" |awk 'FNR == 1 {print $2}'
+sacct -o JobID%100,elapsed -j 62491456 | grep ".batch" |awk 'FNR == 1 {print $2}'
+sacct -o JobID%100,NodeList -j 62491456 | grep ".batch" |awk 'FNR == 1 {print $2}'
+sacct -o JobID%100,MaxRSS -j 62491456 | grep ".batch" |awk 'FNR == 1 {print $2}'
+
+sstat --format=AveCPU,AveRSS,MaxRSS -P -j 24265712_167
+
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,State%20 -j $i | grep ".batch" |awk 'FNR == 1 {print $2}';done
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,elapsed -j $i | grep ".batch" |awk 'FNR == 1 {print $2}';done
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,NodeList -j $i | grep ".batch" |awk 'FNR == 1 {print $2}';done
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,MaxRSS -j $i | grep ".batch" |awk 'FNR == 1 {print $2}';done
+
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,NodeList,State%20,elapsed%15,MaxRSS,jobname%120 -j $i | grep ".batch" |awk 'FNR == 1 {print $1,$2,$3,$4,$5,$6}';done
+
+for i in $(cat /home/lezh/test1/jobs.text); do sacct -o JobID%100,NodeList,State%20,elapsed%15,MaxRSS,jobname%120 -j $i |awk 'FNR == 3 {print $1,$2,$3,$4,$5,$6}';done
+
+
+
+
+
+#qstat -u lezh
+priority -a |grep "lezh"
+
+
+
+chown -R lezh:dsmwpred /faststorage/project/dsmwpred/lezh/
+chmod -R 0750 /faststorage/project/dsmwpred/lezh/
+
+parallel::mclapply(,,mc.cores=getDTthreads(),mc.preschedule=T)
+
+
+deparse(substitute(tab_gbat_10kukbbref_description))
+
+Sys.setenv(LANG = "en")
+
+set enable-bracketed-paste on/off
+
+source("clipboard",echo=T)
+
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+
+tar -xzvf archive.tar.gz -C /tmp
+
+# example Rscript inside bash
+#!/bin/bash
+cd documents
+
+
+/usr/bin/env Rscript -<<EOF
+mem2 <- 4+5
+packageVersion("data.table")
+save.image("OUT.RData")
+EOF
+
+format(object.size(_______), units = "auto")
+
+
+dos2unix **************.sh # converting file ************.sh to Unix format
+
+eval "$(conda shell.bash hook)"
+
+scontrol update jobid=<job_id> TimeLimit=<new_timelimit>   TimeLimit=8-15:00:00
+
+squeue -u lezh;sacct -o jobid,reqmem,maxrss,averss,elapsed -j 51221279;ls /faststorage/project/dsmwpred/lezh/DATA/snp_snp_cor_genes/1000g_404_nonFin_eur_v2/ |wc -l
+for i in $(cat /faststorage/project/dsmwpred/lezh/analysis7_gbat_other_methods_common_snps/5_plots_reports/jobs_flm.text);do sacct -o jobid,elapsed -j $i | head -n 3| tail -n 1;done
+# concat files with same headers into one file (linux command)
+zcat chr21.info.gz | head -n 1 > test.txt
+for i in *.info.gz;do zcat $i | awk 'FNR>1' | awk -F "\t" '{if($5>0.005 && $7>0.3) {print}}' >> test.txt;done
+wc -l test.txt
+
+head "$trait"_ukbb_50k_train_imp_plink2_glm_chr1.PHENO1.glm.linear -n 1 > "$trait"_ukbb_50k_train_imp_plink2_glm_all_chr.tab
+for i in $(seq 1 22) X;do awk 'FNR>1' "$trait"_ukbb_50k_train_imp_plink2_glm_chr"$i".PHENO1.glm.linear  >> "$trait"_ukbb_50k_train_imp_plink2_glm_all_chr.tab;done
+
+sed -i "1s/.*/$var/" file.txt
+sed -i "s/_______/______/g" file.txt
+
+for f in pheno_10k_indiv_imp_plink2_20220603_glm*.linear; do mv "$f" "$(echo "$f" | sed s/_imp_/_geno_/)"; done
+
+system("seq 1 11 | parallel -I% --max-args 1 'bcftools1.9 norm -m+ chr%.dose.vcf.gz | bcftools1.9 view -m2 -M2 -v snps -i \"INFO/R2>0.3 && STRLEN(ALT)==1 && STRLEN(REF)==1\" -Oz > B1_B2.clean.chr%.vcf.gz'")
+seq 1 11 | parallel -I% --max-args 1 'echo %'
+
+finger tak
+groups lezh
+
+openxlsx::getSheetNames('your/file.xlsx')
+
+SE=1/sqrt(2*AF*(1-AF)*(N + (Z^2)))
+BETA=Z*SE
+
+chown -R lezh:dsmwpred /faststorage/project/dsmwpred/lezh/
+chmod -R 0750 /faststorage/project/dsmwpred/lezh/
+
+#using slurm in R example
+ library(slurmR)
+   n_jobs = 10
+   opts_slurmR$set_tmp_path("/faststorage/project/dsmwpred/lezh/analysis11_geneset_analysis_2/3_scripts/") # directory to script
+   opts_slurmR$set_job_name("simulating_phenos_enrich50_gwas_1_100") # job_names
+   opts_slurmR$set_opts(partition=NULL, account="lezh",`mem-per-cpu`=NULL,mem="32G",time="00-03:30:00") # parameters
+    
+   jobs_to_complete = c(1:100)
+   n_jobs = length(jobs_to_complete)   
+   job <- Slurm_lapply(jobs_to_complete,function(t){
+    # regular R script
+    #
+    #
+   }, njobs=n_jobs, mc.cores=4, plan = "collect") # numbers of cpu to request
+####################
+
+formatC(1:10, width=3, flag="0")
+sprintf("%03d", 1:10)
