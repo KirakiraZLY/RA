@@ -172,7 +172,6 @@ sbatch finngen_R10_HEIGHT_IRN_ldpred2.sh
 ## ldpred2 run all 2409
 ```python
 
-dir="/
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
@@ -186,8 +185,6 @@ for j in {1..30}; do
 echo $j
 
 my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
-#echo ${my_variable}
-#done
 linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 
 echo "#"'!'"/bin/bash
