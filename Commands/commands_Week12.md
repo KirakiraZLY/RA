@@ -146,7 +146,7 @@ cd /faststorage/project/dsmwpred/zly/RA/data/33KG/fin/
 sbatch fin_pca.sh
 ```
 
-## Try with height
+## Try with height, ldpred2
 ```python
 
 echo "#"'!'"/bin/bash
