@@ -336,3 +336,12 @@ for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_u
 done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/r2_results.txt
 
 ```
+
+
+# Result visualization of 4 PRS tools
+
+```python
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/res_vis.R
+
+```
