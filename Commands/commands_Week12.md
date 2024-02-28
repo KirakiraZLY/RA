@@ -203,6 +203,7 @@ sbatch finngen_R10_HEIGHT_IRN_ldpred2.sh
 ```
 
 ## Try with M13_SACROILIITIS, code156, ldpred2
+## Try with one trait
 ```python
 
 echo "#"'!'"/bin/bash
@@ -278,7 +279,7 @@ done
 for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/result/*.r2; do
     data=$(awk 'NR==2 {print $1}' "$file")
     echo "${data} ${file}"
-done | sort -n > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/r2_results.txt
+done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/r2_results.txt
 
 ```
 
@@ -332,6 +333,6 @@ done
 for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/result/*.r2; do
     data=$(awk 'NR==2 {print $1}' "$file")
     echo "${data} ${file}"
-done | sort -n > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/r2_results.txt
+done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/lassosum/r2_results.txt
 
 ```

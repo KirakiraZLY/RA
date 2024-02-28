@@ -421,6 +421,19 @@ done | sort -n > ${output_path}
 ```python
 folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
 for file in "$folder_path"/*.cors; do
+    data=$(awk 'NR==2 {print $2}' "$file")
+    # 将数据进行平方操作
+    squared_data=$(echo "scale=10; $data * $data" | bc)
+    # 输出数字的平方和文件名
+    printf "%.10f %s\n" "$squared_data" "$file"
+done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/r2_results.txt
+
+```
+
+## R2
+```python
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new/prediction/score"
+for file in "$folder_path"/*.cors; do
     [ -e "$file" ] || continue
     awk 'NR==2{print $2}' "$file"
 done | sort -n
