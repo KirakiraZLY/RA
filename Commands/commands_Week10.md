@@ -143,8 +143,8 @@ ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/fin
 
 total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 
-#for ((j=1; j<=${total_lines}; j++)); do
-for j in {1..5}; do
+for ((j=1; j<=${total_lines}; j++)); do
+#for j in {1..5}; do
 
 echo $j
 
