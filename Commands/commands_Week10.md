@@ -391,6 +391,18 @@ done
 
 ```
 
+### Statistic .jack
+```python
+
+#!/bin/bash
+
+for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/result/*.r2; do
+    data=$(awk 'NR==7 {print $2}' "$file")
+    echo "${data} ${file}"
+done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/r2_results.txt
+
+
+```
 
 
 ### Step 4, LDAK jackknife
