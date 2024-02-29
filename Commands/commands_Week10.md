@@ -145,7 +145,7 @@ total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/proj1_te
 
 for ((j=1; j<=${total_lines}; j++)); do
 #for j in {1..5}; do
-#echo $j
+echo $j
 
 my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 #echo ${my_variable}
@@ -156,16 +156,13 @@ linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred
 prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/combine/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.pred.profile.combined)
 
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/jackknife/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/combine/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.pred.profile.combined --num-blocks 200 --AUC YES --prevalence $prev
-
-done
-
 echo "#"'!'"/bin/bash
 #SBATCH --mem 16G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 
 ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/jackknife/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/combine/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.pred.profile.combined --num-blocks 200 --AUC YES --prevalence $prev
 
