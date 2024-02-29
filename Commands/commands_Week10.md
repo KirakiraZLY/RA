@@ -145,6 +145,7 @@ total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/proj1_te
 
 #for ((j=1; j<=${total_lines}; j++)); do
 for j in {1..5}; do
+
 echo $j
 
 my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
