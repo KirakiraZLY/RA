@@ -443,7 +443,7 @@ done
 #!/bin/bash
 
 for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/jackknife/*.jack; do
-    data=$(awk 'NR==7 {print $2}' "$file")
+    data=$(awk 'NR==7 {print $3}' "$file")
     echo "${data} ${file}"
 done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/liability_results.txt
 
