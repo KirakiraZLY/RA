@@ -249,9 +249,9 @@ my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly
 linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 4G
 #SBATCH -t 4:0:0
-#SBATCH -c 8
+#SBATCH -c 2
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
