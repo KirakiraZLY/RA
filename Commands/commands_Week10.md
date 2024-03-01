@@ -547,6 +547,17 @@ done | sort -n
 
 ```
 
+## R2 liability
+```python
+folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/jackknife"
+for file in "$folder_path"/*.jack; do
+    [ -e "$file" ] || continue
+    awk 'NR==7{print $3}' "$file"
+done | sort -n 
+
+```
+
+
 ## Search the highest
 ```python
 #folder_path="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/score"
