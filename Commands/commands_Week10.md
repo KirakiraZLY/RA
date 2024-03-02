@@ -384,9 +384,9 @@ my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly
 linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
-#SBATCH -t 4:0:0
-#SBATCH -c 4
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 2
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
@@ -430,9 +430,9 @@ prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/proje
 
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
-#SBATCH -t 4:0:0
-#SBATCH -c 4
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 1
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
