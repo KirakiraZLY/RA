@@ -386,7 +386,7 @@ linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
 #SBATCH -t 1:0:0
-#SBATCH -c 2
+#SBATCH -c 1
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
