@@ -250,8 +250,8 @@ linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
-#SBATCH -t 4:0:0
-#SBATCH -c 2
+#SBATCH -t 8:0:0
+#SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
@@ -272,6 +272,54 @@ done
 
 ```
 
+
+### Step 4, LDAK jackknife
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+total_lines=$(awk 'END {print NR}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+
+for ((j=1; j<=${total_lines}; j++)); do
+
+#for j in {1..1}; do
+echo $j
+my_variable=$(awk -v k=$j 'NR == k {print $4}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+#echo ${my_variable}
+#done
+linenamecleaned=$(awk -v k=$j 'NR == k {print $1}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/finngen_ukbb_mapping_combined.txt)
+
+# Count proportion of pheno = 1
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/megaprs_new_elastic/prediction/combine/finngen_R10_${linenamecleaned}.code${my_variable}.megaprs.new.pred.profile.combined)
+
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 1:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/jackknife/finngen_R10_${linenamecleaned}.code${my_variable}.ldpred2.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/result/finngen_R10_${linenamecleaned}.ldpred2.prs --num-blocks 200 --AUC YES --prevalence ${prev}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/script/jackknife/finngen_R10_${linenamecleaned}.code${my_variable}.ldpred2.jackknife.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/script/jackknife/
+sbatch finngen_R10_${linenamecleaned}.code${my_variable}.ldpred2.jackknife.sh
+
+done
+
+```
+
+
+
+
 ## Results
 ```
 #!/bin/bash
@@ -283,7 +331,18 @@ done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finn
 
 ```
 
+### Statistic .jack
+```python
 
+#!/bin/bash
+
+for file in /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/jackknife/*.jack; do
+    data=$(awk 'NR==7 {print $3}' "$file")
+    echo "${data} ${file}"
+done | sort -n -k1,1gr > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/liability_results.txt
+
+
+```
 
 
 # Lassosum on FinnGen 2409
