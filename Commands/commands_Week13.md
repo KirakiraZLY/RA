@@ -10,8 +10,8 @@
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
-#SBATCH -t 4:0:0
-#SBATCH -c 2
+#SBATCH -t 8:0:0
+#SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
