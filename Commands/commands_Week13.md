@@ -259,7 +259,7 @@ sbatch PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.jackknife.sh
 
 ## SCZ, By LDpred2
 
-conda activate zly2
+conda activate zly2   
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/LDpred2_1.R
 
 ```python
