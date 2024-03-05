@@ -258,7 +258,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile --num-blocks 200 --AUC YES --prevalence ${prev}
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.jackknife.sh
 
