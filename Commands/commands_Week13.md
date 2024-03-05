@@ -131,6 +131,11 @@ sbatch PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined.sh
 
 ### Step 4, LDAK jackknife
 ```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -236,6 +241,11 @@ sbatch PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined.sh
 
 ### Step 4, LDAK jackknife
 ```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
