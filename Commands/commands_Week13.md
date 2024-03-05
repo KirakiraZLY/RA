@@ -281,7 +281,7 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb
 echo "#"'!'"/bin/bash
 #SBATCH --mem 16G
 #SBATCH -t 8:0:0
-#SBATCH -c 4
+#SBATCH -c 8
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
