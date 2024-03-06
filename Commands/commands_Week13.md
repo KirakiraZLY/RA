@@ -568,8 +568,12 @@ conda activate zly2
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/LDpred2_1.R
 
 ### ANNOVAR
+rsid -> chr:pos
+
 ```python
-convert2annovar.pl -format rsid example/snplist.txt -dbsnpfile humandb/hg19_snp138.txt > snplist.avinput
+
+/faststorage/project/dsmwpred/zly/software/ANNOVAR/annovar/convert2annovar.pl -format rsid /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.snplist -dbsnpfile /faststorage/project/dsmwpred/zly/software/ANNOVAR/annovar/humandb/hg19_snp138.txt > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.snplist.predictor
+
 ```
 
 ### LDpred2
