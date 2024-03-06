@@ -496,38 +496,13 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/MDD_F32.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/MDD_F32.pheno
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/step3_PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/step3_PGC_UKB_depression_genome-wide.megaprs.elastic.sh
 
 # I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/
-sbatch step3_PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.sh
-
-```
-
-
-
-### Step 3.5 Combine profile and phenotype
-```python
-
-echo "#"'!'"/bin/bash
-#SBATCH --mem 4G
-#SBATCH -t 1:0:0
-#SBATCH -c 1
-#SBATCH -A dsmwpred
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-conda activate zly2
-
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/profile_combine.R --pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/SCZ_F20.pheno --prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined
-
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined.sh
-
-# I am doing blabla
-
-cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/
-sbatch PGC3_SCZ_wave3.european.autosome.megaprs.bayesr.pred.profile.combined.sh
+sbatch step3_PGC_UKB_depression_genome-wide.megaprs.elastic.sh
 
 ```
 
@@ -540,7 +515,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_bayesr/PGC_UKB_depression_genome-wide.megaprs.bayesr.pred.profile)
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.pred.profile)
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -549,14 +524,14 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_bayesr/PGC_UKB_depression_genome-wide.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_bayesr/PGC_UKB_depression_genome-wide.megaprs.bayesr.pred.profile --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.pred.profile --num-blocks 200 --AUC YES --prevalence ${prev}
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.bayesr.pred.jackknife.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/PGC_UKB_depression_genome-wide.megaprs.elastic.pred.jackknife.sh
 
 # I am doing blabla
 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/megaprs_elastic/
-sbatch PGC_UKB_depression_genome-wide.megaprs.bayesr.pred.jackknife.sh
+sbatch PGC_UKB_depression_genome-wide.megaprs.elastic.pred.jackknife.sh
 
 ```
 
