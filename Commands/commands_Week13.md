@@ -595,6 +595,15 @@ rsid -> chr:pos
 
 ```
 
+chr:pos -> rsid
+```python
+
+/faststorage/project/dsmwpred/zly/software/ANNOVAR/annovar/annotate_variation.pl //faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/chrpos_rsid/PGCALZ2ExcludingUKBand23andME_METALInverseVariance_MetaAnalysis.chrpos.list /faststorage/project/dsmwpred/zly/software/ANNOVAR/annovar/humandb/ -filter -build hg19 -dbtype avsnp150
+
+```
+
+
+
 ### LDpred2
 ```python
 
