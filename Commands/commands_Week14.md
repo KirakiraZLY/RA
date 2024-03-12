@@ -680,6 +680,36 @@ cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/
 sbatch step2_SBP_MVP_White.results.megaprs.elastic.sh
 
 ```
+
+
+### Step 2 Make Model 6
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 2:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/cors_geno3 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/highld_geno3/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss.ldak --model elastic --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss.ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/step2_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
+sbatch step2_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.sh
+
+```
+
+
+
 HDL, T2D, AAA, hyperarouse, eGFR
 
 ICD 10 disease against HDL: E78.5 code2640 Hyperlipidemia; E78.6 Lipoprotein deficiency
@@ -821,6 +851,34 @@ ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_fin
 # I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
 sbatch step3_SBP_MVP_White.results.megaprs.elastic.pred.sh
+
+```
+
+
+### Step 3 6 Predicting, with checking
+/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_ukbb/100icd10/
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code2366.pheno
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/step3_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
+sbatch step3_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.sh
 
 ```
 
@@ -969,6 +1027,35 @@ ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finng
 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
 sbatch SBP_MVP_White.results.megaprs.elastic.pred.jackknife.sh
+
+```
+
+
+### Step 4 6, LDAK jackknife
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.profile)
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 1
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.profile  --num-blocks 200 --AUC YES --prevalence ${prev}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.jackknife.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
+sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.jackknife.sh
 
 ```
 
