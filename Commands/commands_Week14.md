@@ -172,6 +172,36 @@ sbatch step2_SBP_MVP_White.results.megaprs.bayesr.sh
 
 ```
 
+
+### Step 2 Make Model 6
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 2:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.bayesr --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/cors_geno3 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3_as_reference_panel/highld_geno3/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss.ldak --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss.ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/step2_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.bayesr.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/
+sbatch step2_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.bayesr.sh
+
+```
+
+
+
+
 HDL, T2D, AAA, hyperarouse, eGFR
 
 ICD 10 disease against HDL: E78.5 code2640 Hyperlipidemia; E78.6 Lipoprotein deficiency
