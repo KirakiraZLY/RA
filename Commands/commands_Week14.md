@@ -1192,3 +1192,57 @@ sbatch daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife.sh
 
 ```
 
+
+
+## LDpred2 4 T2D 
+triglycerides
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_2.R --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker19.pheno  --sumstats /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred.ss  --outputFile  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred2 --ss_type MVP
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred2.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/
+sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred2.sh
+
+```
+
+### Step 4, LDAK jackknife
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+#prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.megaprs.elastic.pred.profile)
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 1
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2.prs.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2.prs --num-blocks 200
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2.prs.jackknife.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/
+sbatch MVP.EUR.HDL.gwas.dbGAP.ldpred2.prs.jackknife.sh
+
+```
+
+
