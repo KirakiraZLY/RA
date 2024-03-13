@@ -1217,7 +1217,7 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/
-sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred2.sh
+sbatch MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno3.ss.ldpred2.sh
 
 ```
 
