@@ -8,6 +8,7 @@
 HDL, T2D, AAA, hyperarouse, eGFR
 
 ICD 10 disease against HDL: E78.5 code2640 Hyperlipidemia; E78.6 Lipoprotein deficiency
+    /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno
 ICD 10 disease against T2D: E11.9 code2366 Type 2 diabetes mellitus
 ICD 10 disease against AAA: I71.40 code4356 I71 Abdominal aortic aneurysm, without rupture, unspecified
 ICD 10 disease against hyperarouse: F41.1 code2942 Generalized anxiety disorder
@@ -39,8 +40,19 @@ sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.chrpos.list.sh
 ## LDAK formatting
 ```python
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
 
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ss  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.eGFR.dbGAP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.eGFR.dbGAP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.AAA.fordbGaP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.AAA.fordbGaP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/dbGAP_hyperarousal_eur  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/dbGAP_hyperarousal_eur --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
 ```
 
 ## Megaprs BayesR
@@ -205,6 +217,7 @@ sbatch step2_MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.bayesr.sh
 HDL, T2D, AAA, hyperarouse, eGFR
 
 ICD 10 disease against HDL: E78.5 code2640 Hyperlipidemia; E78.6 Lipoprotein deficiency
+    /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno
 ICD 10 disease against T2D: E11.9 code2366 Type 2 diabetes mellitus
 ICD 10 disease against AAA: I71.40 code4356 I71 Abdominal aortic aneurysm, without rupture, unspecified
 ICD 10 disease against hyperarouse: F41.1 code2942 Generalized anxiety disorder
@@ -308,7 +321,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code2942.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/step3_MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.sh
 
@@ -473,7 +486,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.profile)
+#prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.profile)
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -482,7 +495,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.profile  --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.profile.1  --num-blocks 200
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/MVP.EUR.HDL.gwas.dbGAP.megaprs.bayesr.pred.jackknife.sh
 
@@ -816,7 +829,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code2942.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/step3_MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.sh
 
@@ -981,7 +994,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.profile)
+#prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.profile)
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -990,7 +1003,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.profile  --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.profile  --num-blocks 200
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/MVP.EUR.HDL.gwas.dbGAP.megaprs.elastic.pred.jackknife.sh
 
@@ -1056,6 +1069,112 @@ ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finng
 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/
 sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.megaprs.elastic.pred.jackknife.sh
+
+```
+
+
+
+## LDpred2 4 HDL 
+
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_2.R --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno  --sumstats /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss  --outputFile  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2 --ss_type MVP
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/
+sbatch MVP.EUR.HDL.gwas.dbGAP.ldpred2.sh
+
+```
+
+### Step 4, LDAK jackknife
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.megaprs.elastic.pred.profile)
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 1
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.prs --num-blocks 200 --AUC YES --prevalence ${prev}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/ldpred2/
+sbatch daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife.sh
+
+```
+
+
+
+## LDpred2 4 SBP 
+
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_2.R --pheno /home/lezh/snpher/faststorage/biobank/phenotypes/sbp.clean  --sumstats /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.ldpred.ss  --outputFile  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/SBP_MVP_White.results.ldpred2 --ss_type MVP
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/SBP_MVP_White.results.ldpred2.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/ldpred2/
+sbatch SBP_MVP_White.results.ldpred2.sh
+
+```
+
+### Step 4, LDAK jackknife
+```python
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/megaprs_elastic/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.megaprs.elastic.pred.profile)
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 4G
+#SBATCH -t 1:0:0
+#SBATCH -c 1
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.prs --num-blocks 200 --AUC YES --prevalence ${prev}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/ldpred2/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife.sh
+
+# I am doing blabla
+
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/ldpred2/
+sbatch daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred2.jackknife.sh
 
 ```
 
