@@ -39,6 +39,12 @@ sbatch MVP.T2D.EUR.MAF001.dbGaP.checked.chrpos.list.sh
 
 ## LDAK formatting
 ```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
 
@@ -53,6 +59,12 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.AAA.fordbGaP.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.AAA.fordbGaP --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/dbGAP_hyperarousal_eur  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/dbGAP_hyperarousal_eur --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
+" > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/mvp_formatting.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/
+sbatch mvp_formatting.sh
 ```
 
 ## Megaprs BayesR
