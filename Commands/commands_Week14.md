@@ -1135,7 +1135,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_1_auto.R
+#Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_1_auto.R
  
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/LDpred2_2_auto.R --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno  --sumstats /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss  --outputFile  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/ldpred2/MVP.EUR.HDL.gwas.dbGAP.ldpred2.auto --ss_type MVP
 
