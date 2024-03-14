@@ -64,6 +64,8 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno3.ss  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno3.ss --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
 
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White_geno3_matched.results  --outputFile /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results --bfile /home/lezh/dsmwpred/data/ukbb/geno3  
+
 " > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/mvp_formatting.sh
 
 # I am doing blabla
