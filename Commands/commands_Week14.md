@@ -537,7 +537,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.profile)
+#prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.profile)
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -546,7 +546,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.profile  --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.profile  --num-blocks 200
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/SBP_MVP_White.results.megaprs.bayesr.pred.jackknife.sh
 
@@ -1049,7 +1049,7 @@ dir_data="/home/lezh/dsmwpred/data/ukbb"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.profile)
+#prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.profile)
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 4G
@@ -1058,7 +1058,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.profile  --num-blocks 200 --AUC YES --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/elastic/SBP_MVP_White.results.megaprs.elastic.pred.profile  --num-blocks 200
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/elastic/SBP_MVP_White.results.megaprs.elastic.pred.jackknife.sh
 
