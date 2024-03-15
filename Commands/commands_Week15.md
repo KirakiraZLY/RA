@@ -299,19 +299,19 @@ sbatch geno3_bmi_bolt.sh
 ```
 ## 12 chron
 ### Bolt bmi
+
 ```python
-dir="/home/lezh/dsmwpred/zly"
+
 echo "#"'!'"/bin/bash
 #SBATCH --mem 8G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
 
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
 
