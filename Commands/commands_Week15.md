@@ -11,6 +11,11 @@ cov without label: /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.a
 bfile: /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3    
 pheno: /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno   
 
+## geno3 -> .bgen
+
+```python
+/faststorage/project/dsmwpred/zly/software/plink2 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --export bgen-1.2 --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen
+```
 ## Pheno adding label
 ```python
 for file in /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/*; do
@@ -202,24 +207,49 @@ sbatch geno3_hyper_bolt.sh
 ```
 
 ## 9 height
-### Bolt height
+### Regenie height
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_height_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_hyper_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_height_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen ${dir}/data_qc.bgen \
+  --phenoFile ${dir}/Phenotype_UKBB/height_label.pheno \
+  --covarFile ${dir}/covar_PC_10.covars \
+  --covarColList Paternal,Sex,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred ${dir}/Real_Traits/height/data_qc_regenie_height_s1_pred.list \
+  --out ${dir}/Real_Traits/height/data_qc_regenie_height_s2
+
+" > ${dir}/scripts/Real_Traits/height/data_qc_regenie_height
 
 
 # I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+cd ${dir}/scripts/Real_Traits/height/
+sbatch data_qc_regenie_height
 
-sbatch geno3_height_bolt.sh
 ```
 
 ## 10 fvc
@@ -315,13 +345,13 @@ sbatch geno3_bmi_bolt.sh
 ### Bolt awake
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 256G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
 
