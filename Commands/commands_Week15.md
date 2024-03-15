@@ -769,6 +769,26 @@ sbatch geno3_ever_regenie.sh
 
 ```
 
+### LDAK run ever
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/ever.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_ever_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_ever_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_ever_ldak.sh
+```
+
 
 ## 12 chron
 ### Regenie chron
