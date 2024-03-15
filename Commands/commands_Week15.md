@@ -14,7 +14,21 @@ pheno: /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno
 ## geno3 -> .bgen
 
 ```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 64G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 /faststorage/project/dsmwpred/zly/software/plink2 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --export bgen-1.2 --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_to_bgen.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_to_bgen.sh
 
 ```
 ## Pheno adding label
