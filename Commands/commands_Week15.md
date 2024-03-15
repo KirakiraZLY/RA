@@ -38,7 +38,7 @@ done
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -59,7 +59,7 @@ sbatch geno3_snoring_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -80,7 +80,7 @@ sbatch geno3_sbp_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -101,7 +101,7 @@ sbatch geno3_reaction_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -122,7 +122,7 @@ sbatch geno3_quals_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -143,7 +143,7 @@ sbatch geno3_pulse_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -164,7 +164,7 @@ sbatch geno3_neur_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -185,7 +185,7 @@ sbatch geno3_imp_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -206,7 +206,7 @@ sbatch geno3_hyper_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -227,7 +227,7 @@ sbatch geno3_height_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -248,7 +248,7 @@ sbatch geno3_fvc_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -269,7 +269,7 @@ sbatch geno3_ever_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -290,7 +290,7 @@ sbatch geno3_chron_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -316,7 +316,7 @@ sbatch geno3_bmi_bolt.sh
 ```python
 echo "#"'!'"/bin/bash
 #SBATCH --mem 128G
-#SBATCH -t 80:0
+#SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
