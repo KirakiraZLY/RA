@@ -37,7 +37,7 @@ done
 ### Bolt snoring
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -58,7 +58,7 @@ sbatch geno3_snoring_bolt.sh
 ### Bolt sbp
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -79,7 +79,7 @@ sbatch geno3_sbp_bolt.sh
 ### Bolt reaction
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -100,7 +100,7 @@ sbatch geno3_reaction_bolt.sh
 ### Bolt quals
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -121,7 +121,7 @@ sbatch geno3_quals_bolt.sh
 ### Bolt pulse
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -142,7 +142,7 @@ sbatch geno3_pulse_bolt.sh
 ### Bolt neur
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -163,7 +163,7 @@ sbatch geno3_neur_bolt.sh
 ### Bolt imp
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -184,7 +184,7 @@ sbatch geno3_imp_bolt.sh
 ### Bolt hyper
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -205,7 +205,7 @@ sbatch geno3_hyper_bolt.sh
 ### Bolt height
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -226,7 +226,7 @@ sbatch geno3_height_bolt.sh
 ### Bolt fvc
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -247,7 +247,7 @@ sbatch geno3_fvc_bolt.sh
 ### Bolt ever
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -268,7 +268,7 @@ sbatch geno3_ever_bolt.sh
 ### Bolt chron
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -289,7 +289,7 @@ sbatch geno3_chron_bolt.sh
 ### Bolt bmi
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -315,7 +315,7 @@ sbatch geno3_bmi_bolt.sh
 ### Bolt awake
 ```python
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 32G
 #SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
