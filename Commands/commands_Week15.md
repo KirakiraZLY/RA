@@ -5,10 +5,10 @@
 
 
 # UKBB GWAS
-Divided into train and test sets
-cov: /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars
-bfile: /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 
-pheno: /faststorage/project/dsmwpred/data/ukbb
+Divided into train and test sets.   
+cov: /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars   
+bfile: /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3    
+pheno: /faststorage/project/dsmwpred/data/ukbb   
 
 ## 1 snoring
 
