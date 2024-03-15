@@ -16,7 +16,7 @@ pheno: /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 128G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -54,177 +54,545 @@ done
 ```
 
 ## 1 snoring
-### Bolt snoring
+### Regenie snoring
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/snoring.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_snoring_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/snoring.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_snoring_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_snoring_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/snoring.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_snoring_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_snoring_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_snoring_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_snoring_regenie.sh
 
-sbatch geno3_snoring_bolt.sh
 ```
+
+### LDAK run snoring
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/snoring.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_snoring_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_snoring_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_snoring_ldak.sh
+```
+
 
 ## 2 sbp
-### Bolt sbp
+### Regenie sbp
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/sbp.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_sbp_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/sbp.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_sbp_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_sbp_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/sbp.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_sbp_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_sbp_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_sbp_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_sbp_regenie.sh
 
-sbatch geno3_sbp_bolt.sh
 ```
+
+### LDAK run sbp
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/sbp.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_sbp_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_sbp_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_sbp_ldak.sh
+```
+
 
 ## 3 reaction
-### Bolt reaction
+### Regenie reaction
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/reaction.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_reaction_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/reaction.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_reaction_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_reaction_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/reaction.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_reaction_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_reaction_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_reaction_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_reaction_regenie.sh
 
-sbatch geno3_reaction_bolt.sh
 ```
+
+### LDAK run reaction
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/reaction.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_reaction_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_reaction_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_reaction_ldak.sh
+```
+
 
 ## 4 quals
-### Bolt quals
+### Regenie quals
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/quals.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_quals_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/quals.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_quals_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_quals_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/quals.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_quals_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_quals_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_quals_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_quals_regenie.sh
 
-sbatch geno3_quals_bolt.sh
 ```
+
+### LDAK run quals
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/quals.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_quals_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_quals_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_quals_ldak.sh
+```
+
 
 ## 5 pulse
-### Bolt pulse
+### Regenie pulse
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/pulse.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_pulse_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/pulse.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_pulse_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_pulse_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/pulse.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_pulse_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_pulse_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_pulse_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_pulse_regenie.sh
 
-sbatch geno3_pulse_bolt.sh
 ```
+
+### LDAK run pulse
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/pulse.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_pulse_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_pulse_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_pulse_ldak.sh
+```
+
 
 ## 6 neur 
-### Bolt neur
+### Regenie neur
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/neur.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_neur_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/neur.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_neur_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_neur_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/neur.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_neur_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_neur_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_neur_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_neur_regenie.sh
 
-sbatch geno3_neur_bolt.sh
 ```
+### LDAK run neur
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/neur.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_neur_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_neur_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_neur_ldak.sh
+```
+
+
 
 ## 7 imp
-### Bolt imp
+### Regenie imp
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/imp.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_imp_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/imp.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_imp_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_imp_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/imp.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_imp_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_imp_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_imp_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_imp_regenie.sh
 
-sbatch geno3_imp_bolt.sh
 ```
+
+### LDAK run imp
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/imp.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_imp_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_imp_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_imp_ldak.sh
+```
+
 
 ## 8 hyper
-### Bolt hyper
+### Regenie hyper
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/hyper.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_hyper_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/hyper.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_hyper_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_hyper_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/hyper.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_hyper_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_hyper_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_hyper_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_hyper_regenie.sh
 
-sbatch geno3_hyper_bolt.sh
 ```
+### LDAK run hyper
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/hyper.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_hyper_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_hyper_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_hyper_ldak.sh
+```
+
+
 
 ## 9 height
 ### Regenie height
 ```python
-dir="/home/lezh/dsmwpred/zly"
+
 echo "#"'!'"/bin/bash
 #SBATCH --mem 32G
 #SBATCH -t 8:0:0
@@ -242,138 +610,365 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
-  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_hyper_regenie_step1  
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_height_regenie_step1  
 
 
 regenie \
   --step 2 \
-  --bgen ${dir}/data_qc.bgen \
-  --phenoFile ${dir}/Phenotype_UKBB/height_label.pheno \
-  --covarFile ${dir}/covar_PC_10.covars \
-  --covarColList Paternal,Sex,PC{1:10} \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
   --qt \
   --pThresh 0.01 \
-  --pred ${dir}/Real_Traits/height/data_qc_regenie_height_s1_pred.list \
-  --out ${dir}/Real_Traits/height/data_qc_regenie_height_s2
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_height_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_height_regenie
 
-" > ${dir}/scripts/Real_Traits/height/data_qc_regenie_height
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_height_regenie.sh
 
 
 # I am doing blabla
-cd ${dir}/scripts/Real_Traits/height/
-sbatch data_qc_regenie_height
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_height_regenie.sh
 
 ```
+
+### LDAK run height
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_height_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_height_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_height_ldak.sh
+```
+
 
 ## 10 fvc
-### Bolt fvc
+### Regenie fvc
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/fvc.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_fvc_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/fvc.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_fvc_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_fvc_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/fvc.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_fvc_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_fvc_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_fvc_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_fvc_regenie.sh
 
-sbatch geno3_fvc_bolt.sh
 ```
+
+### LDAK run fvc
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/fvc.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_fvc_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_fvc_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_fvc_ldak.sh
+```
+
 
 ## 11 ever
-### Bolt ever
+### Regenie ever
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/ever.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_ever_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/ever.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_ever_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_ever_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/ever.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_ever_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_ever_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_ever_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_ever_regenie.sh
 
-sbatch geno3_ever_bolt.sh
 ```
+
 
 ## 12 chron
-### Bolt chron
+### Regenie chron
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/chron.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_chron_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/chron.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_chron_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_chron_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/chron.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_chron_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_chron_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_chron_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_chron_regenie.sh
 
-sbatch geno3_chron_bolt.sh
+```
+### LDAK run chron
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/chron.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_chron_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_chron_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_chron_ldak.sh
 ```
 
+
+
 ## 13 bmi
-### Bolt bmi
+### Regenie bmi
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 128G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:6}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_bmi_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_bmi_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_bmi_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_bmi_regenie.sh
 
-sbatch geno3_bmi_bolt.sh
+```
 
+### LDAK run bmi
+```python
 
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_bmi_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_bmi_ldak.sh
 ```
 
 
 
 
 ## 14 awake
-### Bolt awake
+### Regenie awake
 ```python
+dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 256G
+#SBATCH --mem 32G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
+
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+conda activate regenie_env
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+regenie \
+  --step 1 \
+  --bed /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_awake_regenie_step1  
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+regenie \
+  --step 2 \
+  --bgen /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen \
+  --phenoFile /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train \
+  --covarFile /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars \
+  --covarColList SEX,PC{1:10} \
+  --bsize 1000 \
+  --threads 4 \
+  --qt \
+  --pThresh 0.01 \
+  --pred /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno3_awake_regenie_step1.list \
+  --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_awake_regenie
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_regenie.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_awake_regenie.sh
 
-sbatch geno3_awake_bolt.sh
+```
+
+### LDAK run awake
+```python
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/home/lezh/snpher/faststorage/ldak5.2.linux --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.train  --covar /faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs.covars --max-threads 4  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --linear /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno3_awake_ldak
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_ldak.sh
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+sbatch geno3_awake_ldak.sh
 ```
 
