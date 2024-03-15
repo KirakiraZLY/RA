@@ -14,7 +14,8 @@ pheno: /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno
 ## geno3 -> .bgen
 
 ```python
-/faststorage/project/dsmwpred/zly/software/plink2 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --export bgen-1.2 --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3.bgen
+/faststorage/project/dsmwpred/zly/software/plink2 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --export bgen-1.2 --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/geno3
+
 ```
 ## Pheno adding label
 ```python
