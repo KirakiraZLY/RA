@@ -34,274 +34,8 @@ done
 ```
 
 ## 1 snoring
-### Bolt bmi
+### Bolt awake
 ```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 2 sbp
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 3 reaction
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 4 quals
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 5 pulse
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 6 neur 
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 7 imp
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 8 hyper
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 9 height
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 10 fvc
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 11 ever
-### Bolt bmi
-```python
-dir="/home/lezh/dsmwpred/zly"
-echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
-
-
-# I am doing blabla
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
-
-sbatch geno3_bmi_bolt.sh
-```
-## 12 chron
-### Bolt bmi
-
-```python
-
 echo "#"'!'"/bin/bash
 #SBATCH --mem 16G
 #SBATCH -t 4:0:0
@@ -309,16 +43,248 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/bmi.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_bmi_bolt
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_bolt.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
 
 
 # I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
 
-sbatch geno3_bmi_bolt.sh
+sbatch geno3_awake_bolt.sh
 ```
+
+## 2 sbp
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 3 reaction
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 4 quals
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 5 pulse
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 6 neur 
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 7 imp
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 8 hyper
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 9 height
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 10 fvc
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 11 ever
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
+## 12 chron
+### Bolt awake
+```python
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
+
+
+# I am doing blabla
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/
+
+sbatch geno3_awake_bolt.sh
+```
+
 ## 13 bmi
 ### Bolt bmi
 ```python
@@ -348,18 +314,14 @@ sbatch geno3_bmi_bolt.sh
 ## 14 awake
 ### Bolt awake
 ```python
-dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 8:0:0
+#SBATCH --mem 16G
+#SBATCH -t 4:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
-
-
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir}/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
+/faststorage/project/dsmwpred/zly/software/BOLT-LMM_v2.4/bolt --bfile=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --phenoFile=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.train  --phenoCol=Phenotype  --covarFile=/faststorage/project/dsmwpred/zly/RA/data/geno.sex.townsend.age.pcs_label.covars --qCovarCol=SEX --qCovarCol=PC{1:10}  --lmmForceNonInf --LDscoresUseChip --numThreads 4  --statsFile=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/geno3_awake_bolt
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_bolt.sh
 
