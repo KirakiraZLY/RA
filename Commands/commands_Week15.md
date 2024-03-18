@@ -1068,6 +1068,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_reaction_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_reaction_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_reaction_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_reaction_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_reaction_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1088,6 +1090,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_quals_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_quals_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_quals_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_quals_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_quals_regenie_Phenotype.formatting.sh
 
@@ -1110,6 +1114,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_pulse_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_pulse_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_pulse_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_pulse_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_pulse_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1130,6 +1136,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_neur_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_neur_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_neur_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_neur_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_neur_regenie_Phenotype.formatting.sh
 
@@ -1152,6 +1160,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_imp_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_imp_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_imp_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_imp_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_imp_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1172,6 +1182,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_hyper_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_hyper_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_hyper_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_hyper_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_hyper_regenie_Phenotype.formatting.sh
 
@@ -1194,6 +1206,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_height_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_height_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_height_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_height_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_height_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1214,6 +1228,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_fvc_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_fvc_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_fvc_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_fvc_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_fvc_regenie_Phenotype.formatting.sh
 
@@ -1236,6 +1252,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_ever_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_ever_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_ever_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_ever_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_ever_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1256,6 +1274,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_chron_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_chron_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_chron_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_chron_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_chron_regenie_Phenotype.formatting.sh
 
@@ -1278,6 +1298,8 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_bmi_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_bmi_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
 
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_bmi_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_bmi_regenie_Phenotype.prscs.ss
+
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_bmi_regenie_Phenotype.formatting.sh
 
 # I am doing blabla
@@ -1298,6 +1320,8 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno3_awake_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_awake_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3  
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_awake_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno3_awake_regenie_Phenotype.prscs.ss
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/script/geno3_awake_regenie_Phenotype.formatting.sh
 
