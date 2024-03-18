@@ -1,0 +1,25 @@
+---
+title: "Proj0 Visualization"
+output: html_document
+date: "2024-01-13"
+---
+
+```{r setup, include=FALSE}
+# library(GENESIS)
+library(qqman)
+library(tidyverse)
+library(tidyr)
+```
+
+```{r}
+
+df <- data.frame(PRS_software = c("MegaPRS_New", "MegaPRS_Old", "QuickPRS"), Correlation = c(0.590507, 0.591267, 0.518388))
+
+ggplot(df, aes(x = PRS_software, y = Correlation, fill = PRS_software)) +
+  geom_bar(stat = "identity", color = "black", width = 0.7) + 
+  labs(title = "Correlation on Height, UKBB", x = "PRS software",y = "Correlation") +
+  ylim(0,1) +
+  theme_minimal() 
+
+```
+
