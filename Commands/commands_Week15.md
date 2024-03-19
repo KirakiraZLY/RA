@@ -3336,6 +3336,10 @@ rm /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_resul
 
 awk '{print $2, $4, $5, "NA", $6}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect
 
+echo "Predictor A1 A2 Centre Model" /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect.1
+
+mv /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect.1 /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect
+
 
 ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno3 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_snoring_regenie_Phenotype.prscs.results.combined.effect   --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/snoring.label.test
 
