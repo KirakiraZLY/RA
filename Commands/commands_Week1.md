@@ -202,8 +202,8 @@ echo "#"'!'"/bin/bash
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
-#SBATCH --constraint \"s05\"
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
 ${dir_LDAK} --calc-tagging ${dir_RA}/megaprs/her_ldak_thin/white_thin.thin --bfile ${dir_data}/geno --weights ${dir_RA}/megaprs/her_ldak_thin/white_weights.thin --power -.25 --window-cm 1 --save-matrix YES
 
 
