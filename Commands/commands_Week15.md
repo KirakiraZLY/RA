@@ -3517,7 +3517,9 @@ rm /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_resul
 
 awk '{print $2, $4, $5, "NA", $6}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect 
 
-grep '^rs' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect.1 
+awk '!seen[$1]++ || /^rs/' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect.1
+
+#grep '^rs' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect.1 
 
 echo "Predictor A1 A2 Centre Model"  | cat -  /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect.1 > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno3_sbp_regenie_Phenotype.prscs.results.combined.effect.2
 
