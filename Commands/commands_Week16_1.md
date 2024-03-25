@@ -244,7 +244,7 @@ echo "#"'!'"/bin/bash
 #SBATCH -c 4
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
+   
 ${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/bayesr/MVP.T2D.EUR.MAF001.checked.megaprs.bayesr --allow-ambiguous YES --cors geno/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld4/cors_geno4 --high-LD geno/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld4/highld_geno4/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.checked.rsids.ldak --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.checked.rsids.ldak
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/bayesr/step2_MVP.T2D.EUR.MAF001.checked.megaprs.bayesr.sh
