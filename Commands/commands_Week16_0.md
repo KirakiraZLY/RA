@@ -74,6 +74,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_snoring_regenie_step1  
 
 
@@ -141,6 +142,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_sbp_regenie_step1  
 
 
@@ -208,6 +210,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_reaction_regenie_step1  
 
 
@@ -275,6 +278,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_quals_regenie_step1  
 
 
@@ -342,6 +346,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_pulse_regenie_step1  
 
 
@@ -409,6 +414,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_neur_regenie_step1  
 
 
@@ -476,6 +482,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_imp_regenie_step1  
 
 
@@ -543,6 +550,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_hyper_regenie_step1  
 
 
@@ -610,6 +618,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_height_regenie_step1  
 
 
@@ -677,6 +686,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_fvc_regenie_step1  
 
 
@@ -744,6 +754,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_ever_regenie_step1  
 
 
@@ -811,6 +822,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_chron_regenie_step1  
 
 
@@ -878,6 +890,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_bmi_regenie_step1  
 
 
@@ -947,6 +960,7 @@ regenie \
   --covarColList SEX,PC{1:10} \
   --bsize 1000 \
   --threads 4 \
+  --force-step1 \
   --out /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step1/geno4_awake_regenie_step1  
 
 
