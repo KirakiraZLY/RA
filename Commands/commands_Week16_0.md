@@ -58,7 +58,7 @@ done
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -104,7 +104,7 @@ sbatch geno4_snoring_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -126,7 +126,7 @@ sbatch geno4_snoring_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -172,7 +172,7 @@ sbatch geno4_sbp_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -194,7 +194,7 @@ sbatch geno4_sbp_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -240,7 +240,7 @@ sbatch geno4_reaction_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -262,7 +262,7 @@ sbatch geno4_reaction_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -308,7 +308,7 @@ sbatch geno4_quals_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -330,7 +330,7 @@ sbatch geno4_quals_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -376,7 +376,7 @@ sbatch geno4_pulse_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -398,7 +398,7 @@ sbatch geno4_pulse_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -443,7 +443,7 @@ sbatch geno4_neur_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -466,7 +466,7 @@ sbatch geno4_neur_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -512,7 +512,7 @@ sbatch geno4_imp_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -534,7 +534,7 @@ sbatch geno4_imp_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -579,7 +579,7 @@ sbatch geno4_hyper_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -602,7 +602,7 @@ sbatch geno4_hyper_ldak.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -648,7 +648,7 @@ sbatch geno4_height_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -670,7 +670,7 @@ sbatch geno4_height_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -716,7 +716,7 @@ sbatch geno4_fvc_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -738,7 +738,7 @@ sbatch geno4_fvc_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -784,7 +784,7 @@ sbatch geno4_ever_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -806,7 +806,7 @@ sbatch geno4_ever_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -851,7 +851,7 @@ sbatch geno4_chron_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -874,7 +874,7 @@ sbatch geno4_chron_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -920,7 +920,7 @@ sbatch geno4_bmi_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -944,7 +944,7 @@ sbatch geno4_bmi_ldak.sh
 ```python
 dir="/home/lezh/dsmwpred/zly"
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -990,7 +990,7 @@ sbatch geno4_awake_regenie.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1024,7 +1024,7 @@ conda activate zly2
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1053,7 +1053,7 @@ sbatch geno4_snoring_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1082,7 +1082,7 @@ sbatch geno4_sbp_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1111,7 +1111,7 @@ sbatch geno4_reaction_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1140,7 +1140,7 @@ sbatch geno4_quals_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1169,7 +1169,7 @@ sbatch geno4_pulse_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1198,7 +1198,7 @@ sbatch geno4_neur_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1227,7 +1227,7 @@ sbatch geno4_imp_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1256,7 +1256,7 @@ sbatch geno4_hyper_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1285,7 +1285,7 @@ sbatch geno4_height_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1314,7 +1314,7 @@ sbatch geno4_fvc_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1343,7 +1343,7 @@ sbatch geno4_ever_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1372,7 +1372,7 @@ sbatch geno4_chron_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1401,7 +1401,7 @@ sbatch geno4_bmi_regenie_Phenotype.formatting.sh
 ```python
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 2:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1443,7 +1443,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1477,7 +1477,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1513,7 +1513,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1547,7 +1547,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1582,7 +1582,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1616,7 +1616,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1651,7 +1651,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1685,7 +1685,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1720,7 +1720,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1754,7 +1754,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1789,7 +1789,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1823,7 +1823,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1858,7 +1858,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1892,7 +1892,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1927,7 +1927,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1961,7 +1961,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -1996,7 +1996,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2030,7 +2030,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2065,7 +2065,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2099,7 +2099,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2134,7 +2134,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2168,7 +2168,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2203,7 +2203,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2237,7 +2237,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2272,7 +2272,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2306,7 +2306,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2341,7 +2341,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2375,7 +2375,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2412,7 +2412,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2446,7 +2446,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2482,7 +2482,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2516,7 +2516,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2551,7 +2551,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2585,7 +2585,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2620,7 +2620,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2654,7 +2654,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2689,7 +2689,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2723,7 +2723,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2758,7 +2758,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2792,7 +2792,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2827,7 +2827,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2861,7 +2861,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2896,7 +2896,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2930,7 +2930,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2965,7 +2965,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -2999,7 +2999,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3034,7 +3034,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3068,7 +3068,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3103,7 +3103,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3137,7 +3137,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3172,7 +3172,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3206,7 +3206,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3241,7 +3241,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3275,7 +3275,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3310,7 +3310,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3344,7 +3344,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3415,7 +3415,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3462,7 +3462,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3511,7 +3511,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3557,7 +3557,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3605,7 +3605,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3651,7 +3651,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3698,7 +3698,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3744,7 +3744,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3792,7 +3792,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3838,7 +3838,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3886,7 +3886,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3932,7 +3932,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -3979,7 +3979,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4025,7 +4025,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4073,7 +4073,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4119,7 +4119,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4167,7 +4167,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4213,7 +4213,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4261,7 +4261,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4307,7 +4307,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4354,7 +4354,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4400,7 +4400,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4447,7 +4447,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4493,7 +4493,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4540,7 +4540,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4586,7 +4586,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4634,7 +4634,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
@@ -4680,7 +4680,7 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 64G
+#SBATCH --mem 16G
 #SBATCH -t 8:0:0
 #SBATCH -c 4
 #SBATCH -A dsmwpred
