@@ -39,11 +39,32 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_
 
 ```
 
+### to prs-cs format
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.tsv.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.tsv.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.tsv.prscs.ss
+
+```
+
 ## Make PGC MDD by /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R
 ### N = 500199
 ```python
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.txt  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide  --bfile /home/lezh/dsmwpred/data/ukbb/geno4  --N 500199
+
+```
+### to prs-cs format
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.prscs.ss
 
 ```
 
@@ -53,6 +74,16 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_
 ```python
 
 Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB  --bfile /home/lezh/dsmwpred/data/ukbb/geno4  --N 480359
+
+```
+### to prs-cs format
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.prscs.ss
 
 ```
 
