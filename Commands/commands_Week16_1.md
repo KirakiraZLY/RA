@@ -1350,11 +1350,11 @@ conda activate zly_python3.6.3
 
 python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/geno4_snoring_regenie_Phenotype.prscs.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results.sh
 
 # I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/
-sbatch geno4_snoring_regenie_Phenotype.prscs.sh
+sbatch geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results.sh
 
 ```
 
