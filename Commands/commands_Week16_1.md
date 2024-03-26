@@ -1313,3 +1313,162 @@ sbatch MVP.EUR.HDL.gwas.dbGAP.ldpred2.prs.jackknife.sh
 ```
 
 
+
+
+
+
+## PRS-CS
+### 4 HDL
+#### formatting
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.prscs.ss
+
+```
+
+#### PRS
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly_python3.6.3
+
+python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results
+
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results.combined
+
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results.combined.1
+
+mv /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined.1 /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined
+
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.EUR.HDL.gwas.dbGAP.prscs.results_pst*
+
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined.effect
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred.profile  --num-blocks 200
+
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/geno4_snoring_regenie_Phenotype.prscs.sh
+
+# I am doing blabla 
+cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/
+sbatch geno4_snoring_regenie_Phenotype.prscs.sh
+
+```
+
+
+
+### 5 SBP
+
+#### formatting
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.prscs.ss
+
+```
+
+#### PRS
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+conda activate zly_python3.6.3
+
+python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results
+
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined
+
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined.1
+
+mv /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined.1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined
+
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results_pst*
+
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined.effect
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_SBP_MVP_White.prscs.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/phenotypes/sbp.clean
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.pred.profile  --num-blocks 200
+
+```
+
+
+### 6 T2D
+
+
+#### formatting
+```python
+
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss
+
+#awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
+
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss
+
+```
+
+#### PRS
+```python
+
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
+conda activate zly_python3.6.3
+
+python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results
+
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined
+
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.1
+
+mv /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined
+
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results_pst*
+
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.effect
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker19.pheno
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred.profile  --num-blocks 200
+
+```
+
