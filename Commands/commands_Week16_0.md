@@ -4716,3 +4716,16 @@ sbatch geno4_awake_ldak.prscs.sh
 
 ```
 
+
+
+# FG
+## Download
+1 finngen_R10_E4_THYROID
+2 finngen_R10_I9_AF
+3 finngen_R10_I9_HYPTENS
+4 finngen_R10_I9_HYPTENSESS
+5 finngen_R10_I9_VARICVE
+6 finngen_R10_K11_MALABSORB
+7 finngen_R10_M13_DUPUTRYEN
+8 finngen_R10_M13_FIBROBLASTIC
+9 finngen_R10_T2D_WIDE
