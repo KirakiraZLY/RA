@@ -1252,13 +1252,13 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly_python3.6.3
 
-python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC_UKB_depression_genome-wide.geno4.prscs.ss --n_gwas=300000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step1.results
+python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.ss --n_gwas=300000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results
 
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step1.results.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results.sh
 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/scripts/prs_cs/
-sbatch PGC_UKB_depression_genome-wide.geno4.prscs.step1.results.sh
+sbatch PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results.sh
 
 
 
@@ -1272,9 +1272,9 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 
-cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step2.results.combined
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined
 
-sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step2.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined
 
 rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results_pst*
 
