@@ -150,7 +150,7 @@ cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg
 
 sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_E4_THYROID.geno4.prscs.step2.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_E4_THYROID.geno4.prscs.step2.results.combined
 
-rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_E4_THYROID.geno4.prscs.step2.results_pst*
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_E4_THYROID.geno4.prscs.step1.results_pst*
 
 
 conda activate zly2
