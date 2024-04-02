@@ -1272,20 +1272,20 @@ dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 
-cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step1.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step2.results.combined
 
-sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC_UKB_depression_genome-wide.geno4.prscs.step2.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined
 
-rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step1.results_pst*
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step1.results_pst*
 
 
 conda activate zly2
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined.effect
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined.effect
 
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code2356.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined.effect   --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/MDD_F32.pheno
 
-prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.pred.profile)
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined.profile)
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/prs_cs/finngen_R10_I9_AF.geno4.prscs.step2.results.pred.profile  --num-blocks 200  --prevalence ${prev}
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/pgc_ukbb_prs/prs_cs/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.prscs.step2.results.combined.profile  --num-blocks 200  --prevalence ${prev}
