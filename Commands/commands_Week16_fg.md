@@ -146,6 +146,12 @@ sbatch Step1_finngen_R10_E4_THYROID.geno4.prscs.sh
 
 #### Second part
 
+dir="/home/lezh/dsmwpred/zly"
+dir_RA="/home/lezh/dsmwpred/zly/RA"
+dir_data="/home/lezh/dsmwpred/data/ukbb"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
+
 cat /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined
 
 sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_snoring_regenie_Phenotype.prscs.results.combined
