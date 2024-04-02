@@ -4720,12 +4720,14 @@ sbatch geno4_awake_ldak.prscs.sh
 
 # FG
 ## Download
-1 finngen_R10_E4_THYROID
-2 finngen_R10_I9_AF
-3 finngen_R10_I9_HYPTENS
-4 finngen_R10_I9_HYPTENSESS
-5 finngen_R10_I9_VARICVE
-6 finngen_R10_K11_MALABSORB
-7 finngen_R10_M13_DUPUTRYEN
-8 finngen_R10_M13_FIBROBLASTIC
-9 finngen_R10_T2D_WIDE
+pheno:
+/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code${my_variable}.pheno
+1 finngen_R10_E4_THYROID 68
+2 finngen_R10_I9_AF 4231
+3 finngen_R10_I9_HYPTENS 4052
+4 finngen_R10_I9_HYPTENSESS 4052
+5 finngen_R10_I9_VARICVE 4425
+6 finngen_R10_K11_MALABSORB 5257
+7 finngen_R10_M13_DUPUTRYEN 8528
+8 finngen_R10_M13_FIBROBLASTIC 8528
+9 finngen_R10_T2D_WIDE 2356
