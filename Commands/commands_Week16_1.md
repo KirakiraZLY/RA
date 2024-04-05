@@ -1450,11 +1450,11 @@ ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finng
 #### formatting
 ```python
 
-awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss
+awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.ss
 
 #awk '{print $2, $4, $5, $8, $7}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_snoring_ldak.assoc > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_snoring_ldak_Phenotype.prscs.ss
 
-sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss
+sed -i '1s/.*/Predictor A1 A2 Beta P/' /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.ss
 
 ```
 
@@ -1475,30 +1475,30 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly_python3.6.3
 
-python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results
+python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results
 
-" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.sh
 
 cd /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/scripts/prs_cs/
-sbatch geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.sh
+sbatch MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.sh
 
 
 #### PRS 2
 
-cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined
+cat /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined
 
-sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.1
+sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined.1
 
-mv /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined
+mv /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined.1 /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined
 
-rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results_pst*
+rm /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results_pst*
 
 
 conda activate zly2
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.effect
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_formatting.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined  --outputFile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined.effect
 
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker19.pheno
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.combined.effect   --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker19.pheno
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/geno4_MVP.T2D.EUR.MAF001.dbGaP.checked.rsids.prscs.results.pred.profile  --num-blocks 200
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/mvp_ukbb_prs/prs_cs/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.prscs.results.pred.profile  --num-blocks 200

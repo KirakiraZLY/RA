@@ -3970,7 +3970,6 @@ sbatch geno4_neur_ldak.prscs.sh
 
 ### 7. imp
 #### Regenie
-```python
 
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -3989,6 +3988,14 @@ conda activate zly_python3.6.3
 
 python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/faststorage/project/dsmwpred/zly/software/PRS_CS/ld_ref/ldblk_ukbb_eur --bim_prefix=/faststorage/project/dsmwpred/data/ukbb/geno4 --sst_file=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_imp_regenie_Phenotype.prscs.ss --n_gwas=200000 --out_dir=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results
 
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/geno4_imp_regenie.prscs.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/
+sbatch geno4_imp_regenie.prscs.sh
+
+
+#### PRS CS 2
+
 cat /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.combined
 
 sort -n -k1 /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.combined >> /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.combined
@@ -4005,15 +4012,6 @@ Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/prs_cs_form
 ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.combined.effect   --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/imp.label.test
 
 ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_imp_regenie_Phenotype.prscs.results.pred.profile  --num-blocks 200
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/geno4_imp_regenie.prscs.sh
-
-# I am doing blabla 
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/
-sbatch geno4_imp_regenie.prscs.sh
-
-```
-
 
 #### LDAK
 ```python
@@ -4671,7 +4669,6 @@ sbatch geno4_awake_regenie.prscs.sh
 
 
 #### LDAK
-```python
 
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
@@ -4692,9 +4689,10 @@ python /faststorage/project/dsmwpred/zly/software/PRS_CS/PRScs.py --ref_dir=/fas
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/geno4_awake_ldak.prscs.sh
 
-# I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/prs_cs_results/
 sbatch geno4_awake_ldak.prscs.sh
+
+#### PRS CS 2
 
 cat /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_awake_ldak_Phenotype.prscs.results* >> /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_awake_ldak_Phenotype.prscs.results.combined
 
@@ -4714,7 +4712,6 @@ ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_tes
 ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_awake_ldak_Phenotype.prscs.results.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/prs_cs_results/geno4_awake_ldak_Phenotype.prscs.results.pred.profile  --num-blocks 200
 
 
-```
 
 
 
