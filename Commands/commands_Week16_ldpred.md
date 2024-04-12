@@ -1136,9 +1136,14 @@ sbatch MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.ldpred.inf.sh
 
 ```python
 
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_first_step.R
+ 
+
 echo "#"'!'"/bin/bash
-#SBATCH --mem 8G
-#SBATCH -t 4:0:0
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
 #SBATCH -c 8
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
