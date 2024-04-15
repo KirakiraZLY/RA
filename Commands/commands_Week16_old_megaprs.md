@@ -123,7 +123,7 @@ cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/full_analysis_old_meg
 sbatch bld_chrpos_to_rsid.sh
 
 
-${dir_LDAK} --calc-tagging BLD-LDAK --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --power -.25 --annotation-number 65 --annotation-prefix bld
+${dir_LDAK} --calc-tagging BLD-LDAK --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --power -.25 --annotation-number 65 --annotation-prefix bld  --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/rand_geno4.5000
 
 
 
