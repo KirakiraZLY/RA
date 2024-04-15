@@ -106,6 +106,23 @@ ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/fin
 ${dir_LDAK} --cut-weights sections --bfile /faststorage/project/dsmwpred/data/ukbb/geno4
 ${dir_LDAK} --calc-weights-all sections --bfile /faststorage/project/dsmwpred/data/ukbb/geno4  --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/rand_geno4.5000
 mv sections/weights.short bld65
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 16G
+#SBATCH -t 8:0:0
+#SBATCH -c 4
+#SBATCH -A dsmwpred
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/full_analysis_old_megaprs/HER/bld_ldak/bld_chrpos_to_rsid.R
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/full_analysis_old_megaprs/HER/bld_ldak/bld_chrpos_to_rsid.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/full_analysis_old_megaprs/HER/bld_ldak/
+sbatch bld_chrpos_to_rsid.sh
+
+
 ${dir_LDAK} --calc-tagging BLD-LDAK --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --power -.25 --annotation-number 65 --annotation-prefix bld
 
 
