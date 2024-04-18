@@ -1165,21 +1165,21 @@ sbatch finngen_R10_T2D_WIDE.ldpred.inf.sh
 
 
 
+# Test 
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 32G
-#SBATCH -t 20:0:0
-#SBATCH -c 8
+#SBATCH --mem 128G
+#SBATCH -t 40:0:0
+#SBATCH -c 16
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_auto.R
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_auto_test.R
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/TEST.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/TEST_tutorial.sh
 
-# I am doing blabla
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/
-sbatch TEST.sh
+sbatch TEST_tutorial.sh
 
