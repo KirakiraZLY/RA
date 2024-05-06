@@ -1265,7 +1265,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/regenie_step2/geno4_height_regenie_Phenotype.regenie  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype  --bfile /faststorage/project/dsmwpred/data/ukbb/geno4  
+Rscript /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/code/ss_to_ldak_format.R --inputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_height_ldak.assoc  --outputFile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_ldak_Phenotype  --bfile /faststorage/project/dsmwpred/data/ukbb/geno4  --N 200000
 
 awk '{print $1, $4, $5, $8, $10}' /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.prscs.ss
 
@@ -4728,3 +4728,6 @@ pheno:
 7 finngen_R10_M13_DUPUTRYEN 8528
 8 finngen_R10_M13_FIBROBLASTIC 8528
 9 finngen_R10_T2D_WIDE 2356
+
+
+
