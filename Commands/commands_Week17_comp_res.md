@@ -272,21 +272,6 @@ sbatch geno4_height_regenie_Phenotype.ldpred2.auto.sh
 
 # SBayesRC
 
-echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
-#SBATCH -t 40:0:0
-#SBATCH -c 4
-#SBATCH -A dsmwpred
-
-source /home/lezh/miniconda3/etc/profile.d/conda.sh
-
-wget https://sbayes.pctgplots.cloud.edu.au/data/SBayesRC/resources/v2.0/LD/Imputed/ukbEUR_Imputed.zip
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/impute_ld_download.sh
-
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/
-sbatch impute_ld_download.sh
-
 ```python
 
 ##############################################
@@ -319,6 +304,8 @@ Rscript -e "SBayesRC::sbayesrc(mafile='${out_prefix}_imp.ma', LDdir='$ld_folder'
 # Alternative run, SBayesRC without annotation (similar to SBayesR, not recommended)
 # Rscript -e "SBayesRC::sbayesrc(mafile='${out_prefix}_imp.ma', LDdir='$ld_folder', \
 #                  outPrefix='${out_prefix}_sbrc_noAnnot', log2file=TRUE)"
+
+
 
 ##############################################
 # Polygenic risk score
