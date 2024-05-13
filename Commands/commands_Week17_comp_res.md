@@ -186,21 +186,37 @@ awk '{print $1,$10}' ${file_sumstat} > ${file_outname}.SNP.pvalue
 # LDpred2 auto
 
 ## TEST
+
+software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
+file_pheno="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test"
+file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/geno4_height_regenie_Phenotype"
+name_sh="geno4_height_regenie_Phenotype"
+
 echo "#"'!'"/bin/bash
-#SBATCH --mem 16G
+#SBATCH --mem 160G
 #SBATCH -t 20:0:0
-#SBATCH -c 4
+#SBATCH -c 8
 #SBATCH -A dsmwpred
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_auto.R
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/ldpred2.sh
 
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/
-sbatch ldpred2.sh
+#shuf -n 5000 /faststorage/project/dsmwpred/data/ukbb/geno4.fam > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/rand_geno4.5000
+
+#/faststorage/project/dsmwpred/zly/software/plink  --make-bed --bfile /faststorage/project/dsmwpred/data/ukbb/geno4  --keep /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/rand_geno4.5000  --out  /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/geno4_5000
+
+#Rscript ${software_dir}/imputeGenotypes.R --impute-simple mean0 --geno-file-rds /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/eur/EUR.QC.rds
+
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub.R --pheno ${file_pheno} --sumstats ${file_sumstats} --outputFile ${file_output}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output/${name_sh}.2.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output
+sbatch ${name_sh}.2.sh
 
 
 
@@ -231,6 +247,47 @@ Rscript ${software_dir}/imputeGenotypes.R --impute-simple mean0 --geno-file-rds 
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/test/
 sbatch ldpred2.rds.sh
 
+
+## Calculate LD
+```python
+
+software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
+fileGenoRDS="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/test/geno4.rds"
+fileSumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss"
+fileOut="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/test/geno4_height_regenie_Phenotype.ldpred2"
+fileHapmap="/faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/ldpred2/map_hm3_plus.rds"
+
+# point to input/output files
+export fileGeno=/faststorage/project/dsmwpred/data/ukbb/geno4.bed
+export fileGenoRDS=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/test/geno4.rds
+export filePheno=/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test
+export fileSumstats=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_ldak_Phenotype.ldpred.ss
+export fileOutLD=ld-chr-@.rds
+export fileOutLDMap=ld-map.rds
+
+# set environmental variables. Replace "<path/to/comorment>" with 
+# the full path to the folder containing cloned "containers" and "ldpred2_ref" repositories
+export COMORMENT=/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/highld
+export SIF=$COMORMENT/containers/singularity
+export REFERENCE=$COMORMENT/containers/reference
+export LDPRED2_REF=$COMORMENT/ldpred2_ref
+export SINGULARITY_BIND=$REFERENCE:/REF,${LDPRED2_REF}:/ldpred2_ref
+
+export RSCRIPT="singularity exec --home=$PWD:/home $SIF/r.sif Rscript"
+
+# convert genotype to LDpred2 format
+# $RSCRIPT ${software_dir}/createBackingFile.R --file-input $fileGeno --file-output $fileGenoRDS
+
+# create genetics maps directory, download and process
+
+conda activate zly2
+Rscript ${software_dir}/calculateLD.R --geno-file-rds $fileGenoRDS \
+ --dir-genetic-maps /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub/interpolated_from_hapmap \
+ --sumstats $fileSumstats Predictor \
+ --file-ld-blocks $fileOutLD \
+ --file-ld-map $fileOutLDMap
+
+```
 
 
 ## Step2 Running model
@@ -274,64 +331,31 @@ sbatch geno4_height_regenie_Phenotype.ldpred2.auto.sh
 
 ```python
 
-##############################################
-# Variables: need to be fixed
 ma_file="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_ldak_Phenotype.sbayesrc.cojo"               # GWAS summary in COJO format (the only input)
 ld_folder="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/ld_ukbEUR_HM3"        # LD reference (download from "Resources")
-annot="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/annot_baseline2.2.txt"         # Functional annotation (download from "Resources")
-out_prefix="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/result/geno4_height_ldak_Phenotype.sbayesrc"   # Output prefix, e.g. "./test"
-threads=4                       # Number of CPU cores
+annot="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/annot_baseline2.2.txt"         # Functional
+out_prefix="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/sbayesrc/result/geno4_height_ldak_Phenotype.sbayesrc" 
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+pheno_file="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test"
+threads=4 # Number of CPU cores
+export OMP_NUM_THREADS=$threads # Revise the threads`
 
-##############################################
-# Code: usually don't need a change in this section
-## Note: Flags were documented in the package, use ?function in R to lookup.
-## We suggest to run those in multiple jobs (tasks)
-export OMP_NUM_THREADS=$threads # Revise the threads
+conda activate zly2
 
-# Tidy: optional step, tidy summary data
-## "log2file=TRUE" means the messages will be redirected to a log file 
-Rscript -e "SBayesRC::tidy(mafile='$ma_file', LDdir='$ld_folder', \
-                  output='${out_prefix}_tidy.ma', log2file=TRUE)"
-## Best practice: read the log to check issues in your GWAS summary data.  
+Rscript -e "SBayesRC::tidy(mafile='$ma_file', LDdir='$ld_folder',output='${out_prefix}_tidy.ma', log2file=TRUE)"
+Rscript -e "SBayesRC::impute(mafile='${out_prefix}_tidy.ma', LDdir='$ld_folder',output='${out_prefix}_imp.ma', log2file=TRUE)"
+Rscript -e "SBayesRC::sbayesrc(mafile='${out_prefix}_imp.ma', LDdir='$ld_folder',outPrefix='${out_prefix}_sbrc', annot='$annot', log2file=TRUE)"
 
-# Impute: optional step if your summary data doesn't cover the SNP panel
-Rscript -e "SBayesRC::impute(mafile='${out_prefix}_tidy.ma', LDdir='$ld_folder', \
-                  output='${out_prefix}_imp.ma', log2file=TRUE)"
-
-# SBayesRC: main function for SBayesRC
-Rscript -e "SBayesRC::sbayesrc(mafile='${out_prefix}_imp.ma', LDdir='$ld_folder', \
-                  outPrefix='${out_prefix}_sbrc', annot='$annot', log2file=TRUE)"
-# Alternative run, SBayesRC without annotation (similar to SBayesR, not recommended)
-# Rscript -e "SBayesRC::sbayesrc(mafile='${out_prefix}_imp.ma', LDdir='$ld_folder', \
-#                  outPrefix='${out_prefix}_sbrc_noAnnot', log2file=TRUE)"
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/code/bayesrc_formatting.R --inputFile ${out_prefix}_sbrc.txt  --outputFile ${out_prefix}_sbrc.effect
 
 
+${dir_LDAK} --calc-scores ${out_prefix}_sbrc.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile ${out_prefix}_sbrc.effect   --max-threads 4  --pheno ${pheno_file}
 
-##############################################
-# Polygenic risk score
-## Just a toy demo to calculate the polygenic risk score
-# genoPrefix="test_chr{CHR}" # {CHR} means multiple genotype file.
-## If just one genotype, input the full prefix genoPrefix="test"
-# genoCHR="1-22,X" ## means {CHR} expands to 1-22 and X,
-## if just one genotype file, input genoCHR=""
-# output="test"
-# Rscript -e "SBayesRC::prs(weight='${out_prefix}_sbrc.txt', genoPrefix='$genoPrefix', \
-#                    out='$output', genoCHR='$genoCHR')"
-## test.score.txt is the polygenic risk score
 
-#################################
-## SBayesRC multi
-## Run each ancestry: summary data and ancestry matched LD,
-##    to obtain prs1 and prs2 from the SBayesRC::prs
-# prs1="eur.score.txt"
-# prs2="eas.score.txt"
-# tuneid="tune.id" # two columns FID IID, without header
-# pheno="trait.pheno" # three columns FID IID phenotype, without header, only the samples in tuneid are used 
-# outPrefix="tuned_eur_eas"
-# Rscript -e "SBayesRC::sbrcMulti(prs1='$prs1', prs2='$prs2', \
-#             outPrefix='$outPrefix', tuneid='$tuneid', pheno='$pheno')"
-## weighted PRS in tuned_eur_eas.score.txt
-## Please don't forget to exclude the tuning sample to calculate the prediction accuracy
+${dir_LDAK} --jackknife ${out_prefix}_sbrc.jackknife --profile ${out_prefix}_sbrc.pred.profile  --num-blocks 200
 
 
 ```
+
+
+
