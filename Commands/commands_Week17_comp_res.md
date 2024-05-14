@@ -211,12 +211,14 @@ conda activate zly2
 #Rscript ${software_dir}/imputeGenotypes.R --impute-simple mean0 --geno-file-rds /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/eur/EUR.QC.rds
 
 
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub.R --pheno ${file_pheno} --sumstats ${file_sumstats} --outputFile ${file_output}
+#Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub.R --pheno ${file_pheno} --sumstats ${file_sumstats} --outputFile ${file_output}
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output/${name_sh}.2.sh
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub_2.R
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output/${name_sh}.22.sh
 
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output
-sbatch ${name_sh}.2.sh
+sbatch ${name_sh}.22.sh
 
 
 
