@@ -190,7 +190,7 @@ awk '{print $1,$10}' ${file_sumstat} > ${file_outname}.SNP.pvalue
 software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
 file_pheno="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test"
 file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss"
-file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/geno4_height_regenie_Phenotype"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/ukbb/geno4_height_regenie_Phenotype"
 name_sh="geno4_height_regenie_Phenotype"
 
 echo "#"'!'"/bin/bash
@@ -202,23 +202,12 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
 
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/${name_sh}.ldpred.grid.sh
 
-#shuf -n 5000 /faststorage/project/dsmwpred/data/ukbb/geno4.fam > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/rand_geno4.5000
-
-#/faststorage/project/dsmwpred/zly/software/plink  --make-bed --bfile /faststorage/project/dsmwpred/data/ukbb/geno4  --keep /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/rand_geno4.5000  --out  /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/geno4_5000
-
-#Rscript ${software_dir}/imputeGenotypes.R --impute-simple mean0 --geno-file-rds /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/eur/EUR.QC.rds
-
-
-#Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub.R --pheno ${file_pheno} --sumstats ${file_sumstats} --outputFile ${file_output}
-
-Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/LDpred2_grid_fromgithub_2.R
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output/${name_sh}.22.sh
-
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/example/output
-sbatch ${name_sh}.22.sh
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts
+sbatch ${name_sh}.ldpred.grid.sh
 
 
 
@@ -358,6 +347,37 @@ ${dir_LDAK} --jackknife ${out_prefix}_sbrc.jackknife --profile ${out_prefix}_sbr
 
 
 ```
+
+
+
+
+
+
+# LDpred2 grid
+## UKBB
+
+### height
+software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
+file_pheno="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test"
+file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/ukbb/geno4_height_regenie_Phenotype"
+name_sh="geno4_height_regenie_Phenotype"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 160G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/${name_sh}.ldpred.grid.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts
+sbatch ${name_sh}.ldpred.grid.sh
 
 
 
