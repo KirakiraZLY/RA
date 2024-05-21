@@ -362,6 +362,7 @@ file_pheno="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.te
 file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_regenie_Phenotype.ldpred.ss"
 file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/ukbb/geno4_height_regenie_Phenotype"
 name_sh="geno4_height_regenie_Phenotype"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 160G
@@ -373,6 +374,12 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 conda activate zly2
 Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
+
+
+${dir_LDAK} --calc-scores ${file_output}.ldpred.grid.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4   --scorefile ${file_output}.effects  --max-threads 4  --pheno ${file_pheno}
+
+${dir_LDAK} --jackknife ${file_output}.ldpred.grid.pred.jackknife --profile /${file_output}.ldpred.grid.pred.profile  --num-blocks 200
+
 
 " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/${name_sh}.ldpred.grid.sh
 
