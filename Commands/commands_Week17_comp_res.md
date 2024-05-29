@@ -115,20 +115,20 @@ echo "#"'!'"/bin/bash
 #SBATCH -A dsmwpred
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
-${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_awake_ldak.megaprs.bayesr.001 --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/highld_geno4/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_awake_ldak.summaries --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_awake_ldak.summaries --her 0.01
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_chron_ldak.megaprs.bayesr.001 --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/highld_geno4/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_chron_ldak.summaries --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ldak/geno4_chron_ldak.summaries --her 0.01
 
 
-${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_awake_ldak.megaprs.bayesr.001.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_awake_ldak.megaprs.bayesr.001.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/awake.label.test
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_chron_ldak.megaprs.bayesr.001.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_chron_ldak.megaprs.bayesr.001.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/chron.label.test
 
 
-${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_awake_ldak.megaprs.bayesr.001.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_awake_ldak.megaprs.bayesr.pred.profile  --num-blocks 200
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_chron_ldak.megaprs.bayesr.001.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/geno4_chron_ldak.megaprs.bayesr.001.pred.profile  --num-blocks 200
 
 
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/geno4_awake_ldak.megaprs.bayesr.001.sh
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/geno4_chron_ldak.megaprs.bayesr.001.sh
 
 # I am doing blabla 
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_prs/scripts/
-sbatch geno4_awake_ldak.megaprs.bayesr.001.sh
+sbatch geno4_chron_ldak.megaprs.bayesr.001.sh
 
 ```
 
@@ -420,12 +420,6 @@ ${dir_LDAK} --jackknife ${file_output}.ldpred.grid.pred.jackknife --profile /${f
 cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts
 sbatch ${name_sh}.ldpred.grid.sh
 
-
-### best model
-
-for file in *.ldpred.grid.pred.jackknife.jack; do
-    awk '$2 == "Squared_correlation" {print $0}' "$file" | sort -k3,3nr | head -n 1 > "${file%.ldpred.grid.pred.jackknife.jack}.bestmodel"
-done
 
 
 ## PGC
@@ -738,18 +732,18 @@ sbatch ${name_sh}.ldpred.grid.sh
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## MVP
 
 ### Make SS
+
+
+
+# best model
+
+for file1 in *.ldpred.grid.pred.profile; do
+    ${dir_LDAK} --jackknife ${file1}.jackknife --profile ${file1}  --num-blocks 200
+
+for file2 in *.ldpred.grid.pred.jackknife.jack; do
+    awk '$2 == "Squared_correlation" {print $0}' "$file2" | sort -k3,3nr | head -n 1 > "${file2%.ldpred.grid.pred.jackknife.jack}.bestmodel"
+done
+
