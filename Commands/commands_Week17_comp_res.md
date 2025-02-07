@@ -5,7 +5,7 @@
 dir="/home/lezh/dsmwpred/zly"
 dir_RA="/home/lezh/dsmwpred/zly/RA"
 dir_data="/home/lezh/dsmwpred/data/ukbb"
-dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak6.linux"
 ss_name_filename="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/list_R10_ss_phenocode.txt"
 
 echo "#"'!'"/bin/bash
@@ -18,7 +18,7 @@ source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 shuf -n 5000 /faststorage/project/dsmwpred/data/ukbb/geno4.fam > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/computation_resources/results/oldmega/rand_geno4.5000
 
-/home/lezh/snpher/faststorage/ldak5.2.linux --calc-cors /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/computation_resources/results/oldmega/cors_geno4 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/rand_geno4.5000 --max-threads 4
+${dir_LDAK} --calc-cors /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/computation_resources/results/oldmega/cors_geno4 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --keep /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/rand_geno4.5000 --max-threads 4
 
 /home/lezh/snpher/faststorage/ldak5.2.linux --cut-genes /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/computation_resources/results/oldmega/highld_geno4 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --genefile /home/lezh/snpher/faststorage/highld.txt
 
@@ -388,20 +388,283 @@ ${dir_LDAK} --jackknife ${out_prefix}_sbrc.jackknife --profile ${out_prefix}_sbr
 
 
 # LDpred2 grid
+
+## Make Pseudo Sumstat
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_height_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_sbp_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_sbp_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_reaction_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_reaction_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_quals_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_quals_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_pulse_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_pulse_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_neur_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_neur_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_imp_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_imp_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_fvc_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_fvc_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_ever_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_ever_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_chron_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_chron_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_bmi_ldak_Phenotype.ldak.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_bmi_ldak_Phenotype.ldak --training-proportion .9 --allow-ambiguous YES
+
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/ukbb_pseudo_sumstat.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/
+sbatch ukbb_pseudo_sumstat.sh
+
+
+
+
+
+
+
+
+
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_E4_THYROID.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_E4_THYROID.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_E4_THYROID.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_I9_AF.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_AF.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_AF.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_I9_HYPTENS.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_HYPTENS.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_HYPTENS.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_I9_HYPTENSESS.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_HYPTENSESS.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_HYPTENSESS.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_I9_VARICVE.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_VARICVE.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_I9_VARICVE.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_K11_MALABSORB.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_K11_MALABSORB.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_K11_MALABSORB.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_M13_DUPUTRYEN.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_M13_FIBROBLASTIC.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_FIBROBLASTIC.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract  /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_FIBROBLASTIC.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_R10_T2D_WIDE.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_T2D_WIDE.ldpred.ss --training-proportion .9 --allow-ambiguous YES  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_T2D_WIDE.ldpred.ss
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/finngen_pseudo_sumstat.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/
+sbatch finngen_pseudo_sumstat.sh
+
+
+
+
+
+
+
+
+
+
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/MVP.EUR.HDL.gwas.dbGAP.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/MVP.EUR.eGFR.dbGAP.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.eGFR.dbGAP.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.eGFR.dbGAP.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.T2D.EUR.MAF0.001.combined.dbGaP.geno4.ss.ldpred.ss
+
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/SBP_MVP_White.results.ldpred.ss.geno4.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/SBP_MVP_White.results.ldpred.ss
+
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/mvp_pseudo_sumstat.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/
+sbatch mvp_pseudo_sumstat.sh
+
+
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/daner_bip_pgc3_nm_noukbiobank.geno4.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_bip_pgc3_nm_noukbiobank.geno4.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_bip_pgc3_nm_noukbiobank.geno4.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.geno4.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.geno4.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.geno4.ldpred.ss
+
+${dir_LDAK} --pseudo-summaries /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.pseudo --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.ldpred.ss --training-proportion .9 --allow-ambiguous YES --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/pgc/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.geno4.ldpred.ss
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/pgc_pseudo_sumstat.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/
+sbatch pgc_pseudo_sumstat.sh
+
+### Convert to LDpred2 format
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat
+for file1 in *.summaries; do
+
+    echo "#"'!'"/bin/bash
+    #SBATCH --mem 32G
+    #SBATCH -t 1:0:0
+    #SBATCH -c 8
+    #SBATCH -A dsmwpred
+
+    source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+    conda activate zly2
+    Rscript  /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/pseudo_formatting.R  --sumstats /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/${file1}  --filename ${file1}  --N 200000
+
+    " > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/converted/scripts/${file1}.sh
+
+    cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/converted/scripts/
+    sbatch ${file1}.sh
+
+done
+
+### Run pseudo sumstats
+
+software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
+file_pheno="/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code5257.pheno"
+file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/converted/finngen_R10_K11_MALABSORB.pseudo.train.summaries"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/finngen_R10_K11_MALABSORB.pseudo.train.summaries"
+name_sh="finngen_R10_K11_MALABSORB.pseudo.train.summaries"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 120G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/scripts/${name_sh}.ldpred2.grid.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/scripts
+sbatch ${name_sh}.ldpred2.grid.sh
+
+#### convert test.summaries to effects
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/converted
+conda activate zly2
+for file1 in *test.summaries; do
+    Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/pseudo_test_to_effect.R --sumstats  /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/converted/${file1}  --filename  ${file1}
+done
+
+#### Make pheno
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat
+for file1 in *.test.summaries; do
+    ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/test/${file1}.effects.pseudo.pheno --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/test/${file1}.effects  --max-threads 4  --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/${file1}
+done
+
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/test
+for file1 in *.profile; do
+    awk '{print $1, $2, $5}' ${file1} > ${file1}.pheno
+done
+
+#### calc-score
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/finngen_R10_K11_MALABSORB.pseudo.train.summaries.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/finngen_R10_K11_MALABSORB.pseudo.train.summaries.effects  --max-threads 4  --pheno /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/test/finngen_R10_K11_MALABSORB.pseudo.test.summaries.effects.pseudo.pheno.profile.pheno
+
+
+#### calc-score with Summary Statistics
+
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 8:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/geno4_bmi_ldak_Phenotype.ldak.pseudo.train.summaries.effects.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/geno4_bmi_ldak_Phenotype.ldak.pseudo.train.summaries.effects  --max-threads 4  --summary /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/geno4_bmi_ldak_Phenotype.ldak.pseudo.test.summaries
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/scripts/geno4_bmi_ldak_Phenotype.valid.pred
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results/scripts
+sbatch geno4_bmi_ldak_Phenotype.valid.pred
+
+
+
+#### .cor COMparison
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/pseudo_sumstat/validation_results
+for file in *.cors; do
+
+    awk 'NR > 1 && $2 != "NA" {
+        abs_value = ($2 < 0) ? -$2 : $2
+        if (abs_value > max_abs_value) {
+            max_abs_value = abs_value
+            max_line = $0
+        }
+    } END {
+        print max_line
+    }' ${file} > ${file}.bestmodel
+
+done
+
+
+for file in "$folder_path"/*.cors; do
+    [ -e "$file" ] || continue
+    awk 'NR==2{print $2}' "$file" | awk '{print $1 < 0 ? -$1 : $1}'
+done | sort -n > ${output_path}
+
+
 ## UKBB
 
 ### height
 software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
 file_pheno="/faststorage/project/dsmwpred/zly/RA/data/ukbb_pheno/height.label.test"
 file_sumstats="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/gwas/ukbb/ss/geno4_height_ldak_Phenotype.ldpred.ss"
-file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/ukbb/geno4_height_ldak_Phenotype"
-name_sh="geno4_height_ldak_Phenotype"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_full_size/ldpred2/geno4_snoring_ldak.ldpred.grid"
+name_sh="geno4_snoring_ldak"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
 echo "#"'!'"/bin/bash
 #SBATCH --mem 160G
 #SBATCH -t 20:0:0
-#SBATCH -c 8
+#SBATCH -c 4
 #SBATCH -A dsmwpred
 
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
@@ -410,16 +673,17 @@ conda activate zly2
 Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
 
 
-${dir_LDAK} --calc-scores ${file_output}.ldpred.grid.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4   --scorefile ${file_output}.effects  --max-threads 4  --pheno ${file_pheno}
 
-${dir_LDAK} --jackknife ${file_output}.ldpred.grid.pred.jackknife --profile /${file_output}.ldpred.grid.pred.profile  --num-blocks 200
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_full_size/ldpred2/scripts/${name_sh}.ldpred.grid.sh
 
-
-" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/${name_sh}.ldpred.grid.sh
-
-cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ukbb_full_size/ldpred2/scripts
 sbatch ${name_sh}.ldpred.grid.sh
 
+
+
+#${dir_LDAK} --calc-scores ${file_output}.ldpred.grid.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4   --scorefile ${file_output}.effects  --max-threads 4  --pheno ${file_pheno}
+
+#${dir_LDAK} --jackknife ${file_output}.ldpred.grid.pred.jackknife --profile /${file_output}.ldpred.grid.pred.profile  --num-blocks 200
 
 
 ## PGC
@@ -580,7 +844,7 @@ awk 'NR >= 3 {print $5}' /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/d
 awk 'NR >= 3 {print $5}' /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_T2D_WIDE > /home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_T2D_WIDE.rsid.list
 
 echo "#"'!'"/bin/bash
-#SBATCH --mem 32G
+#SBATCH --mem 120G
 #SBATCH -t 30:0:0
 #SBATCH -c 8
 #SBATCH -A dsmwpred
@@ -705,8 +969,47 @@ sbatch finngen_ss.sh
 software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
 file_pheno="/home/lezh/snpher/faststorage/biobank/newphens/icdphens/code2356.pheno"
 file_sumstats="/home/lezh/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_T2D_WIDE.ldpred.ss"
-file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/finngen/finngen_R10_T2D_WIDE.geno4"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/finngen/finngen_R10_T2D_WIDE.geno4.32g"
 name_sh="finngen_R10_T2D_WIDE.geno4"
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+
+echo "#"'!'"/bin/bash
+#SBATCH --mem 32G
+#SBATCH -t 20:0:0
+#SBATCH -c 8
+#SBATCH -A dsmwpred
+
+source /home/lezh/miniconda3/etc/profile.d/conda.sh
+
+conda activate zly2
+Rscript /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/LDpred2_grid_fv.R --pheno ${file_pheno}  --sumstats  ${file_sumstats}  --outputFile  ${file_output}
+
+${dir_LDAK} --calc-scores ${file_output}.ldpred.grid.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4   --scorefile ${file_output}.effects  --max-threads 4  --pheno ${file_pheno}
+
+" > /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts/${name_sh}.ldpred.grid.sh
+
+cd /faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/scripts
+sbatch ${name_sh}.ldpred.grid.sh
+
+
+
+
+
+
+## MVP
+
+### Make SS
+ See Week16_1.md
+
+### Run LDpred2
+
+
+
+software_dir="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/fromGithub"
+file_pheno="/home/lezh/snpher/faststorage/biobank/newphens/biomarkerphens/marker29.pheno"
+file_sumstats="/faststorage/project/dsmwpred/zly/RA/data/mvp/Takiy/MVP.EUR.HDL.gwas.dbGAP.ldpred.ss"
+file_output="/faststorage/project/dsmwpred/zly/RA/proj0_megaprs_test/ldpred2/output/mvp/MVP.EUR.HDL.gwas.dbGAP.geno4"
+name_sh="MVP.EUR.HDL.gwas.dbGAP.geno4"
 dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
 
 echo "#"'!'"/bin/bash
@@ -732,18 +1035,36 @@ sbatch ${name_sh}.ldpred.grid.sh
 
 
 
-## MVP
+# Best Model
 
-### Make SS
-
-
-
-# best model
-
-for file1 in *.ldpred.grid.pred.profile; do
+## Quant
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+for file1 in *.pred.profile; do
+    echo ${file1}
     ${dir_LDAK} --jackknife ${file1}.jackknife --profile ${file1}  --num-blocks 200
-
-for file2 in *.ldpred.grid.pred.jackknife.jack; do
-    awk '$2 == "Squared_correlation" {print $0}' "$file2" | sort -k3,3nr | head -n 1 > "${file2%.ldpred.grid.pred.jackknife.jack}.bestmodel"
 done
 
+for file2 in *.pred.profile.jackknife.jack; do
+    awk '$2 == "Squared_correlation" {print $0}' "$file2" | sort -k3,3nr | head -n 1 > "${file2%.pred.jackknife.jack}.bestmodel"
+done
+
+## Binary
+dir_LDAK="/home/lezh/snpher/faststorage/ldak5.2.linux"
+for file1 in *.pred.profile; do
+    echo ${file1}
+    prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' ${file1})
+    ${dir_LDAK} --jackknife ${file1}.jackknife --profile ${file1}  --num-blocks 200 --prevalence ${prev}
+done
+
+for file2 in *.pred.profile.jackknife.jack; do
+    awk '$2 == "Squared_correlation" {print $0}' "$file2" | sort -k3,3nr | head -n 1 > "${file2%.jack}.bestmodel"
+done
+
+
+
+
+
+for file1 in *.megaprs.bayesr.pred.profile; do
+    prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' ${file1})
+    ${dir_LDAK} --jackknife ${file1}.jackknife --profile ${file1}  --num-blocks 200 --prevalence ${prev}
+done

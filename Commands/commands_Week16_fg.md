@@ -45,7 +45,7 @@ echo "#"'!'"/bin/bash
 source /home/lezh/miniconda3/etc/profile.d/conda.sh
 
 
-${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/highld_geno4/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --her 0.01
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --high-LD /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/highld_geno4/genes.predictors.used --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak
 
 
 ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code8528.pheno
@@ -55,6 +55,22 @@ prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/proje
 
 
 ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.bayesr.pred.profile  --num-blocks 200 --prevalence ${prev}
+
+
+### skipcv
+
+
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --model bayesr --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak  --skip-cv YES  --her 0.0707
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code8528.pheno
+
+
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr.pred.profile)
+
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/bayesr/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.00707.skipcv.bayesr.pred.profile  --num-blocks 200 --prevalence ${prev}
 
 
 ### Elastic
@@ -67,6 +83,21 @@ ${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_fin
 prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.elastic.pred.profile)
 
 ${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.elastic.pred.profile  --num-blocks 200 --prevalence ${prev}
+
+
+
+
+${dir_LDAK} --mega-prs /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic --allow-ambiguous YES --cors /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/geno4_cor_ld/cors_geno4 --summary /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --model elastic --power -.25 --max-threads 4  --extract /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/data/finngen_icd10/ss/finngen_R10_M13_DUPUTRYEN.ldak --skip-cv YES
+
+
+${dir_LDAK} --calc-scores /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic.pred --power 0 --bfile /faststorage/project/dsmwpred/data/ukbb/geno4 --scorefile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic.effects  --max-threads 4  --pheno /home/lezh/snpher/faststorage/biobank/newphens/icdphens/code68.pheno
+
+prev=$(awk 'NR>1 && $3==1 {count++} END {print count/(NR-1)}' /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic.pred.profile)
+
+${dir_LDAK} --jackknife /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic.pred.jackknife --profile /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/elastic/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.skipcv.elastic.pred.profile  --num-blocks 200 --prevalence ${prev}
+
+
+
 
 " > /faststorage/project/dsmwpred/zly/RA/proj1_testprs_finngen_ukbb/fg_ukbb_33kg/geno4_results/scripts/finngen_R10_M13_DUPUTRYEN.geno4.megaprs.sh
 
